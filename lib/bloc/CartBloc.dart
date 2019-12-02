@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/models/Cart.dart';
 
 class CartBloc {
-  static int _orderId = 0;
+  static String _orderId = Timestamp.now().seconds.toString();
   static CartBloc _cartBloc;
   Cart _currentCart;
   Order _lastOrder;
@@ -40,7 +41,7 @@ class CartBloc {
       orderPrice = product.price - (product.price * product.discount) ~/ 100;
     else
       orderPrice = product.price;
-    _lastOrder = new Order(product, quantity, _orderId++, orderPrice);
+    _lastOrder = new Order(product, quantity, Timestamp.now().seconds.toString(), orderPrice);
     _currentCart.addOrder(_lastOrder);
     _updateLastOrder();
     _updateCart();

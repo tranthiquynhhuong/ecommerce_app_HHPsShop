@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_shop_flutter/bloc/OrderBloc.dart';
 import 'package:grocery_shop_flutter/bloc/ReceiptBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
+import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/models/Receipt.dart';
+import 'package:grocery_shop_flutter/repositories/OrderRepository.dart';
+import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ReceiptRepository.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +25,7 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
   ReceiptRepository receiptRepository = new ReceiptRepository();
   final _receiptBloc = ReceiptBloc();
   final _userBloc = UserBloc();
+  final _orderBloc = OrderBloc();
 
   void initState() {
     super.initState();
@@ -34,7 +39,6 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _lst_order = widget.receipt.listOrders;
     return new Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -58,31 +62,40 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
               ],
             ),
             subtitle: Container(
-              height: 150,
-              child: ListView.builder(
-                itemCount: _lst_order.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return new Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Icon(
-                          Icons.playlist_add_check,
-                          color: Colors.black,
-                        ),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        child: Text(
-                          "  " + _lst_order[index],
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        flex: 10,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
+                height: 150,
+                child: FutureBuilder(
+                    future: OrderRepository().getOrderByReceiptID(widget.receipt.receiptID),
+                    initialData: List<Order>.from([]),
+                    builder: (context, snapshot) {
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return new Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Icon(
+                                  Icons.playlist_add_check,
+                                  color: Colors.black,
+                                ),
+                                flex: 1,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "  " +
+                                      snapshot.data[index].product.name +
+                                      " x " +
+                                      snapshot.data[index].quantity.toString() +
+                                      " = " +
+                                      snapshot.data[index].orderPrice.toString(),
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                flex: 10,
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    })),
           ),
           widget.isPending == true
               ? ListTile(

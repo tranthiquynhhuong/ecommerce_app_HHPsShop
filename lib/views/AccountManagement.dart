@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 import 'package:grocery_shop_flutter/views/ChangePassword.dart';
 import 'package:grocery_shop_flutter/views/ChangeUserInfo.dart';
+import 'package:grocery_shop_flutter/views/Favorite.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -213,7 +214,6 @@ class _AccountManagementState extends State<AccountManagementPage> {
   }
 
   Widget _buildProfileImage(String url) {
-    print('------ build profile image -----');
     return Center(
       child: Stack(
         children: <Widget>[
@@ -530,7 +530,10 @@ class _AccountManagementState extends State<AccountManagementPage> {
         width: MediaQuery.of(context).size.width,
         height: 50,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) => new FavoritePage()));
+          },
           child: ListTile(
             title: Row(
               children: <Widget>[

@@ -54,9 +54,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
                     );
                   },
                 ),
-                FeedBackField(onSubmit: (value) async {
+                FeedBackField(onSubmit: (fb,rating) async {
                   bool response = await FeedBackRepository().createFeedback(
-                      _userBloc.userInfo.email, value, widget.product.proID);
+                      _userBloc.userInfo.email,fb,rating, widget.product.proID);
                   if (response) {
                     setState(() {});
                   }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
+import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
+import 'package:grocery_shop_flutter/components/AppTools.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/bloc/CartBloc.dart';
 import 'package:grocery_shop_flutter/models/Order.dart';
@@ -14,10 +18,19 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductView extends State<ProductView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController _electiveQuantity = new TextEditingController();
-
+  bool _alreadySaved;
   final CartBloc _cartBloc = new CartBloc();
+  final FavoriteBloc _favoriteBloc = new FavoriteBloc();
+  final UserBloc _userBloc = new UserBloc();
+
   int _quantity = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+  }
 
   void _increment() {
     setState(() {
@@ -69,12 +82,41 @@ class _ProductView extends State<ProductView> {
   Widget build(BuildContext context) {
     if (widget.product.isSale == 1) {
       return new Scaffold(
+          key: _scaffoldKey,
           resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
           appBar: new AppBar(
-              backgroundColor: Colors.amber,
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black)),
+            backgroundColor: Colors.amber,
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.black),
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    onPressed: () async {
+                      bool response = await _favoriteBloc.createFavorite(
+                          _userBloc.userInfo.userID, widget.product.proID);
+                      await print("Thêm thành công" + response.toString());
+                      response == true
+                          ? Fluttertoast.showToast(
+                              msg:
+                                  "Sản phẩm đã được thêm vào mục yêu thích của bạn!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIos: 2,
+                              backgroundColor: Colors.red.shade500,
+                              textColor: Colors.white,
+                              fontSize: 16.0)
+                          : print("Thêm thất bại");
+                    }),
+              ),
+            ],
+          ),
           body: new SafeArea(
               child: new Column(children: <Widget>[
             new Container(
@@ -266,21 +308,21 @@ class _ProductView extends State<ProductView> {
                                     borderRadius: BorderRadius.circular(60)),
                                 padding: EdgeInsets.all(20),
                                 onPressed: () {
-                                  if(_quantity<widget.product.quantity||_quantity==widget.product.quantity){
+                                  if (_quantity < widget.product.quantity ||
+                                      _quantity == widget.product.quantity) {
                                     _cartBloc.addOrderToCart(
                                         widget.product, _quantity);
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (context) =>
-                                            new MyHomePage()));
-                                  }
-                                  else{
-                                    _cartBloc.addOrderToCart(
-                                        widget.product, widget.product.quantity);
+                                                new MyHomePage()));
+                                  } else {
+                                    _cartBloc.addOrderToCart(widget.product,
+                                        widget.product.quantity);
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (context) =>
-                                            new MyHomePage()));
+                                                new MyHomePage()));
                                   }
                                 },
                                 child: new Text("Thêm vào giỏ",
@@ -305,9 +347,37 @@ class _ProductView extends State<ProductView> {
           resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
           appBar: new AppBar(
-              backgroundColor: Colors.amber,
-              elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black)),
+            backgroundColor: Colors.amber,
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.black),
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    onPressed: () async {
+                      bool response = await _favoriteBloc.createFavorite(
+                          _userBloc.userInfo.userID, widget.product.proID);
+                      await print("Thêm thành công" + response.toString());
+                      response == true
+                          ? Fluttertoast.showToast(
+                              msg:
+                                  "Sản phẩm đã được thêm vào mục yêu thích của bạn!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIos: 2,
+                              backgroundColor: Colors.red.shade500,
+                              textColor: Colors.white,
+                              fontSize: 16.0)
+                          : print("Thêm thất bại");
+                    }),
+              ),
+            ],
+          ),
           body: new SafeArea(
               child: new Column(children: <Widget>[
             new Container(
@@ -483,21 +553,21 @@ class _ProductView extends State<ProductView> {
                                     borderRadius: BorderRadius.circular(60)),
                                 padding: EdgeInsets.all(20),
                                 onPressed: () {
-                                  if(_quantity<widget.product.quantity||_quantity==widget.product.quantity){
+                                  if (_quantity < widget.product.quantity ||
+                                      _quantity == widget.product.quantity) {
                                     _cartBloc.addOrderToCart(
                                         widget.product, _quantity);
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (context) =>
-                                            new MyHomePage()));
-                                  }
-                                  else{
-                                    _cartBloc.addOrderToCart(
-                                        widget.product, widget.product.quantity);
+                                                new MyHomePage()));
+                                  } else {
+                                    _cartBloc.addOrderToCart(widget.product,
+                                        widget.product.quantity);
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (context) =>
-                                            new MyHomePage()));
+                                                new MyHomePage()));
                                   }
                                 },
                                 child: new Text("Thêm vào giỏ",

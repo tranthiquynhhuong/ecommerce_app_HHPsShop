@@ -5,6 +5,7 @@ import 'package:grocery_shop_flutter/models/Cart.dart';
 import 'package:grocery_shop_flutter/bloc/CartBloc.dart';
 import 'package:grocery_shop_flutter/components/OrderWidget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ReceiptRepository.dart';
 import 'package:grocery_shop_flutter/views/Home.dart';
@@ -303,13 +304,9 @@ class _CartManager extends State<CartManager> {
                   } else {
                     bool resultUpdateQuantity;
                     displayProgressDialog(context);
-                    List<String> str_orders = [];
+                    List<Order> orders = [];
                     for (var o in _cartBloc.currentCart.orders) {
-                      str_orders.add(o.product.name +
-                          " x " +
-                          o.quantity.toString() +
-                          " = " +
-                          o.orderPrice.toString());
+                      orders.add(o);
                     }
                     for (var o in _cartBloc.currentCart.orders) {
                       resultUpdateQuantity = await ProductsRepository()
@@ -318,7 +315,7 @@ class _CartManager extends State<CartManager> {
                     bool response =
                         await ReceiptRepository().createdUserReceipt(
                       deliveryAdd: location.text,
-                      orders: str_orders,
+                      orders: orders,
                       totalPrice: _cartBloc.currentCart.totalPrice(),
                       totalPro: _cartBloc.currentCart.orderCount,
                       userID: _userBloc.userInfo.userID,

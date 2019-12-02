@@ -16,13 +16,15 @@ class FeedBackRepository {
         fb.data['date'],
         fb.data['content'],
         fb.data['fbID'],
+        fb.data['rating'],
+
       ));
     }
     return FBs;
   }
 
   Future<bool> createFeedback(
-      String email, String content, String proID) async {
+      String email, String content,double rating, String proID) async {
     String fbID = randomAlphaNumeric(20).toString() + "pro" + proID;
 
     try {
@@ -32,6 +34,7 @@ class FeedBackRepository {
         'proID': proID,
         'date': DateTime.now().toString(),
         'fbID': fbID,
+        'rating': rating,
       });
     } catch (e) {
       print('------>' + e);

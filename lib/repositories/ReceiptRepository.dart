@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/models/Receipt.dart';
 import 'package:random_string/random_string.dart';
 import 'dart:math';
@@ -17,7 +18,7 @@ class ReceiptRepository {
         receipt.data['userID'],
         receipt.data['totalPro'],
         receipt.data['totalPrice'],
-        receipt.data['orders'],
+        //receipt.data['orders'],
         receipt.data['status'],
         receipt.data['receiptID'],
       ));
@@ -39,7 +40,7 @@ class ReceiptRepository {
         receipt.data['userID'],
         receipt.data['totalPro'],
         receipt.data['totalPrice'],
-        List.from(receipt.data['orders']),
+        //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
       ));
@@ -61,7 +62,7 @@ class ReceiptRepository {
         receipt.data['userID'],
         receipt.data['totalPro'],
         receipt.data['totalPrice'],
-        List.from(receipt.data['orders']),
+        //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
       ));
@@ -83,7 +84,7 @@ class ReceiptRepository {
         receipt.data['userID'],
         receipt.data['totalPro'],
         receipt.data['totalPrice'],
-        List.from(receipt.data['orders']),
+        //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
       ));
@@ -105,7 +106,7 @@ class ReceiptRepository {
         receipt.data['userID'],
         receipt.data['totalPro'],
         receipt.data['totalPrice'],
-        List.from(receipt.data['orders']),
+        //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
       ));
@@ -115,13 +116,13 @@ class ReceiptRepository {
 
   Future<bool> createdUserReceipt(
       {String deliveryAdd,
-      List<String> orders,
+      List<Order> orders,
       String userID,
       int totalPrice,
       int totalPro}) async {
     try {
       String receiptID = randomAlphaNumeric(20).toString();
-      var result = await Firestore.instance
+      var resultAddReceipt = await Firestore.instance
           .collection('Receipt')
           .document(receiptID)
           .setData({
@@ -130,12 +131,24 @@ class ReceiptRepository {
         'userID': userID,
         'totalPrice': totalPrice,
         'totalPro': totalPro,
-        'orders': orders,
+        //'orders': orders,
         'status': "Chờ xử lý",
         'receiptID': receiptID,
       });
 
-
+      for (Order o in orders) {
+        String orderDetailID = randomAlphaNumeric(20).toString();
+        var resultAddOrder = await Firestore.instance
+            .collection('OrderDetail')
+            .document(orderDetailID)
+            .setData({
+          'receiptID':receiptID,
+          'orderDetaileID': orderDetailID,
+          'proID': o.product.proID,
+          'quantity': o.quantity,
+          'orderPrice': o.orderPrice,
+        });
+      }
     } catch (e) {
       return notComplete();
     }
