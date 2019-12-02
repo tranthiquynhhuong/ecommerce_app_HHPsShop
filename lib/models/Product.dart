@@ -11,7 +11,7 @@ class Product {
   int _discount;
   String _startSale;
   String _endSale;
-  String _date;
+  int _date;
 
   Product(
       this._proID,
@@ -40,6 +40,6 @@ class Product {
   int get discount => _discount;
   String get startSale => _startSale;
   String get endSale => _endSale;
-  String get date => _date;
+  int get date => _date;
 
 }
