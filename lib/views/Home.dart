@@ -7,7 +7,9 @@ import 'package:grocery_shop_flutter/components/GridShop.dart';
 import 'package:grocery_shop_flutter/components/CartManager.dart';
 import 'package:grocery_shop_flutter/views/AccountManagement.dart';
 import 'package:grocery_shop_flutter/views/Categories.dart';
+import 'package:grocery_shop_flutter/views/Setting.dart';
 import 'package:grocery_shop_flutter/views/SignIn.dart';
+import 'AppInfomation.dart';
 import 'Search.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -281,6 +283,8 @@ class _MyHomePageState extends State<MyHomePage> {
           InkWell(
             onTap: () {
               Navigator.pop(context);
+              Navigator.of(context).push(
+                  new MaterialPageRoute(builder: (context) => new AppInfomation()));
             },
             child: ListTile(
               title: Row(
@@ -314,6 +318,8 @@ class _MyHomePageState extends State<MyHomePage> {
           InkWell(
             onTap: () {
               Navigator.pop(context);
+              Navigator.of(context).push(
+                  new MaterialPageRoute(builder: (context) => new Setting()));
             },
             child: ListTile(
               title: Row(

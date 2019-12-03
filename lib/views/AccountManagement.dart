@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
+import 'package:grocery_shop_flutter/views/AppInfomation.dart';
 import 'package:grocery_shop_flutter/views/ChangePassword.dart';
 import 'package:grocery_shop_flutter/views/ChangeUserInfo.dart';
 import 'package:grocery_shop_flutter/views/Favorite.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -34,8 +36,25 @@ class _AccountManagementState extends State<AccountManagementPage> {
   Future _pickImage(ImageSource source) async {
     File selected = await ImagePicker.pickImage(source: source);
     Navigator.pop(context);
-    await uploadImgToStorage(selected);
-
+    File cropped = await ImageCropper.cropImage(
+        sourcePath: selected.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        androidUiSettings: AndroidUiSettings(
+            toolbarTitle: 'Cắt ảnh',
+            toolbarColor: Colors.amber,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ));
+    await uploadImgToStorage(cropped);
   }
 
   Future uploadImgToStorage(image) async {
@@ -43,14 +62,15 @@ class _AccountManagementState extends State<AccountManagementPage> {
       uploading = true;
     });
     try {
-      String filename = 'user_profile_image/${Timestamp.now().seconds.toString()}.png';
+      String filename =
+          'user_profile_image/${Timestamp.now().seconds.toString()}.png';
       StorageReference firebaseStorageRef = _storage.ref().child(filename);
       StorageUploadTask uploadTask = firebaseStorageRef.putFile(image);
       await uploadTask.onComplete;
       var downUrl = await firebaseStorageRef.getDownloadURL();
       String url = downUrl.toString();
       await _userBloc.updateImageUser(_userBloc.userInfo.userID, url);
-    } catch(e) {
+    } catch (e) {
       uploading = false;
       print(e);
     }
@@ -228,26 +248,29 @@ class _AccountManagementState extends State<AccountManagementPage> {
               ),
             ),
             child: new CircleAvatar(
-              backgroundImage:  _userBloc.userInfo.imgURL != "" ?
-              NetworkImage(_userBloc.userInfo.imgURL) : AssetImage('assets/images/avata_default.png'),
+              backgroundImage: _userBloc.userInfo.imgURL != ""
+                  ? NetworkImage(_userBloc.userInfo.imgURL)
+                  : AssetImage('assets/images/avata_default.png'),
             ),
           ),
-          uploading ? Container(
-            height: 200,
-            width: 200,
-            decoration: BoxDecoration(
-                color: Colors.black38,
-                borderRadius: BorderRadius.all(const Radius.circular(100))),
-            child: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                  strokeWidth: 2,
+          uploading
+              ? Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius:
+                          BorderRadius.all(const Radius.circular(100))),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                    strokeWidth: 2,
+                  )),
                 )
-            ),
-          ) : Container(
-            height: 200,
-            width: 200,
-          ),
+              : Container(
+                  height: 200,
+                  width: 200,
+                ),
           Positioned(
             bottom: 0,
             right: 20,
@@ -507,6 +530,7 @@ class _AccountManagementState extends State<AccountManagementPage> {
       ),
     );
   }
+
   Widget _myFavoriteContainer() {
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -643,7 +667,10 @@ class _AccountManagementState extends State<AccountManagementPage> {
         width: MediaQuery.of(context).size.width,
         height: 50,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new AppInfomation()));
+          },
           child: ListTile(
             title: Row(
               children: <Widget>[
@@ -727,7 +754,7 @@ class _AccountManagementState extends State<AccountManagementPage> {
           Center(
             child: Text(
               _userBloc.userInfo.fullname,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24,color: Colors.black),
             ),
           ),
           Center(

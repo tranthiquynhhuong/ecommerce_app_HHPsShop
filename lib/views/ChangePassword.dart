@@ -161,31 +161,13 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
                   Navigator.of(context).pop();
                   setState(() {
                     _userBloc.getUserInfo(_userBloc.userInfo.userID);
+                    password.text = "";
+                    new_password.text = "";
+                    re_new_password.text = "";
                   });
                 },
                 child: Text('Trở về', style: TextStyle(color: Colors.white)),
               ),
-              FlatButton(
-                color: Colors.red,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  setState(() async {
-                    bool _isLogout = await _userBloc.logout();
-                    if (_isLogout) {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          new MaterialPageRoute(
-                              builder: (context) => new SignIn()),
-                          (Route<dynamic> route) => false);
-                    } else {
-                      print('Đăng xuất thất bại');
-                    }
-                  });
-                },
-                child: Text(
-                  'Đăng nhập lại',
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
             ],
           );
         });

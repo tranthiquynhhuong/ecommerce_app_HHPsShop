@@ -219,7 +219,7 @@ class _SignUpState extends State<SignUp> {
         closeProgressDialog(context);
         _showDialog();
       } else if (response == false) {
-        showSnackbar("Đăng ký thất bại !", scaffoldKey);
+        showSnackbar("Email đăng ký đã tồn tại, vui lòng dùng Email khác!", scaffoldKey);
         closeProgressDialog(context);
       }
     }

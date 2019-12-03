@@ -97,7 +97,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                         new Text(pro.price.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: Colors.grey,
                                 fontSize: 15)),
                       ],
                     ),

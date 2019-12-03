@@ -5,7 +5,7 @@ class DrawPromotion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      //color: Colors.white,
       height: 50,
       child: ListTile(
         title: Row(
