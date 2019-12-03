@@ -38,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/views/Setting.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+            <state relative-caret-position="395">
+              <caret line="55" column="52" lean-forward="true" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -53,20 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/views/AccountManagement.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="617" column="51" selection-start-line="617" selection-start-column="51" selection-end-line="617" selection-end-column="51" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="266">
+              <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -108,7 +96,6 @@
         <option value="$PROJECT_DIR$/lib/views/Promotion.dart" />
         <option value="$PROJECT_DIR$/lib/components/MySliverAppBar.dart" />
         <option value="$PROJECT_DIR$/lib/views/Receipt.dart" />
-        <option value="$PROJECT_DIR$/lib/views/ChangeUserInfo.dart" />
         <option value="$PROJECT_DIR$/lib/components/GridShop.dart" />
         <option value="$PROJECT_DIR$/lib/views/SignIn.dart" />
         <option value="$PROJECT_DIR$/lib/components/ImageCapture.dart" />
@@ -142,20 +129,21 @@
         <option value="$PROJECT_DIR$/lib/bloc/CartBloc.dart" />
         <option value="$PROJECT_DIR$/lib/bloc/FavoriteBloc.dart" />
         <option value="$PROJECT_DIR$/lib/bloc/ReceiptBloc.dart" />
-        <option value="$PROJECT_DIR$/lib/bloc/UserBloc.dart" />
         <option value="$PROJECT_DIR$/lib/components/MyOrderWidget.dart" />
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/lib/components/FavoriteWidget.dart" />
         <option value="$PROJECT_DIR$/lib/views/ChangePassword.dart" />
-        <option value="$PROJECT_DIR$/lib/repositories/UserRepository.dart" />
         <option value="$PROJECT_DIR$/lib/views/SignUp.dart" />
         <option value="$PROJECT_DIR$/lib/views/AppInfomation.dart" />
         <option value="$PROJECT_DIR$/lib/views/Home.dart" />
         <option value="$PROJECT_DIR$/lib/components/DrawPromotion.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/bloc/ThemeBloc.dart" />
-        <option value="$PROJECT_DIR$/lib/views/Setting.dart" />
         <option value="$PROJECT_DIR$/lib/views/AccountManagement.dart" />
+        <option value="$PROJECT_DIR$/lib/views/ChangeUserInfo.dart" />
+        <option value="$PROJECT_DIR$/lib/bloc/UserBloc.dart" />
+        <option value="$PROJECT_DIR$/lib/repositories/UserRepository.dart" />
+        <option value="$PROJECT_DIR$/lib/views/Setting.dart" />
       </list>
     </option>
   </component>
@@ -404,13 +392,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/synchronized-2.1.0+2/lib/src/basic_lock.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="60" column="17" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-1.1.7+3/lib/src/database_mixin.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -626,23 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/bloc/UserBloc.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/ChangePassword.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="718">
-          <caret line="166" column="21" lean-forward="true" selection-start-line="166" selection-start-column="21" selection-end-line="166" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/views/Favorite.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
@@ -703,13 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1041">
           <caret line="113" column="18" selection-end-line="144" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/repositories/UserRepository.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="192" column="47" selection-start-line="192" selection-start-column="47" selection-end-line="192" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -784,26 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/bloc/ThemeBloc.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/Setting.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/views/Home.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -814,19 +751,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+    <entry file="file://$PROJECT_DIR$/lib/views/AccountManagement.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+        <state relative-caret-position="1578">
+          <caret line="613" column="19" lean-forward="true" selection-start-line="613" selection-start-column="19" selection-end-line="613" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/AccountManagement.dart">
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="617" column="51" selection-start-line="617" selection-start-column="51" selection-end-line="617" selection-end-column="51" />
+        <state relative-caret-position="266">
+          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/ChangePassword.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="166" column="21" selection-start-line="166" selection-start-column="21" selection-end-line="166" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/repositories/UserRepository.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1284">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/bloc/UserBloc.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="78" column="45" selection-start-line="78" selection-start-column="45" selection-end-line="78" selection-end-column="45" />
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/bloc/ThemeBloc.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/ChangeUserInfo.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="163" column="44" selection-start-line="163" selection-start-column="44" selection-end-line="163" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/Setting.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="55" column="52" lean-forward="true" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>

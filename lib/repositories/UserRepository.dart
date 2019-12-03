@@ -142,7 +142,6 @@ class UserRepository {
   Future<bool> updateInfoUser(
       {String userID,
       String fullname,
-      String email,
       String gender,
       String location,
       String phone}) async {
@@ -152,7 +151,6 @@ class UserRepository {
           .document(userID)
           .updateData({
         'accFullName': fullname,
-        'email': email,
         'gender': gender,
         'location': location,
         'phone': phone,

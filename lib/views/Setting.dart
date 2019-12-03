@@ -53,9 +53,7 @@ class _SettingState extends State<Setting> {
               title: Text("Chủ đề ban đêm"),
               trailing: Switch(
                 value: snapshot.data,
-                onChanged: (theme){
-                  _themeBloc.changeTheme();
-                },
+                onChanged: _themeBloc.changeTheme(),
               ),
             ),
           );

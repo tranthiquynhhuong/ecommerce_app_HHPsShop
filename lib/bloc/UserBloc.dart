@@ -73,13 +73,12 @@ class UserBloc {
     }
   }
 
-  Future<bool> updateInfoUser(String userID, String fullname, String email,
+  Future<bool> updateInfoUser(String userID, String fullname,
       String gender, String location, String phone) async {
     try {
       var _result = (await _userRepo.updateInfoUser(
           userID: userID,
           fullname: fullname,
-          email: email,
           gender: gender,
           location: location,
           phone: phone));

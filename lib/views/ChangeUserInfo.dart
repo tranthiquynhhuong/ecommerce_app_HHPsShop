@@ -12,7 +12,6 @@ class _ChangeUserInfoState extends State<ChangeUserInfo> {
 
   TextEditingController fullname = new TextEditingController();
   TextEditingController location = new TextEditingController();
-  TextEditingController email = new TextEditingController();
   TextEditingController phone = new TextEditingController();
 
   String gender;
@@ -26,7 +25,6 @@ class _ChangeUserInfoState extends State<ChangeUserInfo> {
     _userBloc = new UserBloc();
     fullname.text = _userBloc.userInfo.fullname;
     location.text = _userBloc.userInfo.location;
-    email.text = _userBloc.userInfo.email;
     phone.text = _userBloc.userInfo.phone;
     groupValue = _userBloc.userInfo.gender;
     // TODO: implement initState
@@ -103,16 +101,6 @@ class _ChangeUserInfoState extends State<ChangeUserInfo> {
                 ),
                 appTextField(
                   isPassword: false,
-                  textHint: "Email",
-                  textIcon: Icons.email,
-                  controller: email,
-                  textType: TextInputType.emailAddress,
-                ),
-                new SizedBox(
-                  height: 25.0,
-                ),
-                appTextField(
-                  isPassword: false,
                   textHint: "Địa chỉ",
                   textIcon: Icons.location_on,
                   controller: location,
@@ -163,12 +151,6 @@ class _ChangeUserInfoState extends State<ChangeUserInfo> {
     if (fullname.text == "") {
       showSnackbar("Vui lòng nhập họ và tên !", scaffoldKey);
       return;
-    } else if (email.text == "") {
-      showSnackbar("Vui lòng nhập Email !", scaffoldKey);
-      return;
-    } else if (!email.text.contains("@")) {
-      showSnackbar("Email không hợp lệ !", scaffoldKey);
-      return;
     } else if (location.text == "") {
       showSnackbar("Vui lòng nhập địa chỉ !", scaffoldKey);
       return;
@@ -182,7 +164,6 @@ class _ChangeUserInfoState extends State<ChangeUserInfo> {
       bool response = await _userBloc.updateInfoUser(
         _userBloc.userInfo.userID,
         fullname.text,
-        email.text,
         groupValue,
         location.text,
         phone.text,
