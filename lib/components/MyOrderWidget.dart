@@ -70,6 +70,7 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                       return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
+                          List<Order> orders=snapshot.data;
                           return new Row(
                             children: <Widget>[
                               Expanded(
@@ -82,11 +83,11 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                               Expanded(
                                 child: Text(
                                   "  " +
-                                      snapshot.data[index].product.name +
+                                      orders[index].product.name+
                                       " x " +
-                                      snapshot.data[index].quantity.toString() +
+                                      orders[index].quantity.toString() +
                                       " = " +
-                                      snapshot.data[index].orderPrice.toString(),
+                                      orders[index].orderPrice.toString(),
                                   style: TextStyle(fontSize: 14),
                                 ),
                                 flex: 10,

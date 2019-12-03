@@ -11,18 +11,15 @@ class ReceiptBloc {
   PublishSubject<List<Receipt>> _publishSubjectReceiptCancel;
   PublishSubject<List<Receipt>> _publishSubjectReceiptPending;
 
-
   List<Receipt> _receipts = [];
   List<Receipt> _doneReceipts = [];
   List<Receipt> _cancelReceipts = [];
   List<Receipt> _pendingReceipts = [];
 
-
   List<Receipt> get receipts => _receipts;
   List<Receipt> get doneReceipts => _doneReceipts;
   List<Receipt> get cancelReceipts => _cancelReceipts;
   List<Receipt> get pendingReceipts => _pendingReceipts;
-
 
   factory ReceiptBloc() {
     if (_receiptBloc == null) _receiptBloc = new ReceiptBloc._();
@@ -35,7 +32,6 @@ class ReceiptBloc {
     _publishSubjectReceiptDone = new PublishSubject<List<Receipt>>();
     _publishSubjectReceiptCancel = new PublishSubject<List<Receipt>>();
     _publishSubjectReceiptPending = new PublishSubject<List<Receipt>>();
-
   }
 
   Observable<List<Receipt>> get observableReceipt =>

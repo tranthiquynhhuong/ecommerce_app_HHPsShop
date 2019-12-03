@@ -41,7 +41,8 @@ class CartBloc {
       orderPrice = product.price - (product.price * product.discount) ~/ 100;
     else
       orderPrice = product.price;
-    _lastOrder = new Order(product, quantity, Timestamp.now().seconds.toString(), orderPrice);
+    _lastOrder = new Order(
+        product, quantity, Timestamp.now().seconds.toString(), orderPrice);
     _currentCart.addOrder(_lastOrder);
     _updateLastOrder();
     _updateCart();

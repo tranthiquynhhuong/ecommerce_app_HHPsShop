@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix1;
 import 'package:grocery_shop_flutter/bloc/CategoryBloc.dart';
 import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
+import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
+import 'package:grocery_shop_flutter/components/FavoriteWidget.dart';
+import 'package:grocery_shop_flutter/components/FavoriteWidget.dart' as prefix0;
 import 'package:grocery_shop_flutter/models/Category.dart';
 import 'package:grocery_shop_flutter/models/Favorite.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
@@ -16,13 +20,13 @@ class FavoritePage extends StatefulWidget {
   _FavoritePageState createState() => _FavoritePageState();
 }
 
-class _FavoritePageState extends State<FavoritePage>  with AutomaticKeepAliveClientMixin<FavoritePage>{
+class _FavoritePageState extends State<FavoritePage>
+    with AutomaticKeepAliveClientMixin<FavoritePage> {
   ScrollController _scrollController = new ScrollController();
   final _favoriteBloc = new FavoriteBloc();
   final _userBloc = new UserBloc();
-
-
   bool isLoading = true;
+  List<Favorite> _lstSortFavorite = [];
 
   @override
   // TODO: implement wantKeepAlive
@@ -47,6 +51,15 @@ class _FavoritePageState extends State<FavoritePage>  with AutomaticKeepAliveCli
     print("DetailCommentListHeader dispose");
   }
 
+  sortByDate(List<Favorite> favors) {
+    List<Favorite> sortFavors = [];
+    favors.sort((a, b) => b.date.compareTo(a.date));
+    for (var r in favors) {
+      sortFavors.add(r);
+    }
+    return sortFavors;
+  }
+
   Future<Null> refeshList() async {
     await Future.delayed(Duration(seconds: 2));
     setState(() {
@@ -69,9 +82,13 @@ class _FavoritePageState extends State<FavoritePage>  with AutomaticKeepAliveCli
         title: Row(
           children: <Widget>[
             Text("Yêu thích ",
-                style:
-                TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-            Icon(Icons.favorite,color: Colors.red,size: 30,),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.black)),
+            Icon(
+              Icons.favorite,
+              color: Colors.red,
+              size: 30,
+            ),
           ],
         ),
         leading: new IconButton(
@@ -80,8 +97,8 @@ class _FavoritePageState extends State<FavoritePage>  with AutomaticKeepAliveCli
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => new MyHomePage()));
+            Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new MyHomePage()));
           },
         ),
         actions: <Widget>[
@@ -100,60 +117,41 @@ class _FavoritePageState extends State<FavoritePage>  with AutomaticKeepAliveCli
           initialData: _favoriteBloc.favorites,
           stream: _favoriteBloc.observableFavor,
           builder: (context, snapshot) {
-            if (snapshot.data == null)
+            if ((snapshot.data == null || snapshot.data.length == 0) &&
+                !isLoading)
               return Container(
-                height: 300,
+                child: Center(
+                  child: Text("Hiện không có sản phẩm yêu thích nào!"),
+                ),
               );
             List<Favorite> _favorites = snapshot.data;
+            _lstSortFavorite = sortByDate(_favorites);
+
             return RefreshIndicator(
               child: ListView.builder(
-                itemCount: _favorites.length,
+                itemCount: _lstSortFavorite.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () async {
-                      Product pro = await ProductsRepository().getProductByProID(_favorites[index].proID);
+                      Product pro = await ProductsRepository()
+                          .getProductByProID(_lstSortFavorite[index].proID);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                ProductView(product: pro,),
+                            builder: (context) => ProductView(
+                              product: pro,
+                            ),
                           ));
                     },
-                    child: Row(
-                      children: <Widget>[
-                        ListTile(
-                          title: Row(
-                            children: <Widget>[
-                              Text(
-                                _favorites[index].name.toString(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                width: 30,
-                                height: 30,
-                                child: Image.network(
-                                    _categories[index].imgURL.toString()),
-                              ),
-                            ],
-                          ),
-                          trailing: Text(
-                            ">",
-                            style: TextStyle(
-                                color: Colors.amber,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
+                    child: FavoriteWidget(
+                      favorite: _lstSortFavorite[index],
                     ),
                   );
                 },
               ),
               onRefresh: refeshList,
             );
-          }
-      ),);
+          }),
+    );
   }
 }

@@ -8,7 +8,6 @@ class SaleTag extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 80),
       child: new Container(
-
         decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [Colors.red,Colors.orange],

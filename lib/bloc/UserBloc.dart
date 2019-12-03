@@ -111,7 +111,8 @@ class UserBloc {
 
   Future<bool> updateImageUser(String userID, String imgURL) async {
     try {
-      var _result = (await _userRepo.updateImageURL(userID: userID,imgURL: imgURL));
+      var _result =
+          (await _userRepo.updateImageURL(userID: userID, imgURL: imgURL));
       if (_result == false) {
         return false;
       }
@@ -123,7 +124,6 @@ class UserBloc {
       return false;
     }
   }
-
 
   void _updateUser() {
     _publishSubjectUser.sink.add(_userInfo);

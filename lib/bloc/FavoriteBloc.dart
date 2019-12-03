@@ -1,7 +1,5 @@
 import 'package:grocery_shop_flutter/models/Favorite.dart';
-import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/repositories/FavoriteRepository.dart';
-import 'package:grocery_shop_flutter/repositories/OrderRepository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FavoriteBloc {
@@ -22,7 +20,8 @@ class FavoriteBloc {
     _publishSubjectFavorite = new PublishSubject<List<Favorite>>();
   }
 
-  Observable<List<Favorite>> get observableFavor => _publishSubjectFavorite.stream;
+  Observable<List<Favorite>> get observableFavor =>
+      _publishSubjectFavorite.stream;
 
   Future fetchFavorites(String userID) async {
     try {
@@ -34,9 +33,9 @@ class FavoriteBloc {
     }
   }
 
-  Future<bool> createFavorite(String userID,String proID) async {
+  Future<bool> createFavorite(String userID, String proID) async {
     try {
-      var response = await _favorRepo.createFavorite(proID,userID);
+      var response = await _favorRepo.createFavorite(proID, userID);
       if (response != null) {
         _updateFavorite();
         return true;
@@ -59,8 +58,6 @@ class FavoriteBloc {
       return false;
     }
   }
-
-
 
   void _updateFavorite() {
     _publishSubjectFavorite.sink.add(_favorites);

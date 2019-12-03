@@ -25,7 +25,7 @@ class FavoriteRepository {
     try {
       String fvID = randomAlphaNumeric(20).toString();
 
-      await Firestore.instance.collection('Favorite').document().setData({
+      await Firestore.instance.collection('Favorite').document(fvID).setData({
         'favoriteID': fvID,
         'proID': proID,
         'userID': userID,
