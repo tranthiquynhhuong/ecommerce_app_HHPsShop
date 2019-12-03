@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'Receipt.dart';
+import 'Setting.dart';
 import 'SignIn.dart';
 
 class AccountManagementPage extends StatefulWidget {
@@ -612,7 +613,10 @@ class _AccountManagementState extends State<AccountManagementPage> {
         width: MediaQuery.of(context).size.width,
         height: 50,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new Setting()));
+          },
           child: ListTile(
             title: Row(
               children: <Widget>[
