@@ -21,6 +21,8 @@ class ProductsRepository {
         pro.data['startSale'],
         pro.data['endSale'],
         pro.data['date'],
+        pro.data['favoriteCount'],
+
       ));
     }
     return products;
@@ -47,6 +49,7 @@ class ProductsRepository {
         pro.data['startSale'],
         pro.data['endSale'],
         pro.data['date'],
+        pro.data['favoriteCount'],
       );
     }
     return product;
@@ -73,6 +76,7 @@ class ProductsRepository {
         pro.data['startSale'],
         pro.data['endSale'],
         pro.data['date'],
+        pro.data['favoriteCount'],
       ));
     }
     return products;
@@ -99,6 +103,8 @@ class ProductsRepository {
         pro.data['startSale'],
         pro.data['endSale'],
         pro.data['date'],
+        pro.data['favoriteCount'],
+
       ));
     }
     return products;
@@ -125,6 +131,7 @@ class ProductsRepository {
         pro.data['startSale'],
         pro.data['endSale'],
         pro.data['date'],
+        pro.data['favoriteCount'],
       );
     }
     return product;
@@ -136,6 +143,30 @@ class ProductsRepository {
           .collection('Product')
           .document(product.proID)
           .updateData({'quantity': product.quantity - quantityBuy});
+    } catch (e) {
+      return notComplete();
+    }
+    return complete();
+  }
+
+  Future<bool> increaseFavoriteCount(Product product) {
+    try {
+      Firestore.instance
+          .collection('Product')
+          .document(product.proID)
+          .updateData({'favoriteCount': product.favoriteCount + 1});
+    } catch (e) {
+      return notComplete();
+    }
+    return complete();
+  }
+
+  Future<bool> decreaseFavoriteCount(Product product) {
+    try {
+      Firestore.instance
+          .collection('Product')
+          .document(product.proID)
+          .updateData({'favoriteCount': product.favoriteCount - 1});
     } catch (e) {
       return notComplete();
     }

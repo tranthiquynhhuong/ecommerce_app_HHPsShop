@@ -20,8 +20,7 @@ class FavoriteRepository {
     return favors;
   }
 
-  Future<bool> createFavorite(
-      String proID, String userID) async {
+  Future<bool> createFavorite(String proID, String userID) async {
     try {
       String fvID = randomAlphaNumeric(20).toString();
 
@@ -38,12 +37,46 @@ class FavoriteRepository {
     return true;
   }
 
-  Future<bool> deleteFavorite(
-      String fvID) async {
+  Future<Favorite> searchFavoriteByUserAndProduct(String proID, String userID)async{
+    Favorite favorite;
+    var result = await Firestore.instance
+        .collection('Favorite')
+        .where("userID", isEqualTo: userID)
+        .where("proID", isEqualTo: proID)
+        .getDocuments();
+    for (var fv in result.documents) {
+      favorite = new Favorite(
+        fv.data['favoriteID'],
+        fv.data['proID'],
+        fv.data['userID'],
+        fv.data['date'],
+      );
+    }
+    return favorite;
+  }
+
+  Future<bool> deleteFavorite(String fvID) async {
     try {
       await Firestore.instance.collection('Favorite').document(fvID).delete();
     } catch (e) {
       print('------>' + e);
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> checkIsFavorite(String userID, String proID) async {
+    try {
+      var result = await Firestore.instance
+          .collection('Favorite')
+          .where("userID", isEqualTo: userID)
+          .where("proID", isEqualTo: proID)
+          .getDocuments();
+      if (result == null) {
+        return false;
+      }
+    } catch (e) {
+      print(e);
       return false;
     }
     return true;

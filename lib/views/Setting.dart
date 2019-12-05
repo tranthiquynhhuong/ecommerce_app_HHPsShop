@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/ThemeBloc.dart';
-import 'package:grocery_shop_flutter/main.dart';
 
 class Setting extends StatefulWidget {
 
@@ -45,15 +42,20 @@ class _SettingState extends State<Setting> {
           ],
         ),
       ),
-      body: StreamBuilder<Object>(
+      body: StreamBuilder(
         stream: _themeBloc.observableTheme,
         builder: (context, snapshot) {
           return Container(
             child: ListTile(
               title: Text("Chủ đề ban đêm"),
-              trailing: Switch(
-                value: snapshot.data,
-                onChanged: _themeBloc.changeTheme(),
+              trailing: Container(
+                width: 100,
+                child: Switch(
+                  value: snapshot.data,
+                  onChanged: (value){
+                    _themeBloc.changeTheme();
+                  },
+                ),
               ),
             ),
           );

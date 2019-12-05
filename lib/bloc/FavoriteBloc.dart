@@ -59,6 +59,22 @@ class FavoriteBloc {
     }
   }
 
+  Future<bool> checkIsFavorite(String userID,String proID) async {
+    try {
+      var response = await _favorRepo.checkIsFavorite(userID,proID);
+      if (response != null) {
+        _updateFavorite();
+        return true;
+      }else{
+        _updateFavorite();
+        return false;
+      }
+    } catch (e) {
+      print("Err check favorite====>"+e);
+      return false;
+    }
+  }
+
   void _updateFavorite() {
     _publishSubjectFavorite.sink.add(_favorites);
   }
