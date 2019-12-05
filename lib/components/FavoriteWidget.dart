@@ -107,6 +107,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                       .deleteFavorite(widget.favorite.userID,widget.favorite.proID);
                   if (response) {
                     setState(() {
+                      _favorBloc.countFavoriteByProID(widget.favorite.proID);
                       FavoriteBloc().fetchFavorites(widget.favorite.userID);
                     });
                   } else

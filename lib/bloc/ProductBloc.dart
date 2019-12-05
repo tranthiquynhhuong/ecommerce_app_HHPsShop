@@ -61,6 +61,7 @@ class ProductBloc {
     }
   }
 
+
   void _updateProduct() {
     _publishSubjectProduct.sink.add(_product);
   }

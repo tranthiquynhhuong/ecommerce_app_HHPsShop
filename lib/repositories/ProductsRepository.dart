@@ -149,9 +149,23 @@ class ProductsRepository {
     return complete();
   }
 
-  Future<bool> increaseFavoriteCount(Product product) {
+  Future<bool> updateFavoriteCount(String proID, int favoriteCount) {
     try {
-      print("++++++++++  "+product.favoriteCount.toString());
+      Firestore.instance
+          .collection('Product')
+          .document(proID)
+          .updateData({'favoriteCount': favoriteCount});
+    } catch (e) {
+      return notComplete();
+    }
+    print("Sl favorite đếm dc =======> "+ favoriteCount.toString());
+    return complete();
+  }
+
+
+  Future<bool> increaseFavoriteCount(Product product) {
+    print("++++++++ "+product.favoriteCount.toString());
+    try {
       Firestore.instance
           .collection('Product')
           .document(product.proID)

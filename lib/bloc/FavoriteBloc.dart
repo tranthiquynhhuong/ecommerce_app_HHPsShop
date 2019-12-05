@@ -59,6 +59,19 @@ class FavoriteBloc {
     }
   }
 
+  Future<bool> countFavoriteByProID(String proID) async {
+    try {
+      var response = await _favorRepo.countFavoriteByProID(proID);
+      if (response) {
+        _updateFavorite();
+        return true;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   Future<bool> checkIsFavorite(String userID,String proID) async {
     try {
       var response = await _favorRepo.checkIsFavorite(userID,proID);

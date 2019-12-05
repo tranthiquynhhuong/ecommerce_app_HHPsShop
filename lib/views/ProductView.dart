@@ -109,16 +109,16 @@ class _ProductView extends State<ProductView> {
                           if(alreadySaved==true){
                             await _favoriteBloc.deleteFavorite(
                                 _userBloc.userInfo.userID, widget.product.proID);
-                            await _productBloc.decreaseFavoriteCount(widget.product);
                             setState((){
+                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
                               _productBloc.product;
                               _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
                             });
                           }else if(alreadySaved==false){
                             await _favoriteBloc.createFavorite(
                                 _userBloc.userInfo.userID, widget.product.proID);
-                            await _productBloc.increaseFavoriteCount(widget.product);
                             setState((){
+                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
                               _productBloc.product;
                               _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
                             });
@@ -378,15 +378,19 @@ class _ProductView extends State<ProductView> {
                         ),
                         onPressed: () async {
                           if(alreadySaved==true){
-                            bool response = await _favoriteBloc.deleteFavorite(
+                            await _favoriteBloc.deleteFavorite(
                                 _userBloc.userInfo.userID, widget.product.proID);
                             setState((){
+                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
+                              _productBloc.product;
                               _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
                             });
                           }else if(alreadySaved==false){
-                            bool response = await _favoriteBloc.createFavorite(
+                            await _favoriteBloc.createFavorite(
                                 _userBloc.userInfo.userID, widget.product.proID);
                             setState((){
+                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
+                              _productBloc.product;
                               _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
                             });
                           }
