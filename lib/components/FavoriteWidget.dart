@@ -104,7 +104,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
               trailing: IconButton(
                 onPressed: () async {
                   bool response = await FavoriteRepository()
-                      .deleteFavorite(widget.favorite.favoriteID);
+                      .deleteFavorite(widget.favorite.userID,widget.favorite.proID);
                   if (response) {
                     setState(() {
                       FavoriteBloc().fetchFavorites(widget.favorite.userID);

@@ -55,9 +55,23 @@ class FavoriteRepository {
     return favorite;
   }
 
-  Future<bool> deleteFavorite(String fvID) async {
+  Future<bool> deleteFavorite(String userID, String proID) async {
     try {
-      await Firestore.instance.collection('Favorite').document(fvID).delete();
+      Favorite favorite;
+      var result = await Firestore.instance
+          .collection('Favorite')
+          .where("userID", isEqualTo: userID)
+          .where("proID", isEqualTo: proID)
+          .getDocuments();
+      for (var fv in result.documents) {
+        favorite = new Favorite(
+          fv.data['favoriteID'],
+          fv.data['proID'],
+          fv.data['userID'],
+          fv.data['date'],
+        );
+      }
+      await Firestore.instance.collection('Favorite').document(favorite.favoriteID).delete();
     } catch (e) {
       print('------>' + e);
       return false;
@@ -67,12 +81,21 @@ class FavoriteRepository {
 
   Future<bool> checkIsFavorite(String userID, String proID) async {
     try {
+      Favorite favorite;
       var result = await Firestore.instance
           .collection('Favorite')
           .where("userID", isEqualTo: userID)
           .where("proID", isEqualTo: proID)
           .getDocuments();
-      if (result == null) {
+      for (var fv in result.documents) {
+        favorite = new Favorite(
+          fv.data['favoriteID'],
+          fv.data['proID'],
+          fv.data['userID'],
+          fv.data['date'],
+        );
+      }
+      if (favorite == null) {
         return false;
       }
     } catch (e) {

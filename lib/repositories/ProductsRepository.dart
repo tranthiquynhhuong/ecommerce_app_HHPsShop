@@ -151,6 +151,7 @@ class ProductsRepository {
 
   Future<bool> increaseFavoriteCount(Product product) {
     try {
+      print("++++++++++  "+product.favoriteCount.toString());
       Firestore.instance
           .collection('Product')
           .document(product.proID)
@@ -162,6 +163,7 @@ class ProductsRepository {
   }
 
   Future<bool> decreaseFavoriteCount(Product product) {
+    print("------------ "+product.favoriteCount.toString());
     try {
       Firestore.instance
           .collection('Product')

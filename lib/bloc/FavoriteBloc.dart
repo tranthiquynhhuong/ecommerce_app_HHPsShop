@@ -46,9 +46,9 @@ class FavoriteBloc {
     }
   }
 
-  Future<bool> deleteFavorite(String favorID) async {
+  Future<bool> deleteFavorite(String userID, String proID) async {
     try {
-      var response = await _favorRepo.deleteFavorite(favorID);
+      var response = await _favorRepo.deleteFavorite(userID,proID);
       if (response != null) {
         _updateFavorite();
         return true;
@@ -62,7 +62,7 @@ class FavoriteBloc {
   Future<bool> checkIsFavorite(String userID,String proID) async {
     try {
       var response = await _favorRepo.checkIsFavorite(userID,proID);
-      if (response != null) {
+      if (response ==true) {
         _updateFavorite();
         return true;
       }else{

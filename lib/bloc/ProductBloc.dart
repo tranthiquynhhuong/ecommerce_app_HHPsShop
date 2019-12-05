@@ -1,6 +1,4 @@
-import 'package:grocery_shop_flutter/models/Category.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
-import 'package:grocery_shop_flutter/repositories/CategoryRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:rxdart/rxdart.dart';
 

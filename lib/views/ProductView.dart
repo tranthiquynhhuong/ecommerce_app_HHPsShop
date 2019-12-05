@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
+import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
-import 'package:grocery_shop_flutter/components/AppTools.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/bloc/CartBloc.dart';
 import 'package:grocery_shop_flutter/models/Order.dart';
+import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/views/FeedBack.dart';
 import 'package:grocery_shop_flutter/views/Home.dart';
 
@@ -20,16 +20,18 @@ class ProductView extends StatefulWidget {
 class _ProductView extends State<ProductView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController _electiveQuantity = new TextEditingController();
-  bool _alreadySaved;
   final CartBloc _cartBloc = new CartBloc();
   final FavoriteBloc _favoriteBloc = new FavoriteBloc();
   final UserBloc _userBloc = new UserBloc();
+  final ProductBloc _productBloc = new ProductBloc();
 
   int _quantity = 1;
+  bool alreadySaved;
 
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
   }
 
   void _increment() {
@@ -79,7 +81,7 @@ class _ProductView extends State<ProductView> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     if (widget.product.isSale == 1) {
       return new Scaffold(
           key: _scaffoldKey,
@@ -92,28 +94,38 @@ class _ProductView extends State<ProductView> {
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: IconButton(
-                    icon: Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 40,
-                    ),
-                    onPressed: () async {
-                      bool response = await _favoriteBloc.createFavorite(
-                          _userBloc.userInfo.userID, widget.product.proID);
-                      await print("Thêm thành công" + response.toString());
-                      response == true
-                          ? Fluttertoast.showToast(
-                              msg:
-                                  "Sản phẩm đã được thêm vào mục yêu thích của bạn!",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIos: 2,
-                              backgroundColor: Colors.red.shade500,
-                              textColor: Colors.white,
-                              fontSize: 16.0)
-                          : print("Thêm thất bại");
-                    }),
+                child: FutureBuilder(
+                  future: _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID),
+                  builder: (context, snapshot){
+                    if(snapshot.data==null){return Container();}
+                    alreadySaved=snapshot.data;
+                    return IconButton(
+                        icon: Icon(
+                          alreadySaved ? Icons.favorite : Icons.favorite_border,
+                          color: alreadySaved ? Colors.red : null,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          if(alreadySaved==true){
+                            await _favoriteBloc.deleteFavorite(
+                                _userBloc.userInfo.userID, widget.product.proID);
+                            await _productBloc.decreaseFavoriteCount(widget.product);
+                            setState((){
+                              _productBloc.product;
+                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                            });
+                          }else if(alreadySaved==false){
+                            await _favoriteBloc.createFavorite(
+                                _userBloc.userInfo.userID, widget.product.proID);
+                            await _productBloc.increaseFavoriteCount(widget.product);
+                            setState((){
+                              _productBloc.product;
+                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                            });
+                          }
+                        });
+                  },
+                ),
               ),
             ],
           ),
@@ -353,28 +365,34 @@ class _ProductView extends State<ProductView> {
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: IconButton(
-                    icon: Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 40,
-                    ),
-                    onPressed: () async {
-                      bool response = await _favoriteBloc.createFavorite(
-                          _userBloc.userInfo.userID, widget.product.proID);
-                      await print("Thêm thành công" + response.toString());
-                      response == true
-                          ? Fluttertoast.showToast(
-                              msg:
-                                  "Sản phẩm đã được thêm vào mục yêu thích của bạn!",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIos: 2,
-                              backgroundColor: Colors.red.shade500,
-                              textColor: Colors.white,
-                              fontSize: 16.0)
-                          : print("Thêm thất bại");
-                    }),
+                child: FutureBuilder(
+                  future: _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID),
+                  builder: (context, snapshot){
+                    if(snapshot.data==null){return Container();}
+                    alreadySaved=snapshot.data;
+                    return IconButton(
+                        icon: Icon(
+                          alreadySaved ? Icons.favorite : Icons.favorite_border,
+                          color: alreadySaved ? Colors.red : null,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          if(alreadySaved==true){
+                            bool response = await _favoriteBloc.deleteFavorite(
+                                _userBloc.userInfo.userID, widget.product.proID);
+                            setState((){
+                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                            });
+                          }else if(alreadySaved==false){
+                            bool response = await _favoriteBloc.createFavorite(
+                                _userBloc.userInfo.userID, widget.product.proID);
+                            setState((){
+                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                            });
+                          }
+                        });
+                  },
+                ),
               ),
             ],
           ),
