@@ -8,7 +8,6 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-  bool darkThemeEnabled = false;
   final _themeBloc=ThemeBloc();
 
   @override
@@ -43,13 +42,14 @@ class _SettingState extends State<Setting> {
         ),
       ),
       body: StreamBuilder(
+        initialData: false,
         stream: _themeBloc.observableTheme,
         builder: (context, snapshot) {
           return Container(
             child: ListTile(
-              title: Text("Chủ đề ban đêm"),
+              title: Text("Chủ đề ban đêm",style: TextStyle(color: Colors.black),),
               trailing: Container(
-                width: 100,
+                width: 70,
                 child: Switch(
                   value: snapshot.data,
                   onChanged: (value){

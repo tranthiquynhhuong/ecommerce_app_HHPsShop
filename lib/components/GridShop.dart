@@ -14,6 +14,12 @@ class GridShop extends StatefulWidget {
 class _GridShop extends State<GridShop> {
   List<Product> _products = [];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   sortByPrice_Decrease(List<Product> pros) {
     List<Product> sortPros = [];
     pros.sort((a, b) => b.price.compareTo(a.price));
@@ -93,7 +99,7 @@ class _GridShop extends State<GridShop> {
           new Container(
               height: _gridSize,
               decoration: BoxDecoration(
-                  color: const Color(0xFFeeeeee),
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(_gridSize / 10),
                       bottomRight: Radius.circular(_gridSize / 10))),
@@ -122,7 +128,7 @@ class _GridShop extends State<GridShop> {
                                           childAspectRatio: childAspectRatio),
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return new Padding(
+                                        return new Padding(
                                         padding: EdgeInsets.only(
                                             top: index % 2 == 0 ? 20 : 0,
                                             right: index % 2 == 0 ? 5 : 0,
@@ -135,7 +141,7 @@ class _GridShop extends State<GridShop> {
                             ),
                           ))
                     ])),
-                new MinimalCart(_gridSize),
+                new MinimalCart(),
               ])),
           //new MinimalCart(_gridSize)
         ]);
@@ -146,7 +152,7 @@ class _GridShop extends State<GridShop> {
   @override
   Widget build(BuildContext context) {
     double _gridSize =
-        MediaQuery.of(context).size.height * 0.88; //88% of screen
+        MediaQuery.of(context).size.height - 100; //88% of screen
     double childAspectRatio = MediaQuery.of(context).size.width /
         (MediaQuery.of(context).size.height / 0.9);
     return _buildProductGrid(_gridSize, childAspectRatio);

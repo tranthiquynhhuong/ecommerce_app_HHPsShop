@@ -3,11 +3,11 @@ import 'package:grocery_shop_flutter/models/Cart.dart';
 import 'package:grocery_shop_flutter/bloc/CartBloc.dart';
 
 class MinimalCart extends StatelessWidget {
-  final double _gridSize;
+  //final double _gridSize;
   final List<Widget> _listWidget = new List();
   final CartBloc _cartBloc = new CartBloc();
   static final ScrollController _scrollController = new ScrollController();
-  MinimalCart(this._gridSize);
+  //MinimalCart(this._gridSize);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MinimalCart extends StatelessWidget {
           var content = new Container(
               margin: EdgeInsets.only(left: 10, right: 80),
               width: double.infinity,
-              height: MediaQuery.of(context).size.height - _gridSize,
+              height: 80,
               child: new ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _listWidget.length,
@@ -57,8 +57,9 @@ class MinimalCart extends StatelessWidget {
                           child: new Container(
                               color: Colors.white,
                               child: new Image.network(order.product.imgURL),
-                              height: (MediaQuery.of(context).size.height - _gridSize) *
-                                  0.6)),
+                              //height: (MediaQuery.of(context).size.height - _gridSize) * 0.6
+                            height: 50,
+                          )),
                     ),
                     onTap: () {
                       //TODO

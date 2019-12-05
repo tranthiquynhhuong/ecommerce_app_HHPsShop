@@ -8,6 +8,7 @@ import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/views/FeedBack.dart';
 import 'package:grocery_shop_flutter/views/Home.dart';
+import 'package:intl/intl.dart';
 
 class ProductView extends StatefulWidget {
   final Product product;
@@ -24,6 +25,8 @@ class _ProductView extends State<ProductView> {
   final FavoriteBloc _favoriteBloc = new FavoriteBloc();
   final UserBloc _userBloc = new UserBloc();
   final ProductBloc _productBloc = new ProductBloc();
+  final format = new NumberFormat("#,##0");
+
 
   int _quantity = 1;
   bool alreadySaved;
@@ -255,13 +258,13 @@ class _ProductView extends State<ProductView> {
                                                 widget.product.quantity ||
                                             _quantity < widget.product.quantity
                                         ? new Text(
-                                            "${((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * _quantity).toString()}",
+                                            "${(widget.product.price - (widget.product.price * widget.product.discount ~/ 100) * _quantity).toString()+"đ"}",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 35,
                                                 color: Colors.black))
                                         : Text(
-                                            "${((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * widget.product.quantity).toString()}",
+                                            "${((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * widget.product.quantity).toString()+"đ"}",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 35,

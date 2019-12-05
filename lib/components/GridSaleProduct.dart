@@ -123,7 +123,7 @@ class _GridSaleProduct extends State<GridSaleProduct> {
                               ),
                             ))
                       ])),
-                  new MinimalCart(_gridSize),
+                  new MinimalCart(),
                 ])),
             //new MinimalCart(_gridSize)
           ]);
@@ -135,7 +135,7 @@ class _GridSaleProduct extends State<GridSaleProduct> {
   @override
   Widget build(BuildContext context) {
     double _gridSize =
-        MediaQuery.of(context).size.height * 0.88; //88% of screen
+        MediaQuery.of(context).size.height - 100; //88% of screen
     double childAspectRatio = MediaQuery.of(context).size.width /
         (MediaQuery.of(context).size.height / 1.0);
 

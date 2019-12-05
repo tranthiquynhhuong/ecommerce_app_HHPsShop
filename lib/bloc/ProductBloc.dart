@@ -61,6 +61,21 @@ class ProductBloc {
     }
   }
 
+  Future<bool> checkIsSale(String proID)async{
+    try {
+      bool response = await _proRepo.checkIsSale(proID);
+      _updateProduct();
+      if (response==false) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("Errr check Is Sale  ====> "+e);
+      return false;
+    }
+  }
+
+
 
   void _updateProduct() {
     _publishSubjectProduct.sink.add(_product);

@@ -14,7 +14,7 @@ class ThemeBloc{
   static ThemeBloc _themeBloc;
 
   PublishSubject<bool> _publishSubjectTheme;
-  bool _dartThemeEnabled;
+  bool _dartThemeEnabled=false;
   bool get dartThemeEnabled => _dartThemeEnabled;
 
   factory ThemeBloc() {
@@ -31,7 +31,7 @@ class ThemeBloc{
 
   void changeTheme() async {
     try {
-      _dartThemeEnabled != _dartThemeEnabled;
+      _dartThemeEnabled =! _dartThemeEnabled;
       _updateTheme();
     } catch (e) {
       print(e);

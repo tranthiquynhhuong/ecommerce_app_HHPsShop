@@ -22,7 +22,6 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
-
       ));
     }
     return products;
@@ -104,7 +103,6 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
-
       ));
     }
     return products;
@@ -158,13 +156,11 @@ class ProductsRepository {
     } catch (e) {
       return notComplete();
     }
-    print("Sl favorite đếm dc =======> "+ favoriteCount.toString());
+    print("Sl favorite đếm dc =======> " + favoriteCount.toString());
     return complete();
   }
 
-
   Future<bool> increaseFavoriteCount(Product product) {
-    print("++++++++ "+product.favoriteCount.toString());
     try {
       Firestore.instance
           .collection('Product')
@@ -177,7 +173,6 @@ class ProductsRepository {
   }
 
   Future<bool> decreaseFavoriteCount(Product product) {
-    print("------------ "+product.favoriteCount.toString());
     try {
       Firestore.instance
           .collection('Product')
@@ -187,6 +182,43 @@ class ProductsRepository {
       return notComplete();
     }
     return complete();
+  }
+
+  Future<bool> checkIsSale(String proID) async {
+    Product product;
+    try {
+      var result = await Firestore.instance
+          .collection('Product')
+          .where("proID", isEqualTo: proID)
+          .where("isSale", isEqualTo: 1)
+          .getDocuments();
+      for (var pro in result.documents) {
+        product = new Product(
+          pro.data['proID'],
+          pro.data['catID'],
+          pro.data['name'],
+          pro.data['description'],
+          pro.data['imgURL'],
+          pro.data['price'].toInt(),
+          pro.data['volumetric'].toInt(),
+          pro.data['quantity'].toInt(),
+          pro.data['isSale'].toInt(),
+          pro.data['discount'].toInt(),
+          pro.data['startSale'],
+          pro.data['endSale'],
+          pro.data['date'],
+          pro.data['favoriteCount'],
+        );
+      }
+      if(product!=null){
+        return complete();
+      }else{
+        return notComplete();
+      }
+    } catch (e) {
+      print(e);
+      return notComplete();
+    }
   }
 
   Future<bool> complete() async {
