@@ -16,14 +16,22 @@ class ProductWidget extends StatefulWidget {
 
 class _ProductWidgetState extends State<ProductWidget> {
   final _proBloc = new ProductBloc();
+  Product product;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height / 1.2;
     double fontSize = (height / 24).round().toDouble();
     final format = new NumberFormat("#,##0");
+    product = widget.product;
 
-    if (widget.product.isSale == 1) {
+    if (product.isSale == 1) {
       return GestureDetector(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -208,8 +216,8 @@ class _ProductWidgetState extends State<ProductWidget> {
               alignment: Alignment.center,
               child: Text("Hết khuyến mãi"),
             );
-          }
-            else return Container(
+          } else
+            return Container(
               decoration: new BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -227,8 +235,6 @@ class _ProductWidgetState extends State<ProductWidget> {
               alignment: Alignment.center,
               child: Text(dateString),
             );
-
-
         });
   }
 }

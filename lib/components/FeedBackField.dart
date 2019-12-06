@@ -17,6 +17,7 @@ class _FeedBackFieldState extends State<FeedBackField> {
 
   @override
   void initState() {
+    _rating=0.0;
     // TODO: implement initState
     super.initState();
   }
@@ -29,7 +30,7 @@ class _FeedBackFieldState extends State<FeedBackField> {
         children: <Widget>[
           Center(
             child: RatingBar(
-              initialRating: 0,
+              initialRating: _rating,
               direction: Axis.horizontal,
               allowHalfRating: true,
               itemCount: 5,
