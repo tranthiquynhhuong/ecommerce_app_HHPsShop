@@ -17,9 +17,9 @@ class FeedBackWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(fb.email.toString(), style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+        Text(fb.email.toString(), style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.black)),
         Text(getDate(DateTime.parse(fb.date)).toString(),
-            style: TextStyle(fontSize: 14)),
+            style: TextStyle(fontSize: 14,color: Colors.black)),
         RatingBar(
           initialRating: fb.rating,
           direction: Axis.horizontal,

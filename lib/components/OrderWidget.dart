@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/models/Order.dart';
+import 'package:intl/intl.dart';
 
 class OrderWidget extends StatelessWidget {
   final Order _order;
@@ -8,6 +9,8 @@ class OrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final format = new NumberFormat("#,##0");
+
     return new Row(
 //        crossAxisAlignment: CrossAxisAlignment.center,
 //        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +62,7 @@ class OrderWidget extends StatelessWidget {
               child: new Container(
                 width: 50,
                 height: 20,
-                child: new Text("${this._order.orderPrice.toString()}",
+                child: new Text(format.format(this._order.orderPrice).toString()+"đ",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.grey, fontWeight: FontWeight.bold)),

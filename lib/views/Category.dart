@@ -16,7 +16,12 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryState extends State<CategoryPage> {
   bool _showCart = false;
-  var _dropDownMenuItems=['Giá tăng dần','Giá giảm dần','Mới nhất','Cũ nhất'];
+  var _dropDownMenuItems = [
+    'Giá tăng dần',
+    'Giá giảm dần',
+    'Mới nhất',
+    'Cũ nhất'
+  ];
   String _selectedType;
   ScrollController _scrollController = new ScrollController();
 
@@ -26,7 +31,8 @@ class _CategoryState extends State<CategoryPage> {
     super.initState();
   }
 
-  List<DropdownMenuItem<String>> buildDropdownMenuItems(List _typeSortProByPrice) {
+  List<DropdownMenuItem<String>> buildDropdownMenuItems(
+      List _typeSortProByPrice) {
     List<DropdownMenuItem<String>> items = List();
     for (String t in _typeSortProByPrice) {
       items.add(
@@ -74,11 +80,20 @@ class _CategoryState extends State<CategoryPage> {
           actions: <Widget>[
             new DropdownButton<String>(
               value: _selectedType,
-              icon: Icon(Icons.sort),
+              icon: Icon(
+                Icons.sort,
+                color: Colors.black,
+              ),
               items: _dropDownMenuItems.map((String value) {
                 return new DropdownMenuItem<String>(
                   value: value,
-                  child: new Text(value,style: TextStyle(fontSize: 14),),
+                  child: new Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                  ),
                 );
               }).toList(),
               onChanged: onChangeDropdownItem,
@@ -100,7 +115,8 @@ class _CategoryState extends State<CategoryPage> {
               controller: _scrollController,
               slivers: <Widget>[
                 new SliverToBoxAdapter(
-                    child: new GridCategoryProduct(widget.cat.catID,_selectedType)),
+                    child: new GridCategoryProduct(
+                        widget.cat.catID, _selectedType)),
                 new SliverToBoxAdapter(child: new CartManager()),
               ]),
           new Align(

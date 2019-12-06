@@ -112,7 +112,7 @@ class _CategoriesPageState extends State<CategoriesPage>  with AutomaticKeepAliv
                             Text(
                               _categories[index].name.toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
+                                  fontWeight: FontWeight.bold, fontSize: 15,color: Colors.black),
                             ),
                             Container(
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),

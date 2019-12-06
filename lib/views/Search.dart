@@ -111,7 +111,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget buildAppBar(BuildContext context) {
-    return new AppBar(centerTitle: true, title: appBarTitle, actions: <Widget>[
+    return new AppBar(centerTitle: true, title: appBarTitle,backgroundColor: Colors.amber, actions: <Widget>[
       new IconButton(
         icon: icon,
         onPressed: () {

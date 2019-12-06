@@ -10,6 +10,7 @@ import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ReceiptRepository.dart';
 import 'package:grocery_shop_flutter/views/Home.dart';
 import 'package:grocery_shop_flutter/views/Receipt.dart';
+import 'package:intl/intl.dart';
 
 class CartManager extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class _CartManager extends State<CartManager> {
   CartBloc _cartBloc=new CartBloc();
   final _userBloc = UserBloc();
   TextEditingController location = new TextEditingController();
+  final format = new NumberFormat("#,##0");
+
 
   @override
   void initState() {
@@ -91,7 +94,7 @@ class _CartManager extends State<CartManager> {
                                                   fontSize: 20)),
                                           Flexible(
                                             child: Text(
-                                                "${snapshot.data.totalPrice().toString()}",
+                                                format.format(snapshot.data.totalPrice()).toString()+"đ",
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
@@ -124,14 +127,17 @@ class _CartManager extends State<CartManager> {
   }
 
   void _showDialogReceipt() {
+
     // flutter defined function
     showDialog(
         context: context,
         builder: (context) {
+          final format = new NumberFormat("#,##0");
+
           return AlertDialog(
             title: Text('Xác nhận đặt hàng'),
             content: Container(
-              color: Colors.white,
+              //color: Colors.white,
               width: 550,
               height: 600,
               child: SingleChildScrollView(
@@ -146,7 +152,7 @@ class _CartManager extends State<CartManager> {
                               return Container(
                                 padding: const EdgeInsets.all(10.0),
                                 color: Colors.grey.shade300,
-                                height: 220,
+                                height: 225,
                                 child: Column(
                                   children: <Widget>[
                                     Row(
@@ -219,7 +225,7 @@ class _CartManager extends State<CartManager> {
                         ),
                         Divider(color: Colors.red),
                         new Container(
-                          height: 170,
+                          height: 160,
                           child: new ListView.builder(
                             itemCount: _cartBloc.currentCart.orders.length,
                             itemBuilder: (context, index) {
@@ -227,6 +233,7 @@ class _CartManager extends State<CartManager> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
+                                      
                                       Expanded(
                                         child: Container(
                                           child: Text(_cartBloc.currentCart
@@ -251,9 +258,9 @@ class _CartManager extends State<CartManager> {
                                       ),
                                       Expanded(
                                         child: Container(
-                                          child: Text(_cartBloc.currentCart
+                                          child: Text(format.format(_cartBloc.currentCart
                                               .orders[index].orderPrice
-                                              .toString()),
+                                              ).toString()+"đ"),
                                         ),
                                         flex: 2,
                                       ),
@@ -275,9 +282,9 @@ class _CartManager extends State<CartManager> {
                                 child: Text("TỔNG CỘNG"),
                               ),
                               Center(
-                                child: Text(_cartBloc.currentCart
-                                    .totalPrice()
-                                    .toString()),
+                                child: Text(format.format(_cartBloc.currentCart
+                                    .totalPrice())
+                                    .toString()+"đ",),
                               ),
                             ],
                           ),

@@ -44,15 +44,15 @@ class _AppInfomationState extends State<AppInfomation> {
               children: <Widget>[
                 Text(
                   "BỘ GIÁO DỤC VÀ ĐÀO TẠO",
-                  style: TextStyle(),
+                  style: TextStyle(color: Colors.black,),
                 ),
                 Text(
                   "TRƯỜNG ĐẠI HỌC HOA SEN",
-                  style: TextStyle(),
+                  style: TextStyle(color: Colors.black,),
                 ),
                 Text(
                   "KHOA CÔNG NGHỆ THÔNG TIN",
-                  style: TextStyle(),
+                  style: TextStyle(color: Colors.black,),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -127,7 +127,7 @@ class _AppInfomationState extends State<AppInfomation> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 170.0),
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
                     "THÁNG 12 / NĂM 2019",
                     style: TextStyle(fontSize: 17, color: Colors.grey),

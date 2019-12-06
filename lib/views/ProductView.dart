@@ -27,7 +27,7 @@ class _ProductView extends State<ProductView> {
   final format = new NumberFormat("#,##0");
 
 
-  int _quantity = 1;
+  int _quantity=1;
   bool alreadySaved;
 
   @override
@@ -68,13 +68,23 @@ class _ProductView extends State<ProductView> {
             new FlatButton(
               color: Colors.green,
               child: new Text("Xong", style: TextStyle(color: Colors.white)),
-              onPressed: () async {
-                if (_electiveQuantity.text != "") {
-                  _quantity = int.parse(_electiveQuantity.text);
-                } else
+              onPressed: () {
+                int maxQuantity = widget.product.quantity;
+                _quantity = int.parse(_electiveQuantity.text);
+                if ( _quantity > maxQuantity||_quantity==maxQuantity) {
+                  setState(() {
+                    _quantity=maxQuantity;
+                  });
+                }
+                else if(_electiveQuantity.text != "" || _quantity<maxQuantity ){
+                  setState(() {
+                    _quantity=_quantity;
+                  });
+                }else{
                   _quantity = 1;
+                }
                 Navigator.pop(context);
-              },
+              }
             ),
           ],
         );
@@ -189,6 +199,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.remove,
                                         size: 15,
+                                          color: Colors.black,
                                       ),
                                       onTap: _decrement,
                                     ),
@@ -197,7 +208,7 @@ class _ProductView extends State<ProductView> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20),
                                         child: Container(
-                                          width: 50,
+                                          width: 30,
                                           height: 30,
                                           child: Center(
                                             child: _quantity ==
@@ -208,7 +219,7 @@ class _ProductView extends State<ProductView> {
                                                 ? new Text(
                                                     _quantity.toString(),
                                                     style:
-                                                        TextStyle(fontSize: 20),
+                                                        TextStyle(fontSize: 20,color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -217,7 +228,7 @@ class _ProductView extends State<ProductView> {
                                                     widget.product.quantity
                                                         .toString(),
                                                     style:
-                                                        TextStyle(fontSize: 20),
+                                                        TextStyle(fontSize: 20,color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -231,6 +242,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.add,
                                         size: 15,
+                                        color: Colors.black,
                                       ),
                                       onTap: _increment,
                                     ),
@@ -257,16 +269,16 @@ class _ProductView extends State<ProductView> {
                                                 widget.product.quantity ||
                                             _quantity < widget.product.quantity
                                         ? new Text(
-                                            "${(widget.product.price - (widget.product.price * widget.product.discount ~/ 100) * _quantity).toString()+"đ"}",
+                                        format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * _quantity).toString()+"đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 35,
+                                                fontSize: 28,
                                                 color: Colors.black))
                                         : Text(
-                                            "${((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * widget.product.quantity).toString()+"đ"}",
+                                            format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * widget.product.quantity).toString()+"đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 35,
+                                                fontSize: 28,
                                                 color: Colors.black)))
                               ])),
                       new Container(
@@ -460,6 +472,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.remove,
                                         size: 15,
+                                          color: Colors.black,
                                       ),
                                       onTap: _decrement,
                                     ),
@@ -468,7 +481,7 @@ class _ProductView extends State<ProductView> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20),
                                         child: Container(
-                                          width: 50,
+                                          width: 30,
                                           height: 30,
                                           child: Center(
                                             child: _quantity ==
@@ -479,7 +492,7 @@ class _ProductView extends State<ProductView> {
                                                 ? new Text(
                                                     _quantity.toString(),
                                                     style:
-                                                        TextStyle(fontSize: 20),
+                                                        TextStyle(fontSize: 20,color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -488,7 +501,7 @@ class _ProductView extends State<ProductView> {
                                                     widget.product.quantity
                                                         .toString(),
                                                     style:
-                                                        TextStyle(fontSize: 20),
+                                                        TextStyle(fontSize: 20,color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -502,6 +515,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.add,
                                         size: 15,
+                                          color: Colors.black,
                                       ),
                                       onTap: _increment,
                                     ),
@@ -512,16 +526,16 @@ class _ProductView extends State<ProductView> {
                                                 widget.product.quantity ||
                                             _quantity < widget.product.quantity
                                         ? new Text(
-                                            "${(widget.product.price * _quantity).toString()}",
+                                            format.format(widget.product.price * _quantity).toString()+"đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 35,
+                                                fontSize: 28,
                                                 color: Colors.black))
                                         : Text(
-                                            "${(widget.product.price * widget.product.quantity).toString()}",
+                                        format.format(widget.product.price * widget.product.quantity).toString()+"đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 35,
+                                                fontSize: 28,
                                                 color: Colors.black)))
                               ])),
                       new Container(

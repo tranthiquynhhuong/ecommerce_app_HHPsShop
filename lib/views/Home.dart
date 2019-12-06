@@ -70,13 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             new DropdownButton<String>(
               value: _selectedType,
-              icon: Icon(Icons.sort),
+              icon: Icon(Icons.sort,color: Colors.black,),
               items: _dropDownMenuItems.map((String value) {
                 return new DropdownMenuItem<String>(
                   value: value,
                   child: new Text(
                     value,
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14,color: Colors.black),
                   ),
                 );
               }).toList(),

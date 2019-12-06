@@ -69,7 +69,7 @@ class MinimalCart extends StatelessWidget {
                     width: 30,
                     height: 20,
                     child: Center(
-                      child: Text(order.quantity.toString(),overflow: TextOverflow.ellipsis,),
+                      child: Text(order.quantity.toString(),overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.black,),),
                     ),
                   ),
                 ],
