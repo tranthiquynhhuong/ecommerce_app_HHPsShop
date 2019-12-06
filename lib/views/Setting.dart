@@ -42,7 +42,7 @@ class _SettingState extends State<Setting> {
         ),
       ),
       body: StreamBuilder(
-        initialData: false,
+        initialData: _themeBloc.dartThemeEnabled,
         stream: _themeBloc.observableTheme,
         builder: (context, snapshot) {
           return Container(

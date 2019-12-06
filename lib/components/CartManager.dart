@@ -233,7 +233,7 @@ class _CartManager extends State<CartManager> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      
+
                                       Expanded(
                                         child: Container(
                                           child: Text(_cartBloc.currentCart
