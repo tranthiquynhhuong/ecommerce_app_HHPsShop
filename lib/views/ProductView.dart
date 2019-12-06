@@ -26,8 +26,7 @@ class _ProductView extends State<ProductView> {
   final ProductBloc _productBloc = new ProductBloc();
   final format = new NumberFormat("#,##0");
 
-
-  int _quantity=1;
+  int _quantity = 1;
   bool alreadySaved;
 
   @override
@@ -66,26 +65,30 @@ class _ProductView extends State<ProductView> {
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              color: Colors.green,
-              child: new Text("Xong", style: TextStyle(color: Colors.white)),
-              onPressed: () {
-                int maxQuantity = widget.product.quantity;
-                _quantity = int.parse(_electiveQuantity.text);
-                if ( _quantity > maxQuantity||_quantity==maxQuantity) {
-                  setState(() {
-                    _quantity=maxQuantity;
-                  });
-                }
-                else if(_electiveQuantity.text != "" || _quantity<maxQuantity ){
-                  setState(() {
-                    _quantity=_quantity;
-                  });
-                }else{
-                  _quantity = 1;
-                }
-                Navigator.pop(context);
-              }
-            ),
+                color: Colors.green,
+                child: new Text("Xong", style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  int maxQuantity = widget.product.quantity;
+                  _quantity = int.parse(_electiveQuantity.text);
+                  if (_quantity > maxQuantity || _quantity == maxQuantity) {
+                    setState(() {
+                      _quantity = maxQuantity;
+                    });
+                  } else if (_electiveQuantity.text != "" &&
+                      _quantity < maxQuantity &&
+                      _quantity != 0) {
+                    setState(() {
+                      _quantity = _quantity;
+                    });
+                  } else if (_electiveQuantity.text == "0") {
+                    setState(() {
+                      _quantity = 1;
+                    });
+                  } else {
+                    _quantity = 1;
+                  }
+                  Navigator.pop(context);
+                }),
           ],
         );
       },
@@ -93,7 +96,7 @@ class _ProductView extends State<ProductView> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     if (widget.product.isSale == 1) {
       return new Scaffold(
           key: _scaffoldKey,
@@ -107,10 +110,13 @@ class _ProductView extends State<ProductView> {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: FutureBuilder(
-                  future: _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID),
-                  builder: (context, snapshot){
-                    if(snapshot.data==null){return Container();}
-                    alreadySaved=snapshot.data;
+                  future: _favoriteBloc.checkIsFavorite(
+                      _userBloc.userInfo.userID, widget.product.proID),
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return Container();
+                    }
+                    alreadySaved = snapshot.data;
                     return IconButton(
                         icon: Icon(
                           alreadySaved ? Icons.favorite : Icons.favorite_border,
@@ -118,21 +124,29 @@ class _ProductView extends State<ProductView> {
                           size: 30,
                         ),
                         onPressed: () async {
-                          if(alreadySaved==true){
+                          if (alreadySaved == true) {
                             await _favoriteBloc.deleteFavorite(
-                                _userBloc.userInfo.userID, widget.product.proID);
-                            setState((){
-                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
+                                _userBloc.userInfo.userID,
+                                widget.product.proID);
+                            setState(() {
+                              _favoriteBloc
+                                  .countFavoriteByProID(widget.product.proID);
                               _productBloc.product;
-                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                              _favoriteBloc.checkIsFavorite(
+                                  _userBloc.userInfo.userID,
+                                  widget.product.proID);
                             });
-                          }else if(alreadySaved==false){
+                          } else if (alreadySaved == false) {
                             await _favoriteBloc.createFavorite(
-                                _userBloc.userInfo.userID, widget.product.proID);
-                            setState((){
-                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
+                                _userBloc.userInfo.userID,
+                                widget.product.proID);
+                            setState(() {
+                              _favoriteBloc
+                                  .countFavoriteByProID(widget.product.proID);
                               _productBloc.product;
-                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                              _favoriteBloc.checkIsFavorite(
+                                  _userBloc.userInfo.userID,
+                                  widget.product.proID);
                             });
                           }
                         });
@@ -199,7 +213,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.remove,
                                         size: 15,
-                                          color: Colors.black,
+                                        color: Colors.black,
                                       ),
                                       onTap: _decrement,
                                     ),
@@ -218,8 +232,9 @@ class _ProductView extends State<ProductView> {
                                                         widget.product.quantity
                                                 ? new Text(
                                                     _quantity.toString(),
-                                                    style:
-                                                        TextStyle(fontSize: 20,color: Colors.black),
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -227,8 +242,9 @@ class _ProductView extends State<ProductView> {
                                                 : new Text(
                                                     widget.product.quantity
                                                         .toString(),
-                                                    style:
-                                                        TextStyle(fontSize: 20,color: Colors.black),
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -265,17 +281,25 @@ class _ProductView extends State<ProductView> {
                                   ),
                                 ),
                                 Flexible(
-                                    child: _quantity ==
-                                                widget.product.quantity ||
+                                    child: _quantity == widget.product.quantity ||
                                             _quantity < widget.product.quantity
-                                        ? new Text(
-                                        format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * _quantity).toString()+"đ",
+                                        ? new Text(format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * _quantity).toString() + "đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 28,
                                                 color: Colors.black))
                                         : Text(
-                                            format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * widget.product.quantity).toString()+"đ",
+                                            format
+                                                    .format((widget
+                                                                .product.price -
+                                                            (widget.product
+                                                                    .price *
+                                                                widget.product
+                                                                    .discount ~/
+                                                                100)) *
+                                                        widget.product.quantity)
+                                                    .toString() +
+                                                "đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 28,
@@ -380,10 +404,13 @@ class _ProductView extends State<ProductView> {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: FutureBuilder(
-                  future: _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID),
-                  builder: (context, snapshot){
-                    if(snapshot.data==null){return Container();}
-                    alreadySaved=snapshot.data;
+                  future: _favoriteBloc.checkIsFavorite(
+                      _userBloc.userInfo.userID, widget.product.proID),
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return Container();
+                    }
+                    alreadySaved = snapshot.data;
                     return IconButton(
                         icon: Icon(
                           alreadySaved ? Icons.favorite : Icons.favorite_border,
@@ -391,21 +418,29 @@ class _ProductView extends State<ProductView> {
                           size: 30,
                         ),
                         onPressed: () async {
-                          if(alreadySaved==true){
+                          if (alreadySaved == true) {
                             await _favoriteBloc.deleteFavorite(
-                                _userBloc.userInfo.userID, widget.product.proID);
-                            setState((){
-                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
+                                _userBloc.userInfo.userID,
+                                widget.product.proID);
+                            setState(() {
+                              _favoriteBloc
+                                  .countFavoriteByProID(widget.product.proID);
                               _productBloc.product;
-                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                              _favoriteBloc.checkIsFavorite(
+                                  _userBloc.userInfo.userID,
+                                  widget.product.proID);
                             });
-                          }else if(alreadySaved==false){
+                          } else if (alreadySaved == false) {
                             await _favoriteBloc.createFavorite(
-                                _userBloc.userInfo.userID, widget.product.proID);
-                            setState((){
-                              _favoriteBloc.countFavoriteByProID(widget.product.proID);
+                                _userBloc.userInfo.userID,
+                                widget.product.proID);
+                            setState(() {
+                              _favoriteBloc
+                                  .countFavoriteByProID(widget.product.proID);
                               _productBloc.product;
-                              _favoriteBloc.checkIsFavorite(_userBloc.userInfo.userID, widget.product.proID);
+                              _favoriteBloc.checkIsFavorite(
+                                  _userBloc.userInfo.userID,
+                                  widget.product.proID);
                             });
                           }
                         });
@@ -472,7 +507,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.remove,
                                         size: 15,
-                                          color: Colors.black,
+                                        color: Colors.black,
                                       ),
                                       onTap: _decrement,
                                     ),
@@ -491,8 +526,9 @@ class _ProductView extends State<ProductView> {
                                                         widget.product.quantity
                                                 ? new Text(
                                                     _quantity.toString(),
-                                                    style:
-                                                        TextStyle(fontSize: 20,color: Colors.black),
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -500,8 +536,9 @@ class _ProductView extends State<ProductView> {
                                                 : new Text(
                                                     widget.product.quantity
                                                         .toString(),
-                                                    style:
-                                                        TextStyle(fontSize: 20,color: Colors.black),
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.black),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
@@ -515,7 +552,7 @@ class _ProductView extends State<ProductView> {
                                       child: new Icon(
                                         Icons.add,
                                         size: 15,
-                                          color: Colors.black,
+                                        color: Colors.black,
                                       ),
                                       onTap: _increment,
                                     ),
@@ -526,13 +563,23 @@ class _ProductView extends State<ProductView> {
                                                 widget.product.quantity ||
                                             _quantity < widget.product.quantity
                                         ? new Text(
-                                            format.format(widget.product.price * _quantity).toString()+"đ",
+                                            format
+                                                    .format(
+                                                        widget.product.price *
+                                                            _quantity)
+                                                    .toString() +
+                                                "đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 28,
                                                 color: Colors.black))
                                         : Text(
-                                        format.format(widget.product.price * widget.product.quantity).toString()+"đ",
+                                            format
+                                                    .format(widget
+                                                            .product.price *
+                                                        widget.product.quantity)
+                                                    .toString() +
+                                                "đ",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 28,
