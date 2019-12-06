@@ -45,5 +45,7 @@ class Product {
   int get date => _date;
   int get favoriteCount => _favoriteCount;
 
-
+  setIsSale(int isSale) {
+    _isSale = isSale;
+  }
 }

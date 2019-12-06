@@ -8,7 +8,8 @@ import 'package:intl/intl.dart';
 
 class ProductWidget extends StatefulWidget {
   final Product product;
-  ProductWidget({Key key, this.product}) : super(key: key);
+  final Function onRefresh;
+  ProductWidget({Key key, this.product, this.onRefresh}) : super(key: key);
 
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
@@ -20,9 +21,16 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
-
     // TODO: implement initState
     super.initState();
+  }
+
+  Future<Null> refesh() async {
+    await Future.delayed(Duration(seconds: 2));
+    Product _product = await _proBloc.getProductByID(widget.product.proID);
+    setState(() {
+      product = _product;
+    });
   }
 
   @override
@@ -30,14 +38,14 @@ class _ProductWidgetState extends State<ProductWidget> {
     double height = MediaQuery.of(context).size.height / 1.2;
     double fontSize = (height / 24).round().toDouble();
     final format = new NumberFormat("#,##0");
-    product=widget.product;
+    product = widget.product;
 
     if (product.isSale == 1) {
       return GestureDetector(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
-                new ProductView(product: widget.product)));
+                    new ProductView(product: widget.product)));
           },
           child: new Container(
               padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -75,11 +83,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                             children: <Widget>[
                               new Text(
                                   (format
-                                      .format(widget.product.price -
-                                      (widget.product.price *
-                                          widget.product.discount ~/
-                                          100))
-                                      .toString()) +
+                                          .format(widget.product.price -
+                                              (widget.product.price *
+                                                  widget.product.discount ~/
+                                                  100))
+                                          .toString()) +
                                       "đ ",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -87,8 +95,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                       fontSize: fontSize)),
                               new Text(
                                   format
-                                      .format(widget.product.price)
-                                      .toString() +
+                                          .format(widget.product.price)
+                                          .toString() +
                                       "đ",
                                   style: TextStyle(
                                       fontStyle: FontStyle.italic,
@@ -113,7 +121,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   decoration: new BoxDecoration(
                                       color: Colors.grey.shade300,
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
+                                          BorderRadius.all(Radius.circular(5))),
                                   width: 400,
                                   height: 30,
                                   child: Center(
@@ -128,7 +136,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
-                new ProductView(product: widget.product)));
+                    new ProductView(product: widget.product)));
           },
           child: new Container(
               padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
@@ -163,8 +171,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                             children: <Widget>[
                               new Text(
                                   format
-                                      .format(widget.product.price)
-                                      .toString() +
+                                          .format(widget.product.price)
+                                          .toString() +
                                       "đ",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -188,17 +196,22 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget countDown(String endTime) {
-    int _endTime = DateTime.parse(endTime).toUtc().millisecondsSinceEpoch;
-    return StreamBuilder(
-        stream: Stream.periodic(Duration(seconds: 1), (i) => i),
-        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-          int now = DateTime.now().toUtc().millisecondsSinceEpoch;
-          Duration remaining = Duration(milliseconds: _endTime - now);
-          int hour = remaining.inHours - remaining.inDays * 24;
-          int minute = remaining.inMinutes - remaining.inHours * 60;
-          int second = remaining.inSeconds - remaining.inMinutes * 60;
-          var dateString = 'Còn ${remaining.inDays} ngày $hour:$minute:$second';
-          if (remaining.inSeconds < 0 || remaining.inSeconds == 0) {
+    try {
+      int _endTime = DateTime.parse(endTime).toUtc().millisecondsSinceEpoch;
+      return StreamBuilder(
+          stream: Stream.periodic(Duration(seconds: 1), (i) => i),
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            int now = DateTime.now().toUtc().millisecondsSinceEpoch;
+            Duration remaining = Duration(milliseconds: _endTime - now);
+            int hour = remaining.inHours - remaining.inDays * 24;
+            int minute = remaining.inMinutes - remaining.inHours * 60;
+            int second = remaining.inSeconds - remaining.inMinutes * 60;
+            var dateString =
+                'Còn ${remaining.inDays} ngày $hour:$minute:$second';
+
+            if (remaining.inSeconds == 1 || remaining.inSeconds < 1) {
+              widget.onRefresh();
+            }
             return Container(
               decoration: new BoxDecoration(
                 boxShadow: [
@@ -209,35 +222,15 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ),
                 ],
                 gradient: new LinearGradient(
-                    colors: [Colors.orangeAccent.withOpacity(0.3), Colors.red],
+                    colors: [Colors.greenAccent.withOpacity(0.3), Colors.green],
                     begin: Alignment.centerRight,
                     end: new Alignment(-1.0, -1.0)),
               ),
               //color: Colors.greenAccent.withOpacity(0.3),
               alignment: Alignment.center,
-              child: Text("Hết khuyến mãi"),
+              child: Text(dateString),
             );
-          }
-          else return Container(
-            decoration: new BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 13.0,
-                  color: Colors.grey.withOpacity(.5),
-                  offset: Offset(6.0, 7.0),
-                ),
-              ],
-              gradient: new LinearGradient(
-                  colors: [Colors.greenAccent.withOpacity(0.3), Colors.green],
-                  begin: Alignment.centerRight,
-                  end: new Alignment(-1.0, -1.0)),
-            ),
-            //color: Colors.greenAccent.withOpacity(0.3),
-            alignment: Alignment.center,
-            child: Text(dateString),
-          );
-
-
-        });
+          });
+    } catch (e) {}
   }
 }
