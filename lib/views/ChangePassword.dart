@@ -127,6 +127,10 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
         _userBloc.userInfo.password) {
       showSnackbar("Sai mật khẩu!", scaffoldKey);
       return;
+    } else if (generateMd5(new_password.text).toString() ==
+        _userBloc.userInfo.password) {
+      showSnackbar("Mật khẩu mới không được trùng với mật khẩu đang sử dụng!", scaffoldKey);
+      return;
     } else if (generateMd5(password.text).toString() ==
             _userBloc.userInfo.password &&
         re_new_password.text != "") {

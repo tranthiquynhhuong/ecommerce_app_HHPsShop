@@ -209,8 +209,11 @@ class _ProductWidgetState extends State<ProductWidget> {
             var dateString =
                 'Còn ${remaining.inDays} ngày $hour:$minute:$second';
 
-            if (remaining.inSeconds == 1 || remaining.inSeconds < 1) {
+            if (remaining.inSeconds == 0 || remaining.inSeconds < 0) {
               widget.onRefresh();
+              return Container(
+                color: Colors.white,
+              );
             }
             return Container(
               decoration: new BoxDecoration(

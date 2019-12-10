@@ -172,7 +172,10 @@ class _SignUpState extends State<SignUp> {
     if (fullname.text == "") {
       showSnackbar("Vui lòng nhập họ và tên !", scaffoldKey);
       return;
-    } else if (email.text == "") {
+    }else if (fullname.text.length > 30) {
+      showSnackbar("Họ và tên chỉ bao gồm 30 ký tự", scaffoldKey);
+      return;
+    }else if (email.text == "") {
       showSnackbar("Vui lòng nhập Email !", scaffoldKey);
       return;
     } else if (!email.text.contains("@")) {
@@ -187,8 +190,8 @@ class _SignUpState extends State<SignUp> {
     } else if (password.text == "") {
       showSnackbar("Vui lòng nhập mật khẩu !", scaffoldKey);
       return;
-    } else if (password.text.length < 6) {
-      showSnackbar("Mật khẩu phải từ 6 ký tự trở lên !", scaffoldKey);
+    } else if (password.text.length < 6 && password.text.length > 30) {
+      showSnackbar("Mật khẩu phải từ 6 đến 30 ký tự !", scaffoldKey);
       return;
     } else if (re_password.text == "") {
       showSnackbar("Vui lòng nhập lại mật khẩu !", scaffoldKey);
@@ -219,7 +222,8 @@ class _SignUpState extends State<SignUp> {
         closeProgressDialog(context);
         _showDialog();
       } else if (response == false) {
-        showSnackbar("Email đăng ký đã tồn tại, vui lòng dùng Email khác!", scaffoldKey);
+        showSnackbar(
+            "Email đăng ký đã tồn tại, vui lòng dùng Email khác!", scaffoldKey);
         closeProgressDialog(context);
       }
     }
@@ -232,17 +236,22 @@ class _SignUpState extends State<SignUp> {
         builder: (context) {
           return AlertDialog(
             title: Text('Đăng ký tài khoản thành công'),
-            content: Text("*Vui lòng XÁC THỰC email để có thể ĐĂNG NHẬP",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+            content: Text(
+              "*Vui lòng XÁC THỰC email để có thể ĐĂNG NHẬP",
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
             actions: <Widget>[
               FlatButton(
-                color: Colors.green.shade400,
-                onPressed: () {
-                  Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => new SignIn()));
-                },
-                child: Text('Đã hiểu',style: TextStyle(color: Colors.white),
-              )
-              )],
+                  color: Colors.green.shade400,
+                  onPressed: () {
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => new SignIn()));
+                  },
+                  child: Text(
+                    'Đã hiểu',
+                    style: TextStyle(color: Colors.white),
+                  ))
+            ],
           );
         });
   }
