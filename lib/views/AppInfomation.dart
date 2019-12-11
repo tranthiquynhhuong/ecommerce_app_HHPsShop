@@ -59,8 +59,7 @@ class _AppInfomationState extends State<AppInfomation> {
                   child: Container(
                     width: 100,
                     height: 100,
-                    child: Image.network(
-                        "https://s3-ap-northeast-1.amazonaws.com/vnschool/school/658/truong-dai-hoc-hoa-sen-cs-tan-vien-0-rPuy1x.jpg"),
+                    child: Image.asset('assets/images/logo_hoasen.jpg'),
                   ),
                 ),
                 Text(
