@@ -37,9 +37,9 @@ class CartBloc {
   void addOrderToCart(Product product, int quantity) {
     int orderPrice = 0;
     if (product.isSale == 1)
-      orderPrice = product.price - (product.price * product.discount) ~/ 100;
+      orderPrice = (product.price - (product.price * product.discount) ~/ 100)*quantity;
     else
-      orderPrice = product.price;
+      orderPrice = product.price*quantity;
     _lastOrder = new Order(
         product, quantity, Timestamp.now().seconds.toString(), orderPrice);
     _currentCart.addOrder(_lastOrder);

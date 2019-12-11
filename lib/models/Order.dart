@@ -15,5 +15,5 @@ class Order {
 
   Product get product => _product;
 
-  int get orderPrice => _quantity * _orderPrice;
+  int get orderPrice => _orderPrice;
 }

@@ -314,11 +314,9 @@ class _CartManager extends State<CartManager> {
                     List<Order> orders = [];
                     for (var o in _cartBloc.currentCart.orders) {
                       orders.add(o);
+                      print(o.product.name+o.quantity.toString()+o.orderPrice.toString());
                     }
-                    for (var o in _cartBloc.currentCart.orders) {
-                      resultUpdateQuantity = await ProductsRepository()
-                          .updateQuantityAfterBuy(o.product, o.quantity);
-                    }
+
                     bool response =
                         await ReceiptRepository().createdUserReceipt(
                       deliveryAdd: location.text,
@@ -328,6 +326,11 @@ class _CartManager extends State<CartManager> {
                       userID: _userBloc.userInfo.userID,
                           phone: int.parse(_userBloc.userInfo.phone),
                     );
+
+                    for (var o in _cartBloc.currentCart.orders) {
+                      resultUpdateQuantity = await ProductsRepository()
+                          .updateQuantityAfterBuy(o.product, o.quantity);
+                    }
 
                     if (response == true && resultUpdateQuantity == true) {
                       closeProgressDialog(context);
