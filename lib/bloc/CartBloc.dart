@@ -5,7 +5,6 @@ import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/models/Cart.dart';
 
 class CartBloc {
-  static String _orderId = Timestamp.now().seconds.toString();
   static CartBloc _cartBloc;
   Cart _currentCart;
   Order _lastOrder;

@@ -5,8 +5,6 @@ import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/repositories/FavoriteRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 
-import 'SaleTag.dart';
-
 class FavoriteWidget extends StatefulWidget {
   final Favorite favorite;
   FavoriteWidget({this.favorite});

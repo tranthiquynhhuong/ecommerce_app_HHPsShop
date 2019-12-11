@@ -3,14 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ThemeBloc{
-//  final _themeControler = StreamController<bool>();
-//  get changeTheme => _themeControler.sink.add;
-//  get dartThemeEnabled => _themeControler.stream;
-
-//  PublishSubject<bool> _publishSubjectTheme;
-//  bool get dartThemeEnabled => _publishSubjectTheme.stream;
-//  get changeTheme => _publishSubjectTheme.sink.add;
-
   static ThemeBloc _themeBloc;
 
   PublishSubject<bool> _publishSubjectTheme;

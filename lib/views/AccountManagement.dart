@@ -23,7 +23,6 @@ class AccountManagementPage extends StatefulWidget {
 
 class _AccountManagementState extends State<AccountManagementPage> {
   UserBloc _userBloc;
-  File _imageFile;
   bool uploading = false;
   final FirebaseStorage _storage =
       FirebaseStorage(storageBucket: 'gs://ecommerce-3b4a8.appspot.com/');

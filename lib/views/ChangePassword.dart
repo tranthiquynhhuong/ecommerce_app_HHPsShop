@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
-import 'package:grocery_shop_flutter/views/SignIn.dart';
 import 'package:grocery_shop_flutter/components/AppTools.dart';
 import 'package:grocery_shop_flutter/repositories/UserRepository.dart';
-import 'package:crypto/crypto.dart' as crypto;
 
 class ChangePasswordPage extends StatefulWidget {
   @override

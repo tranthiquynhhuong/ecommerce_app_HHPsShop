@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix1;
-import 'package:grocery_shop_flutter/bloc/CategoryBloc.dart';
 import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
-import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 import 'package:grocery_shop_flutter/components/FavoriteWidget.dart';
-import 'package:grocery_shop_flutter/components/FavoriteWidget.dart' as prefix0;
-import 'package:grocery_shop_flutter/models/Category.dart';
 import 'package:grocery_shop_flutter/models/Favorite.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/views/Home.dart';
 import 'package:grocery_shop_flutter/views/ProductView.dart';
-import 'Category.dart';
 import 'Search.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -22,7 +16,6 @@ class FavoritePage extends StatefulWidget {
 
 class _FavoritePageState extends State<FavoritePage>
     with AutomaticKeepAliveClientMixin<FavoritePage> {
-  ScrollController _scrollController = new ScrollController();
   final _favoriteBloc = new FavoriteBloc();
   final _userBloc = new UserBloc();
   bool isLoading = true;

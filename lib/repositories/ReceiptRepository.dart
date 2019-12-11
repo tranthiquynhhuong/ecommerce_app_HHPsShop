@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/models/Receipt.dart';
 import 'package:random_string/random_string.dart';
-import 'dart:math';
 
 class ReceiptRepository {
   Future<List<Receipt>> getAllReceipt() async {

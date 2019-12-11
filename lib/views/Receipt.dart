@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_shop_flutter/bloc/ReceiptBloc.dart';
-import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 import 'package:grocery_shop_flutter/components/CancelReceiptTabBarView.dart';
 import 'package:grocery_shop_flutter/components/DoneReceiptTabBarView.dart';
 import 'package:grocery_shop_flutter/components/PendingReceiptTabBarView.dart';
 import 'package:grocery_shop_flutter/components/WaitingReceiptTabBarView.dart';
-import 'package:grocery_shop_flutter/views/Home.dart';
 
 class ReceiptPage extends StatefulWidget {
   @override
@@ -13,8 +10,6 @@ class ReceiptPage extends StatefulWidget {
 }
 
 class _ReceiptPageState extends State<ReceiptPage> {
-  final _userBloc = UserBloc();
-  final _receiptBloc = ReceiptBloc();
 
   @override
   Widget build(BuildContext context) {

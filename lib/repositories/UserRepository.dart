@@ -64,24 +64,6 @@ class UserRepository {
     }
   }
 
-//  Future<User> loginUser(String email, String password) async {
-//    FirebaseUser user;
-//    User userInfo;
-//    try {
-//      var resultLogin = await firestore.collection('User').where('email',isEqualTo: email).where('password',isEqualTo: password).getDocuments();
-//
-//      AuthResult result = await auth.signInWithEmailAndPassword(
-//          email: email, password: password);
-//      user = result.user;
-//      if (resultLogin.documents.length != 0 && user.isEmailVerified) {
-//        userInfo = await getUserInfo(user.uid);
-//      }
-//      return userInfo;
-//    } catch (e) {
-//      return e.details;
-//    }
-//  }
-
   Future<bool> logout() async {
     try {
       await auth.signOut();
