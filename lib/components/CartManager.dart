@@ -326,6 +326,7 @@ class _CartManager extends State<CartManager> {
                       totalPrice: _cartBloc.currentCart.totalPrice(),
                       totalPro: _cartBloc.currentCart.orderCount,
                       userID: _userBloc.userInfo.userID,
+                          phone: int.parse(_userBloc.userInfo.phone),
                     );
 
                     if (response == true && resultUpdateQuantity == true) {

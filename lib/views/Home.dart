@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/CartBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
-import 'package:grocery_shop_flutter/components/DrawMyReceipt.dart';
 import 'package:grocery_shop_flutter/components/DrawPromotion.dart';
 import 'package:grocery_shop_flutter/components/GridShop.dart';
 import 'package:grocery_shop_flutter/components/CartManager.dart';

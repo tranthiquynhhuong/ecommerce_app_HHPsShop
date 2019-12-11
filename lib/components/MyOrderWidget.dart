@@ -25,7 +25,8 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
   ReceiptRepository receiptRepository = new ReceiptRepository();
   final _receiptBloc = ReceiptBloc();
   final _userBloc = UserBloc();
-  final _orderBloc = OrderBloc();
+  final format = new NumberFormat("#,##0");
+
 
   void initState() {
     super.initState();
@@ -51,7 +52,7 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                 Text("Thời gian đặt hàng: " +
                     getDate(DateTime.parse(widget.receipt.billDate))),
                 Text("Tổng số sản phẩm: " + widget.receipt.totalPro.toString()),
-                Text("Tổng tiền: " + widget.receipt.totalPrice.toString()),
+                Text("Tổng tiền: " +format.format( widget.receipt.totalPrice).toString()+"đ"),
                 Text("Địa chỉ giao hàng: " + widget.receipt.deliveryAddress),
                 Divider(
                   color: Colors.black,
@@ -87,7 +88,7 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                                       " x " +
                                       orders[index].quantity.toString() +
                                       " = " +
-                                      orders[index].orderPrice.toString(),
+                                      format.format(orders[index].orderPrice).toString() + "đ",
                                   style: TextStyle(fontSize: 14),
                                 ),
                                 flex: 10,

@@ -21,6 +21,8 @@ class ReceiptRepository {
         //receipt.data['orders'],
         receipt.data['status'],
         receipt.data['receiptID'],
+        receipt.data['phone'],
+
       ));
     }
     return receipts;
@@ -43,6 +45,8 @@ class ReceiptRepository {
         //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
+        receipt.data['phone'],
+
       ));
     }
     return userReceipts;
@@ -65,6 +69,8 @@ class ReceiptRepository {
         //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
+        receipt.data['phone'],
+
       ));
     }
     return userReceipts;
@@ -87,6 +93,7 @@ class ReceiptRepository {
         //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
+        receipt.data['phone'],
       ));
     }
     return userReceipts;
@@ -109,6 +116,7 @@ class ReceiptRepository {
         //List.from(receipt.data['orders']),
         receipt.data['status'],
         receipt.data['receiptID'],
+        receipt.data['phone'],
       ));
     }
     return userReceipts;
@@ -119,7 +127,7 @@ class ReceiptRepository {
       List<Order> orders,
       String userID,
       int totalPrice,
-      int totalPro}) async {
+      int totalPro, int phone}) async {
     try {
       String receiptID = randomAlphaNumeric(20).toString();
       var resultAddReceipt = await Firestore.instance
@@ -134,6 +142,7 @@ class ReceiptRepository {
         //'orders': orders,
         'status': "Chờ xử lý",
         'receiptID': receiptID,
+        'phone': phone,
       });
 
       for (Order o in orders) {
