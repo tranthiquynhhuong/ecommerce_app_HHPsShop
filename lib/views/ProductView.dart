@@ -160,200 +160,200 @@ class _ProductView extends State<ProductView> {
           ),
           body: new SafeArea(
               child: new Column(children: <Widget>[
-            new Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                height: MediaQuery.of(context).size.height * 0.73,
-                child: new SingleChildScrollView(
-                    child: new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                      new Center(
-                          child: new StreamBuilder(
-                              initialData: null,
-                              stream: _cartBloc.observableLastOrder,
-                              builder:
-                                  (context, AsyncSnapshot<Order> snapshot) {
-                                String tag = snapshot.data == null
-                                    ? "tagHero${widget.product.proID}"
-                                    : "tagHeroOrder${snapshot.data.id}";
-                                return new Hero(
-                                    tag: tag,
-                                    child: new Image.network(
-                                        widget.product.imgURL,
-                                        fit: BoxFit.cover,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.4));
-                              })),
-                      new Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: new Text(widget.product.name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                                color: Colors.black)),
-                      ),
-                      new Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: new Text("${widget.product.volumetric}ml",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.grey)),
-                      ),
-                      new Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                new Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: new Row(children: <Widget>[
-                                    new InkWell(
-                                      child: new Icon(
-                                        Icons.remove,
-                                        size: 15,
-                                        color: Colors.black,
-                                      ),
-                                      onTap: _decrement,
-                                    ),
-                                    new InkWell(
-                                      child: new Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          child: Center(
-                                            child: _quantity ==
+                new Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: MediaQuery.of(context).size.height * 0.73,
+                    child: new SingleChildScrollView(
+                        child: new Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Center(
+                                  child: new StreamBuilder(
+                                      initialData: null,
+                                      stream: _cartBloc.observableLastOrder,
+                                      builder:
+                                          (context, AsyncSnapshot<Order> snapshot) {
+                                        String tag = snapshot.data == null
+                                            ? "tagHero${widget.product.proID}"
+                                            : "tagHeroOrder${snapshot.data.id}";
+                                        return new Hero(
+                                            tag: tag,
+                                            child: new Image.network(
+                                                widget.product.imgURL,
+                                                fit: BoxFit.cover,
+                                                height:
+                                                MediaQuery.of(context).size.height *
+                                                    0.4));
+                                      })),
+                              new Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: new Text(widget.product.name,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 40,
+                                        color: Colors.black)),
+                              ),
+                              new Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: new Text("${widget.product.volumetric}ml",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.grey)),
+                              ),
+                              new Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child: new Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        new Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(color: Colors.grey),
+                                              borderRadius: BorderRadius.circular(50)),
+                                          child: new Row(children: <Widget>[
+                                            new InkWell(
+                                              child: new Icon(
+                                                Icons.remove,
+                                                size: 15,
+                                                color: Colors.black,
+                                              ),
+                                              onTap: _decrement,
+                                            ),
+                                            new InkWell(
+                                              child: new Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                                child: Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: Center(
+                                                    child: _quantity ==
                                                         widget
                                                             .product.quantity ||
-                                                    _quantity <
-                                                        widget.product.quantity
-                                                ? new Text(
-                                                    _quantity.toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    softWrap: true,
-                                                  )
-                                                : new Text(
-                                                    widget.product.quantity
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    softWrap: true,
+                                                        _quantity <
+                                                            widget.product.quantity
+                                                        ? new Text(
+                                                      _quantity.toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.black),
+                                                      overflow:
+                                                      TextOverflow.ellipsis,
+                                                      softWrap: true,
+                                                    )
+                                                        : new Text(
+                                                      widget.product.quantity
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.black),
+                                                      overflow:
+                                                      TextOverflow.ellipsis,
+                                                      softWrap: true,
+                                                    ),
                                                   ),
+                                                ),
+                                              ),
+                                              onTap: _showQuantityDialog,
+                                            ),
+                                            new InkWell(
+                                              child: new Icon(
+                                                Icons.add,
+                                                size: 15,
+                                                color: Colors.black,
+                                              ),
+                                              onTap: _increment,
+                                            ),
+                                          ]),
+                                        ),
+                                        Container(
+                                          decoration: new BoxDecoration(
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          width: 50,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(
+                                              "-" +
+                                                  widget.product.discount.toString() +
+                                                  "%",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      onTap: _showQuantityDialog,
-                                    ),
-                                    new InkWell(
-                                      child: new Icon(
-                                        Icons.add,
-                                        size: 15,
-                                        color: Colors.black,
-                                      ),
-                                      onTap: _increment,
-                                    ),
-                                  ]),
-                                ),
-                                Container(
-                                  decoration: new BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  width: 50,
-                                  height: 30,
-                                  child: Center(
-                                    child: Text(
-                                      "-" +
-                                          widget.product.discount.toString() +
-                                          "%",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                                Flexible(
-                                    child: _quantity == widget.product.quantity ||
-                                            _quantity < widget.product.quantity
-                                        ? new Text(format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * _quantity).toString() + "đ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 28,
-                                                color: Colors.black))
-                                        : Text(
-                                            format
+                                        Flexible(
+                                            child: _quantity == widget.product.quantity ||
+                                                _quantity < widget.product.quantity
+                                                ? new Text(format.format((widget.product.price - (widget.product.price * widget.product.discount ~/ 100)) * _quantity).toString() + "đ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 28,
+                                                    color: Colors.black))
+                                                : Text(
+                                                format
                                                     .format((widget
-                                                                .product.price -
-                                                            (widget.product
-                                                                    .price *
-                                                                widget.product
-                                                                    .discount ~/
-                                                                100)) *
-                                                        widget.product.quantity)
+                                                    .product.price -
+                                                    (widget.product
+                                                        .price *
+                                                        widget.product
+                                                            .discount ~/
+                                                        100)) *
+                                                    widget.product.quantity)
                                                     .toString() +
-                                                "đ",
+                                                    "đ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 28,
+                                                    color: Colors.black)))
+                                      ])),
+                              new Container(
+                                  margin: EdgeInsets.only(top: 40, bottom: 40),
+                                  child: new Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        new Text("Mô tả:",
                                             style: TextStyle(
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 28,
-                                                color: Colors.black)))
-                              ])),
-                      new Container(
-                          margin: EdgeInsets.only(top: 40, bottom: 40),
-                          child: new Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                new Text("Mô tả:",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20)),
-                                new Padding(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: new Text(widget.product.description,
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 18)))
-                              ]))
-                    ]))),
-            new Container(
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.white,
-                  blurRadius: 30.0, // has the effect of softening the shadow
-                  spreadRadius: 5.0, // has the effect of extending the shadow
-                  offset: Offset(
-                    0.0, // horizontal, move right 10
-                    -20.0, // vertical, move down 10
-                  ),
-                )
-              ]),
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new FlatButton.icon(
-                        onPressed: () {
-                          Navigator.of(context).push(new MaterialPageRoute(
-                              builder: (context) => new FeedBackPage(
+                                                fontSize: 20)),
+                                        new Padding(
+                                            padding: EdgeInsets.only(top: 10),
+                                            child: new Text(widget.product.description,
+                                                style: TextStyle(
+                                                    color: Colors.grey, fontSize: 18)))
+                                      ]))
+                            ]))),
+                new Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                      blurRadius: 30.0, // has the effect of softening the shadow
+                      spreadRadius: 5.0, // has the effect of extending the shadow
+                      offset: Offset(
+                        0.0, // horizontal, move right 10
+                        -20.0, // vertical, move down 10
+                      ),
+                    )
+                  ]),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new FlatButton.icon(
+                            onPressed: () {
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                  builder: (context) => new FeedBackPage(
                                     product: widget.product,
                                   )));
-                        },
-                        icon: new Icon(Icons.comment, color: Colors.blue),
-                        label: new Text("")),
+                            },
+                            icon: new Icon(Icons.comment, color: Colors.blue),
+                            label: new Text("")),
 // Check số lượng Product != 0?
-                    widget.product.quantity != 0
-                        ? new SizedBox(
+                        widget.product.quantity != 0
+                            ? new SizedBox(
                             width: MediaQuery.of(context).size.width * 0.6,
                             child: new RaisedButton(
                                 color: Colors.amber,
@@ -368,9 +368,9 @@ class _ProductView extends State<ProductView> {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (context) =>
-                                                new MyHomePage()));
+                                            new MyHomePage()));
                                   } else {
-                                    print("================>");
+                                    print("================> hết hàng r");
 //                                    _cartBloc.addOrderToCart(widget.product,
 //                                        widget.product.quantity);
 //                                    Navigator.of(context).push(
@@ -382,7 +382,7 @@ class _ProductView extends State<ProductView> {
                                 child: new Text("Thêm vào giỏ",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold))))
-                        : new SizedBox(
+                            : new SizedBox(
                             width: MediaQuery.of(context).size.width * 0.6,
                             child: new RaisedButton(
                                 color: Colors.grey,
@@ -393,9 +393,9 @@ class _ProductView extends State<ProductView> {
                                 child: new Text("Hết hàng",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold))))
-                  ]),
-            )
-          ])));
+                      ]),
+                )
+              ])));
     } else {
       return new Scaffold(
           resizeToAvoidBottomPadding: false,
@@ -458,227 +458,307 @@ class _ProductView extends State<ProductView> {
           ),
           body: new SafeArea(
               child: new Column(children: <Widget>[
-            new Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                height: MediaQuery.of(context).size.height * 0.73,
-                child: new SingleChildScrollView(
-                    child: new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                      new Center(
-                          child: new StreamBuilder(
-                              initialData: null,
-                              stream: _cartBloc.observableLastOrder,
-                              builder:
-                                  (context, AsyncSnapshot<Order> snapshot) {
-                                String tag = snapshot.data == null
-                                    ? "tagHero${widget.product.proID}"
-                                    : "tagHeroOrder${snapshot.data.id}";
-                                return new Hero(
-                                    tag: tag,
-                                    child: new Image.network(
-                                        widget.product.imgURL,
-                                        fit: BoxFit.cover,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.4));
-                              })),
-                      new Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: new Text(widget.product.name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                                color: Colors.black)),
-                      ),
-                      new Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: new Text("${widget.product.volumetric}ml",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.grey)),
-                      ),
-                      new Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                new Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: new Row(children: <Widget>[
-                                    new InkWell(
-                                      child: new Icon(
-                                        Icons.remove,
-                                        size: 15,
-                                        color: Colors.black,
-                                      ),
-                                      onTap: _decrement,
-                                    ),
-                                    new InkWell(
-                                      child: new Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          child: Center(
-                                            child: _quantity ==
+                new Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: MediaQuery.of(context).size.height * 0.73,
+                    child: new SingleChildScrollView(
+                        child: new Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Center(
+                                  child: new StreamBuilder(
+                                      initialData: null,
+                                      stream: _cartBloc.observableLastOrder,
+                                      builder:
+                                          (context, AsyncSnapshot<Order> snapshot) {
+                                        String tag = snapshot.data == null
+                                            ? "tagHero${widget.product.proID}"
+                                            : "tagHeroOrder${snapshot.data.id}";
+                                        return new Hero(
+                                            tag: tag,
+                                            child: new Image.network(
+                                                widget.product.imgURL,
+                                                fit: BoxFit.cover,
+                                                height:
+                                                MediaQuery.of(context).size.height *
+                                                    0.4));
+                                      })),
+                              new Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: new Text(widget.product.name,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 40,
+                                        color: Colors.black)),
+                              ),
+                              new Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: new Text("${widget.product.volumetric}ml",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.grey)),
+                              ),
+                              new Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child: new Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        new Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(color: Colors.grey),
+                                              borderRadius: BorderRadius.circular(50)),
+                                          child: new Row(children: <Widget>[
+                                            new InkWell(
+                                              child: new Icon(
+                                                Icons.remove,
+                                                size: 15,
+                                                color: Colors.black,
+                                              ),
+                                              onTap: _decrement,
+                                            ),
+                                            new InkWell(
+                                              child: new Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                                child: Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child: Center(
+                                                    child: _quantity ==
                                                         widget
                                                             .product.quantity ||
-                                                    _quantity <
-                                                        widget.product.quantity
-                                                ? new Text(
-                                                    _quantity.toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    softWrap: true,
-                                                  )
-                                                : new Text(
-                                                    widget.product.quantity
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    softWrap: true,
+                                                        _quantity <
+                                                            widget.product.quantity
+                                                        ? new Text(
+                                                      _quantity.toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.black),
+                                                      overflow:
+                                                      TextOverflow.ellipsis,
+                                                      softWrap: true,
+                                                    )
+                                                        : new Text(
+                                                      widget.product.quantity
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.black),
+                                                      overflow:
+                                                      TextOverflow.ellipsis,
+                                                      softWrap: true,
+                                                    ),
                                                   ),
-                                          ),
+                                                ),
+                                              ),
+                                              onTap: _showQuantityDialog,
+                                            ),
+                                            new InkWell(
+                                              child: new Icon(
+                                                Icons.add,
+                                                size: 15,
+                                                color: Colors.black,
+                                              ),
+                                              onTap: _increment,
+                                            ),
+                                          ]),
                                         ),
-                                      ),
-                                      onTap: _showQuantityDialog,
-                                    ),
-                                    new InkWell(
-                                      child: new Icon(
-                                        Icons.add,
-                                        size: 15,
-                                        color: Colors.black,
-                                      ),
-                                      onTap: _increment,
-                                    ),
-                                  ]),
-                                ),
-                                Flexible(
-                                    child: _quantity ==
+                                        Flexible(
+                                            child: _quantity ==
                                                 widget.product.quantity ||
-                                            _quantity < widget.product.quantity
-                                        ? new Text(
-                                            format
+                                                _quantity < widget.product.quantity
+                                                ? new Text(
+                                                format
                                                     .format(
-                                                        widget.product.price *
-                                                            _quantity)
+                                                    widget.product.price *
+                                                        _quantity)
                                                     .toString() +
-                                                "đ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 28,
-                                                color: Colors.black))
-                                        : Text(
-                                            format
+                                                    "đ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 28,
+                                                    color: Colors.black))
+                                                : Text(
+                                                format
                                                     .format(widget
-                                                            .product.price *
-                                                        widget.product.quantity)
+                                                    .product.price *
+                                                    widget.product.quantity)
                                                     .toString() +
-                                                "đ",
+                                                    "đ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 28,
+                                                    color: Colors.black)))
+                                      ])),
+                              new Container(
+                                  margin: EdgeInsets.only(top: 40, bottom: 40),
+                                  child: new Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        new Text("Mô tả:",
                                             style: TextStyle(
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 28,
-                                                color: Colors.black)))
-                              ])),
-                      new Container(
-                          margin: EdgeInsets.only(top: 40, bottom: 40),
-                          child: new Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                new Text("Mô tả:",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20)),
-                                new Padding(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: new Text(widget.product.description,
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 18)))
-                              ]))
-                    ]))),
-            new Container(
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.white,
-                  blurRadius: 30.0, // has the effect of softening the shadow
-                  spreadRadius: 5.0, // has the effect of extending the shadow
-                  offset: Offset(
-                    0.0, // horizontal, move right 10
-                    -20.0, // vertical, move down 10
-                  ),
-                )
-              ]),
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new FlatButton.icon(
-                        onPressed: () {
-                          Navigator.of(context).push(new MaterialPageRoute(
-                              builder: (context) => new FeedBackPage(
+                                                fontSize: 20)),
+                                        new Padding(
+                                            padding: EdgeInsets.only(top: 10),
+                                            child: new Text(widget.product.description,
+                                                style: TextStyle(
+                                                    color: Colors.grey, fontSize: 18)))
+                                      ]))
+                            ]))),
+                new Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                      blurRadius: 30.0, // has the effect of softening the shadow
+                      spreadRadius: 5.0, // has the effect of extending the shadow
+                      offset: Offset(
+                        0.0, // horizontal, move right 10
+                        -20.0, // vertical, move down 10
+                      ),
+                    )
+                  ]),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new FlatButton.icon(
+                            onPressed: () {
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                  builder: (context) => new FeedBackPage(
                                     product: widget.product,
                                   )));
-                        },
-                        icon: new Icon(Icons.comment, color: Colors.blue),
-                        label: new Text("")),
+                            },
+                            icon: new Icon(Icons.comment, color: Colors.blue),
+                            label: new Text("")),
 // Check số lượng Product != 0?
-                    widget.product.quantity != 0
-                        ? new SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: new RaisedButton(
-                                color: Colors.amber,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(60)),
-                                padding: EdgeInsets.all(20),
-                                onPressed: () {
-                                  if (_quantity < widget.product.quantity ||
-                                      _quantity == widget.product.quantity) {
-                                    _cartBloc.addOrderToCart(
-                                        widget.product, _quantity);
-                                    Navigator.of(context).push(
-                                        new MaterialPageRoute(
-                                            builder: (context) =>
+                      StreamBuilder(
+                        initialData: _productBloc.getProductByID(widget.product.proID),
+                        stream: _productBloc.observableProduct,
+                        builder: (context, snapshot){
+                          if(!snapshot.hasData) return Container();
+                          Product pro = snapshot.data;
+                          int max = pro.quantity;
+                          if(max!=0){
+                            return SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: new RaisedButton(
+                                    color: Colors.amber,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(60)),
+                                    padding: EdgeInsets.all(20),
+                                    onPressed: () async {
+//                                      Product pro = await _productBloc.getProductByID(widget.product.proID);
+//                                      int maxQuality = pro.quantity;
+//                                      print("=======>"+pro.quantity.toString());
+//                                      if(maxQuality<1){
+//                                        setState(() {
+//                                          _productBloc.getProductByID(widget.product.proID);
+//                                        });
+//                                      }
+                                    await _productBloc.getProductByID(widget.product.proID);
+                                    if(_productBloc.product.quantity==0){
+                                      setState(() {
+
+                                      });
+                                    }else{
+                                      if (_quantity < widget.product.quantity ||
+                                          _quantity == widget.product.quantity) {
+                                        _cartBloc.addOrderToCart(
+                                            widget.product, _quantity);
+                                        Navigator.of(context).push(
+                                            new MaterialPageRoute(
+                                                builder: (context) =>
                                                 new MyHomePage()));
-                                  } else {
-                                    _cartBloc.addOrderToCart(widget.product,
-                                        widget.product.quantity);
-                                    Navigator.of(context).push(
-                                        new MaterialPageRoute(
-                                            builder: (context) =>
-                                                new MyHomePage()));
-                                  }
-                                },
-                                child: new Text("Thêm vào giỏ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold))))
-                        : new SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: new RaisedButton(
-                                color: Colors.grey,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(60)),
-                                padding: EdgeInsets.all(20),
-                                onPressed: () {},
-                                child: new Text("Hết hàng",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold))))
-                  ]),
-            )
-          ])));
+                                      } else {
+                                        print("================> hết hàng r");
+//                                    _cartBloc.addOrderToCart(widget.product,
+//                                        widget.product.quantity);
+//                                    Navigator.of(context).push(
+//                                        new MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                new MyHomePage()));
+                                      }
+                                    }
+                                    },
+
+                                    child: new Text("Thêm vào giỏ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))));
+                          }else{
+                            return SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: new RaisedButton(
+                                    color: Colors.grey,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(60)),
+                                    padding: EdgeInsets.all(20),
+                                    onPressed: () {},
+                                    child: new Text("Hết hàng",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))));
+                          }
+                        },
+                      ),
+//                        widget.product.quantity != 0
+//                            ? new SizedBox(
+//                            width: MediaQuery.of(context).size.width * 0.6,
+//                            child: new RaisedButton(
+//                                color: Colors.amber,
+//                                shape: RoundedRectangleBorder(
+//                                    borderRadius: BorderRadius.circular(60)),
+//                                padding: EdgeInsets.all(20),
+//                                onPressed: () async {
+//                                  Product pro = await _productBloc.getProductByID(widget.product.proID);
+//                                  int maxQuality = pro.quantity;
+//                                  print("=======>"+pro.quantity.toString());
+//                                  if(maxQuality<1){
+//                                    setState(() {
+//                                      _productBloc.getProductByID(widget.product.proID);
+//                                    });
+//                                  }
+//                                  if (_quantity < widget.product.quantity ||
+//                                      _quantity == widget.product.quantity) {
+//                                    _cartBloc.addOrderToCart(
+//                                        widget.product, _quantity);
+//                                    Navigator.of(context).push(
+//                                        new MaterialPageRoute(
+//                                            builder: (context) =>
+//                                            new MyHomePage()));
+//                                  } else {
+//                                    print("================> hết hàng r");
+////                                    _cartBloc.addOrderToCart(widget.product,
+////                                        widget.product.quantity);
+////                                    Navigator.of(context).push(
+////                                        new MaterialPageRoute(
+////                                            builder: (context) =>
+////                                                new MyHomePage()));
+//                                  }
+//                                },
+//                                child: new Text("Thêm vào giỏ",
+//                                    style: TextStyle(
+//                                        fontWeight: FontWeight.bold))))
+//                            : new SizedBox(
+//                            width: MediaQuery.of(context).size.width * 0.6,
+//                            child: new RaisedButton(
+//                                color: Colors.grey,
+//                                shape: RoundedRectangleBorder(
+//                                    borderRadius: BorderRadius.circular(60)),
+//                                padding: EdgeInsets.all(20),
+//                                onPressed: () {},
+//                                child: new Text("Hết hàng",
+//                                    style: TextStyle(
+//                                        fontWeight: FontWeight.bold))))
+
+
+
+                      ]),
+                )
+              ])));
     }
   }
 }
