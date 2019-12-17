@@ -117,7 +117,8 @@ class _GridSaleProduct extends State<GridSaleProduct> {
                                               left: index % 2 == 1 ? 5 : 0,
                                               bottom: index % 2 == 1 ? 20 : 0),
                                           child: ProductWidget(
-                                              product: _productsSale[index]));
+                                              product: _productsSale[index],
+                                            onRefresh: refeshList,),);
                                     }),
                                 onRefresh: refeshList,
                               ),

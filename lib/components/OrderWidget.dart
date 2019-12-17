@@ -60,7 +60,7 @@ class OrderWidget extends StatelessWidget {
           new Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: new Container(
-                width: 50,
+                width: 80,
                 height: 20,
                 child: new Text(format.format(this._order.orderPrice).toString()+"đ",
                     overflow: TextOverflow.ellipsis,

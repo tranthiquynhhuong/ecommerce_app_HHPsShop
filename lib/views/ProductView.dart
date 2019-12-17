@@ -60,7 +60,7 @@ class _ProductView extends State<ProductView> {
             autofocus: true,
             keyboardType: TextInputType.number,
             controller: _electiveQuantity,
-            decoration: new InputDecoration(hintText: "10000"),
+            decoration: new InputDecoration(hintText: widget.product.quantity.toString()),
           ),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
@@ -103,6 +103,9 @@ class _ProductView extends State<ProductView> {
           resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
           appBar: new AppBar(
+            title: Center(
+              child: Text(widget.product.name, overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23),),
+            ),
             backgroundColor: Colors.amber,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),
@@ -357,7 +360,7 @@ class _ProductView extends State<ProductView> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(60)),
                                 padding: EdgeInsets.all(20),
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_quantity < widget.product.quantity ||
                                       _quantity == widget.product.quantity) {
                                     _cartBloc.addOrderToCart(
@@ -367,12 +370,13 @@ class _ProductView extends State<ProductView> {
                                             builder: (context) =>
                                                 new MyHomePage()));
                                   } else {
-                                    _cartBloc.addOrderToCart(widget.product,
-                                        widget.product.quantity);
-                                    Navigator.of(context).push(
-                                        new MaterialPageRoute(
-                                            builder: (context) =>
-                                                new MyHomePage()));
+                                    print("================>");
+//                                    _cartBloc.addOrderToCart(widget.product,
+//                                        widget.product.quantity);
+//                                    Navigator.of(context).push(
+//                                        new MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                new MyHomePage()));
                                   }
                                 },
                                 child: new Text("Thêm vào giỏ",
@@ -397,6 +401,9 @@ class _ProductView extends State<ProductView> {
           resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
           appBar: new AppBar(
+            title: Center(
+              child: Text(widget.product.name, overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23),),
+            ),
             backgroundColor: Colors.amber,
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),

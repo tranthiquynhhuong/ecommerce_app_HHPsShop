@@ -4,6 +4,7 @@ import 'package:grocery_shop_flutter/models/Favorite.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/repositories/FavoriteRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
+import 'package:intl/intl.dart';
 
 class FavoriteWidget extends StatefulWidget {
   final Favorite favorite;
@@ -16,6 +17,8 @@ class FavoriteWidget extends StatefulWidget {
 class _FavoriteWidgetState extends State<FavoriteWidget> {
   Product product;
   final _favorBloc = FavoriteBloc();
+  final format = new NumberFormat("#,##0");
+
   @override
   void initState() {
     // TODO: implement initState
@@ -58,14 +61,14 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                   ? Row(
                       children: <Widget>[
                          Text(
-                            (pro.price - (pro.price * pro.discount ~/ 100))
+                            format.format((pro.price - (pro.price * pro.discount ~/ 100)))
                                     .toString() +
-                                " ",
+                                "đ ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
                                 fontSize: 15)),
-                        Text(pro.price.toString()+" ",
+                        Text(format.format(pro.price).toString()+"đ ",
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Colors.grey,
@@ -92,7 +95,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                     )
                   : Row(
                       children: <Widget>[
-                        new Text(pro.price.toString(),
+                        new Text(format.format(pro.price).toString()+"đ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,

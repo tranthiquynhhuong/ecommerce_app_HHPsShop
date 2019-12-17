@@ -64,21 +64,21 @@ class _AppInfomationState extends State<AppInfomation> {
                 ),
                 Text(
                   "ĐỒ ÁN CHUYÊN NGÀNH A",
-                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.grey),
                 ),
                 Text(
                   "Building M-commerce system",
-                  style: TextStyle(fontSize: 17, color: Colors.grey),
+                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "with Google Flutter and Firebase",
-                  style: TextStyle(fontSize: 17, color: Colors.grey),
+                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                 ),
 
                 Padding(
                   padding: const EdgeInsets.only(top:10.0),
                   child: Text(
-                    "Giảng viên hướng dẫn: (thầy) Trang Hồng Sơn",
+                    "Giảng viên hướng dẫn: Trang Hồng Sơn",
                     style: TextStyle(fontSize: 15, color: Colors.black),
                   ),
                 ),
@@ -100,7 +100,7 @@ class _AppInfomationState extends State<AppInfomation> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
-                    "Số nhóm: 14",
+                    "STT nhóm: 14",
                     style: TextStyle(fontSize: 15, color: Colors.black),
                   ),
                 ),

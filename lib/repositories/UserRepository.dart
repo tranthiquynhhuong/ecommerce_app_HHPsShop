@@ -21,6 +21,7 @@ class UserRepository {
         user.data['location'],
         user.data['phone'],
         user.data['imgURL'],
+        user.data['isActive'],
       ));
     }
     return users;
@@ -43,6 +44,7 @@ class UserRepository {
         user.data['location'],
         user.data['phone'],
         user.data['imgURL'],
+        user.data['isActive'],
       );
     }
   }
@@ -55,12 +57,35 @@ class UserRepository {
           email: email, password: password);
       user = result.user;
 
-      if (user != null && user.isEmailVerified) {
-        userInfo = await getUserInfo(user.uid);
+      var response = await isActiveUser(user.uid);
+      if (response==true && user.isEmailVerified) {
+          userInfo = await getUserInfo(user.uid);
+
       }
+
+//      if (user != null && user.isEmailVerified) {
+//        userInfo = await getUserInfo(user.uid);
+//      }
       return userInfo;
     } catch (e) {
       return e.details;
+    }
+  }
+
+  Future<bool> isActiveUser(uid) async {
+    try {
+      var result = await Firestore.instance
+          .collection('User')
+          .where("userID", isEqualTo: uid)
+          .where('isActive', isEqualTo: 1)
+          .getDocuments();
+      if(result.documents.length!=0){
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 
@@ -108,7 +133,8 @@ class UserRepository {
             'phone': phone,
             'location': location,
             'signupdate': DateTime.now().toString(),
-            'imgURL':"",
+            'imgURL': "",
+            'isActive': 1,
           });
         }
       } catch (e) {
@@ -143,8 +169,7 @@ class UserRepository {
     return complete();
   }
 
-  Future<bool> updateImageURL(
-      {String imgURL,String userID}) async {
+  Future<bool> updateImageURL({String imgURL, String userID}) async {
     try {
       var result = await Firestore.instance
           .collection('User')
@@ -171,13 +196,12 @@ class UserRepository {
       });
 
       FirebaseUser user = await auth.currentUser();
-      await user.updatePassword(password).then((_){
+      await user.updatePassword(password).then((_) {
         print("Succesfull changed password");
-      }).catchError((error){
+      }).catchError((error) {
         print("Password can't be changed" + error.toString());
         //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
       });
-
     } catch (e) {
       return notComplete();
     }

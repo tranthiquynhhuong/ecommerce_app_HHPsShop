@@ -149,6 +149,8 @@ class _CartManager extends State<CartManager> {
                             initialData: _userBloc.userInfo,
                             stream: _userBloc.observableUser,
                             builder: (context, snapshot) {
+                              location.text =
+                                  snapshot.data.location.toString();
                               return Container(
                                 padding: const EdgeInsets.all(10.0),
                                 color: Colors.grey.shade300,
@@ -189,17 +191,16 @@ class _CartManager extends State<CartManager> {
                                     RaisedButton(
                                       color: Colors.amber.shade300,
                                       onPressed: () {
-                                        location.text =
-                                            snapshot.data.location.toString();
+                                        location.text ="";
                                       },
                                       child: Row(
                                         children: <Widget>[
                                           Icon(
-                                            Icons.home,
+                                            Icons.add_location,
                                             color: Colors.black,
                                           ),
                                           Text(
-                                            "    Lấy địa chỉ của tôi",
+                                            "  Lấy địa chỉ giao khác",
                                             style:
                                                 TextStyle(color: Colors.black),
                                           ),
@@ -327,12 +328,12 @@ class _CartManager extends State<CartManager> {
                           phone: int.parse(_userBloc.userInfo.phone),
                     );
 
-                    for (var o in _cartBloc.currentCart.orders) {
-                      resultUpdateQuantity = await ProductsRepository()
-                          .updateQuantityAfterBuy(o.product, o.quantity);
-                    }
+//                    for (var o in _cartBloc.currentCart.orders) {
+//                      resultUpdateQuantity = await ProductsRepository()
+//                          .updateQuantityAfterBuy(o.product, o.quantity);
+//                    }
 
-                    if (response == true && resultUpdateQuantity == true) {
+                    if (response == true) {
                       closeProgressDialog(context);
                       Navigator.of(context).pop();
                       _showResultDialog();

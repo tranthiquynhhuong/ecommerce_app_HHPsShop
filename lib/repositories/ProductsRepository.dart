@@ -134,17 +134,17 @@ class ProductsRepository {
     return product;
   }
 
-  Future<bool> updateQuantityAfterBuy(Product product, int quantityBuy) {
-    try {
-      Firestore.instance
-          .collection('Product')
-          .document(product.proID)
-          .updateData({'quantity': product.quantity - quantityBuy});
-    } catch (e) {
-      return notComplete();
-    }
-    return complete();
-  }
+//  Future<bool> updateQuantityAfterBuy(Product product, int quantityBuy) {
+//    try {
+//      Firestore.instance
+//          .collection('Product')
+//          .document(product.proID)
+//          .updateData({'quantity': product.quantity - quantityBuy});
+//    } catch (e) {
+//      return notComplete();
+//    }
+//    return complete();
+//  }
 
   Future<bool> updateFavoriteCount(String proID, int favoriteCount) {
     try {

@@ -153,7 +153,8 @@ class _GridCategoryProduct extends State<GridCategoryProduct> {
                                               left: index % 2 == 1 ? 5 : 0,
                                               bottom: index % 2 == 1 ? 20 : 0),
                                           child: ProductWidget(
-                                              product: _products[index]));
+                                              product: _products[index],
+                                            onRefresh: refeshList,));
                                     }),
                                 onRefresh: refeshList,
                               ),

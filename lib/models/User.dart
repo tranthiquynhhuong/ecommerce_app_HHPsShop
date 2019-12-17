@@ -10,9 +10,10 @@ class User {
   String _phone;
   String _signupdate;
   String _imgURL;
+  int _isActive;
 
   User(this._userID, this._fullname, this._email, this._password, this._gender,
-      this._signupdate, this._location, this._phone,this._imgURL);
+      this._signupdate, this._location, this._phone,this._imgURL,this._isActive);
 
   String get userID => _userID;
   String get fullname => _fullname;
@@ -23,6 +24,8 @@ class User {
   String get phone => _phone;
   String get signupdate => _signupdate;
   String get imgURL => _imgURL;
+  int get isActive => _isActive;
+
   setImage(String url) {
     _imgURL = url;
   }
