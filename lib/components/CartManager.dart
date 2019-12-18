@@ -23,9 +23,9 @@ class _CartManager extends State<CartManager> {
   TextEditingController location = new TextEditingController();
   final format = new NumberFormat("#,##0");
 
-
   @override
   void initState() {
+    location.text=_userBloc.userInfo.location;
     // TODO: implement initState
     super.initState();
   }
@@ -149,8 +149,7 @@ class _CartManager extends State<CartManager> {
                             initialData: _userBloc.userInfo,
                             stream: _userBloc.observableUser,
                             builder: (context, snapshot) {
-                              location.text =
-                                  snapshot.data.location.toString();
+
                               return Container(
                                 padding: const EdgeInsets.all(10.0),
                                 color: Colors.grey.shade300,
@@ -191,7 +190,7 @@ class _CartManager extends State<CartManager> {
                                     RaisedButton(
                                       color: Colors.amber.shade300,
                                       onPressed: () {
-                                        location.text ="";
+                                          location.text="";
                                       },
                                       child: Row(
                                         children: <Widget>[
@@ -328,10 +327,10 @@ class _CartManager extends State<CartManager> {
                           phone: int.parse(_userBloc.userInfo.phone),
                     );
 
-//                    for (var o in _cartBloc.currentCart.orders) {
-//                      resultUpdateQuantity = await ProductsRepository()
-//                          .updateQuantityAfterBuy(o.product, o.quantity);
-//                    }
+                    for (var o in _cartBloc.currentCart.orders) {
+                      resultUpdateQuantity = await ProductsRepository()
+                          .updateQuantityAfterBuy(o.product, o.quantity);
+                    }
 
                     if (response == true) {
                       closeProgressDialog(context);
@@ -356,6 +355,9 @@ class _CartManager extends State<CartManager> {
                 color: Colors.red.shade400,
                 onPressed: () {
                   Navigator.of(context).pop();
+                  setState(() {
+                    location.text=_userBloc.userInfo.location;
+                  });
                 },
                 child: Text('Hủy', style: TextStyle(color: Colors.white)),
               ),

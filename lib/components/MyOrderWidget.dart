@@ -4,6 +4,7 @@ import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 import 'package:grocery_shop_flutter/models/Order.dart';
 import 'package:grocery_shop_flutter/models/Receipt.dart';
 import 'package:grocery_shop_flutter/repositories/OrderRepository.dart';
+import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/repositories/ReceiptRepository.dart';
 import 'package:intl/intl.dart';
 
@@ -101,8 +102,9 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
               ? ListTile(
                   trailing: RaisedButton.icon(
                     color: Colors.red,
-                    onPressed: () {
-                      _showConfirmDialog();
+                    onPressed: () async {
+                      List<Order> orders = await OrderRepository().getOrderByReceiptID(widget.receipt.receiptID);
+                      _showConfirmDialog(orders);
                     },
                     icon: Icon(
                       Icons.cancel,
@@ -121,7 +123,7 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
     );
   }
 
-  void _showConfirmDialog() {
+  void _showConfirmDialog(List<Order> orders) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -139,6 +141,9 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                 bool response = await receiptRepository.updateCancelReceipt(
                     receiptID: widget.receipt.receiptID);
                 if (response == true) {
+                  for (var o in orders) {
+                    await ProductsRepository().updateQuantityAfterCancel(o.product, o.quantity);
+                  }
                   await _receiptBloc
                       .getReceiptWaiting(_userBloc.userInfo.userID);
                   await _receiptBloc

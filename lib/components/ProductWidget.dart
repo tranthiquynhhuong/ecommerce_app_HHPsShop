@@ -304,7 +304,6 @@ class _ProductWidgetState extends State<ProductWidget> {
               );
           });
     } catch (e) {
-      print(e);
     }
   }
 }

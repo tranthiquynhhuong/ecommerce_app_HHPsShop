@@ -61,6 +61,34 @@ class ProductBloc {
     }
   }
 
+  Future<bool> updateQuantityAfterBuy(Product product, int quantity)async{
+    try {
+      bool response = await _proRepo.updateQuantityAfterBuy(product,quantity);
+      _updateProduct();
+      if (response==false) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("Err increaseFavoriteCount ====> "+e);
+      return false;
+    }
+  }
+
+  Future<bool> updateQuantityAfterCancel(Product product, int quantity)async{
+    try {
+      bool response = await _proRepo.updateQuantityAfterCancel(product,quantity);
+      _updateProduct();
+      if (response==false) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print("Err increaseFavoriteCount ====> "+e);
+      return false;
+    }
+  }
+
   Future<bool> checkIsSale(String proID)async{
     try {
       bool response = await _proRepo.checkIsSale(proID);

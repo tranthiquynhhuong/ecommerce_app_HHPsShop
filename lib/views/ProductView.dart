@@ -103,8 +103,6 @@ class _ProductView extends State<ProductView> {
     );
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     if (widget.product.isSale == 1) {
@@ -695,20 +693,6 @@ class _ProductView extends State<ProductView> {
                                               builder: (context) =>
                                                   new MyHomePage()));
                                     } else {
-                                      print("================> quanlity: " +
-                                          _quantity.toString());
-                                      print(
-                                          "================> quanlity widget: " +
-                                              widget.product.quantity
-                                                  .toString());
-                                      print("================> hết hàng r");
-                                      setState(() {});
-//                                    _cartBloc.addOrderToCart(widget.product,
-//                                        widget.product.quantity);
-//                                    Navigator.of(context).push(
-//                                        new MaterialPageRoute(
-//                                            builder: (context) =>
-//                                                new MyHomePage()));
                                     }
                                   },
                                   child: new Text("Thêm vào giỏ",
