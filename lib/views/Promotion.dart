@@ -10,7 +10,7 @@ class PromotionPage extends StatefulWidget {
 }
 
 class _PromotionPageState extends State<PromotionPage> {
-  var _dropDownMenuItems=['Giá tăng dần','Giá giảm dần','Khuyến mãi mới nhất','Sắp hết khuyến mãi','Giảm giá cao','Giảm giá thấp'];
+  var _dropDownMenuItems=['Giá tăng dần','Giá giảm dần','Thời gian còn nhiều','Sắp hết khuyến mãi','Giảm giá cao','Giảm giá thấp'];
   String _selectedType;
   bool _showCart = false;
   CartBloc _cartBloc;

@@ -65,7 +65,7 @@ class _GridSaleProduct extends State<GridSaleProduct> {
             _productsSale=sortByPrice_Increase(snapshot.data);
           } else if(widget.selectedSortType=='Giá giảm dần'){
             _productsSale=sortByPrice_Decrease(snapshot.data);
-          } else if(widget.selectedSortType=='Khuyến mãi mới nhất'){
+          } else if(widget.selectedSortType=='Thời gian còn nhiều'){
             _productsSale=sortByDate_NewSale(snapshot.data);
           }else if(widget.selectedSortType=='Sắp hết khuyến mãi'){
             _productsSale=sortByDate_NearlyExpired(snapshot.data);
