@@ -24,6 +24,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
     super.initState();
   }
 
+  Future<Null> refeshListFB() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      FeedBackRepository()
+          .getFeedbackByID(widget.product.proID);
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +59,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
 
                     return FeedBackList(
                       items: _lstSortFb,
+                      onSubmit: refeshListFB,
                     );
                   },
                 ),

@@ -103,6 +103,8 @@ class _ProductView extends State<ProductView> {
     );
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     if (widget.product.isSale == 1) {

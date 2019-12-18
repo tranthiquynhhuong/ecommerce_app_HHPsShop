@@ -45,8 +45,9 @@ class _ProductWidgetState extends State<ProductWidget> {
       return GestureDetector(
           onTap: () async {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    new ProductView(product: widget.product,)));
+                builder: (context) => new ProductView(
+                      product: widget.product,
+                    )));
           },
           child: new Container(
               padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -126,7 +127,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   width: 400,
                                   height: 30,
                                   child: Center(
-                                    child: countDown(widget.product.endSale),
+                                    child: countDownEndSale(
+                                        widget.product.endSale),
                                   ),
                                 ),
                               ),
@@ -140,7 +142,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     new ProductView(product: widget.product)));
           },
           child: new Container(
-              padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -190,13 +192,28 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey,
-                                      fontSize: fontSize * 0.48))
+                                      fontSize: fontSize * 0.48)),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: new Container(
+                                  decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  width: 400,
+                                  height: 30,
+                                  child: Center(
+                                    child: countDownStartSale(
+                                        widget.product.startSale),
+                                  ),
+                                ),
+                              ),
                             ]))
                   ])));
     }
   }
 
-  Widget countDown(String endTime) {
+  Widget countDownEndSale(String endTime) {
     try {
       int _endTime = DateTime.parse(endTime).toUtc().millisecondsSinceEpoch;
       return StreamBuilder(
@@ -232,9 +249,62 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
               //color: Colors.greenAccent.withOpacity(0.3),
               alignment: Alignment.center,
-              child: Text(dateString),
+              child: Text(dateString,style: TextStyle(fontSize: 13)),
             );
           });
     } catch (e) {}
+  }
+
+  Widget countDownStartSale(String startTime) {
+    try {
+      int _startTime = DateTime.parse(startTime).toUtc().millisecondsSinceEpoch;
+      return StreamBuilder(
+          stream: Stream.periodic(Duration(seconds: 1), (i) => i),
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            int now = DateTime.now().toUtc().millisecondsSinceEpoch;
+            Duration remaining = Duration(milliseconds: _startTime - now);
+            int hour = remaining.inHours - remaining.inDays * 24;
+            int minute = remaining.inMinutes - remaining.inHours * 60;
+            int second = remaining.inSeconds - remaining.inMinutes * 60;
+            var dateString = '${remaining.inDays} ngày $hour:$minute:$second nữa';
+
+            if (remaining.inSeconds == 0 || remaining.inSeconds < 0) {
+              widget.onRefresh();
+              return Container(
+                color: Colors.white,
+              );
+            } else
+              return Container(
+                decoration: new BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 13.0,
+                      color: Colors.grey.withOpacity(.5),
+                      offset: Offset(6.0, 7.0),
+                    ),
+                  ],
+                  gradient: new LinearGradient(
+                      colors: [
+                        Colors.orangeAccent.withOpacity(0.3),
+                        Colors.deepOrange
+                      ],
+                      begin: Alignment.centerRight,
+                      end: new Alignment(-1.0, -1.0)),
+                ),
+                //color: Colors.greenAccent.withOpacity(0.3),
+                alignment: Alignment.center,
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Text("Khuyến mãi "+widget.product.discount.toString()+"% sau"),
+                      Text(dateString,style: TextStyle(fontSize: 13),),
+                    ],
+                  ),
+                )
+              );
+          });
+    } catch (e) {
+      print(e);
+    }
   }
 }
