@@ -21,6 +21,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
+    _proBloc.getProductByID(widget.product.proID);
     // TODO: implement initState
     super.initState();
   }
@@ -42,10 +43,10 @@ class _ProductWidgetState extends State<ProductWidget> {
 
     if (product.isSale == 1) {
       return GestureDetector(
-          onTap: () {
+          onTap: () async {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
-                    new ProductView(product: widget.product)));
+                    new ProductView(product: widget.product,)));
           },
           child: new Container(
               padding: EdgeInsets.fromLTRB(10, 5, 10, 0),

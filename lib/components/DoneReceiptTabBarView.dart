@@ -14,6 +14,7 @@ class _DoneReceiptTabBarViewState extends State<DoneReceiptTabBarView>
     with AutomaticKeepAliveClientMixin<DoneReceiptTabBarView> {
   final _userBloc = UserBloc();
   final _receiptBloc = ReceiptBloc();
+
   bool isLoading = true;
   List<Receipt> _lstSortDoneReceipts = [];
 
@@ -75,8 +76,18 @@ class _DoneReceiptTabBarViewState extends State<DoneReceiptTabBarView>
           if ((snapshot.data == null || snapshot.data.length == 0) &&
               !isLoading) {
             return Container(
-              child: Center(
-                child: Text("Hiện không có đơn hàng nào!"),
+              child: RefreshIndicator(
+                onRefresh: refeshList,
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(
+                        child: Text("Hiện không có đơn hàng nào!"),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           } else {

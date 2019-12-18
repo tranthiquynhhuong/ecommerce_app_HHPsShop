@@ -28,16 +28,20 @@ class _ProductView extends State<ProductView> {
 
   int _quantity = 1;
   bool alreadySaved;
+  @override
+  void afterFirstLayout(BuildContext context) {
+    // TODO: implement afterFirstLayout
+    _productBloc.getProductByID(widget.product.proID);
+  }
 
   @override
   void initState() {
-    _productBloc.getProductByID(widget.product.proID);
     //    // TODO: implement initState
     super.initState();
   }
 
   void _increment() {
-    if(_quantity<widget.product.quantity){
+    if (_quantity < widget.product.quantity) {
       setState(() {
         _quantity++;
       });
@@ -675,27 +679,34 @@ class _ProductView extends State<ProductView> {
                                     await _productBloc
                                         .getProductByID(widget.product.proID);
                                     if (_productBloc.product.quantity == 0) {
-                                      setState(() {});
+                                      setState(() {
+                                        _productBloc.getProductByID(
+                                            widget.product.proID);
+                                      });
+                                    } else if (_quantity <
+                                            widget.product.quantity ||
+                                        _quantity == widget.product.quantity) {
+                                      _cartBloc.addOrderToCart(
+                                          widget.product, _quantity);
+                                      Navigator.of(context).push(
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                                  new MyHomePage()));
                                     } else {
-                                      if (_quantity < widget.product.quantity ||
-                                          _quantity ==
-                                              widget.product.quantity) {
-                                        _cartBloc.addOrderToCart(
-                                            widget.product, _quantity);
-                                        Navigator.of(context).push(
-                                            new MaterialPageRoute(
-                                                builder: (context) =>
-                                                    new MyHomePage()));
-                                      } else {
-                                        print("================> hết hàng r");
-                                        setState(() {});
+                                      print("================> quanlity: " +
+                                          _quantity.toString());
+                                      print(
+                                          "================> quanlity widget: " +
+                                              widget.product.quantity
+                                                  .toString());
+                                      print("================> hết hàng r");
+                                      setState(() {});
 //                                    _cartBloc.addOrderToCart(widget.product,
 //                                        widget.product.quantity);
 //                                    Navigator.of(context).push(
 //                                        new MaterialPageRoute(
 //                                            builder: (context) =>
 //                                                new MyHomePage()));
-                                      }
                                     }
                                   },
                                   child: new Text("Thêm vào giỏ",
