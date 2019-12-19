@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 import 'package:grocery_shop_flutter/components/FeedBackField.dart';
 import 'package:grocery_shop_flutter/components/FeedBackList.dart';
@@ -56,10 +57,56 @@ class _FeedBackPageState extends State<FeedBackPage> {
                     if (snapshot.data == null) return Container();
                     _feedBacks = List<FeedBack>.from(snapshot.data);
                     _lstSortFb = sortByDate(_feedBacks);
+                    double _ratingSUM = 0.0;
+                    double _ratingAVG = 0.0;
 
-                    return FeedBackList(
+                    for(var fb in _lstSortFb){
+                      _ratingSUM = _ratingSUM + fb.rating;
+                      _ratingAVG = _ratingSUM/_lstSortFb.length;
+                    }
+
+                    return Column(
+                      children: <Widget>[
+                        Container(
+                          height: 50,
+
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide( //                   <--- left side
+                                color: Colors.grey,
+                                width: 3.0,
+                              ),
+                            ),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                RatingBar(
+                                  initialRating: _ratingAVG,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 25,
+                                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  onRatingUpdate: (rating) {
+                                    print(rating);
+                                  },
+                                ),
+                                Text(_ratingAVG.toString() + " / 5"+" ("+_lstSortFb.length.toString()+" Đánh giá)",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                              ],
+                            ),
+                          ),
+                        ),
+                      FeedBackList(
                       items: _lstSortFb,
                       onSubmit: refeshListFB,
+                    ),
+                      ],
                     );
                   },
                 ),

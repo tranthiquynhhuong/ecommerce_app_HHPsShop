@@ -125,7 +125,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5))),
                                   width: 400,
-                                  height: 30,
+                                  height: 35,
                                   child: Center(
                                     child: countDownEndSale(
                                         widget.product.endSale),
@@ -201,7 +201,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5))),
                                   width: 400,
-                                  height: 30,
+                                  height: 35,
                                   child: Center(
                                     child: countDownStartSale(
                                         widget.product.startSale),

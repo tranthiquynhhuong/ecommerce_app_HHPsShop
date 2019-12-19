@@ -19,8 +19,11 @@ class _FeedBackListState extends State<FeedBackList> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var height = screenSize.height;
+
     return Container(
-        height: 400,
+        height: height-350,
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(5.0),

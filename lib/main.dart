@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_shop_flutter/views/SignIn.dart';
 import 'package:grocery_shop_flutter/views/SplashScreen.dart';
 import 'bloc/ThemeBloc.dart';
-import 'views/Home.dart';
 
 void main() => runApp(MyApp());
 
