@@ -13,11 +13,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin {
   final _themeBloc=ThemeBloc();
-
+  final _userBloc=UserBloc();
 
   checkAuth() {
     UserBloc().checkAuth().then((bool isAuth) async {
-      if (isAuth == false) {
+      if (isAuth == false || _userBloc.autoLoginEnabled==false) {
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (_) => new SignIn()));
         return;
@@ -29,8 +29,9 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin {
   }
 
   @override
-  void afterFirstLayout(BuildContext context) {
-    _themeBloc.getThemeValuesSF();
+  void afterFirstLayout(BuildContext context) async{
+    await _userBloc.getAutoLoginValuesSF();
+    await _themeBloc.getThemeValuesSF();
     // TODO: implement afterFirstLayout
     checkAuth();
   }

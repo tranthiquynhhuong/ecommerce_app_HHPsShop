@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/ThemeBloc.dart';
+import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 
 class Setting extends StatefulWidget {
 
@@ -9,6 +10,8 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   final _themeBloc=ThemeBloc();
+  final _userBloc=UserBloc();
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,25 +44,50 @@ class _SettingState extends State<Setting> {
           ],
         ),
       ),
-      body: StreamBuilder(
-        initialData: _themeBloc.dartThemeEnabled,
-        stream: _themeBloc.observableTheme,
-        builder: (context, snapshot) {
-          return Container(
-            child: ListTile(
-              title: Text("Chủ đề ban đêm",style: TextStyle(color: Colors.black),),
-              trailing: Container(
-                width: 70,
-                child: Switch(
-                  value: snapshot.data,
-                  onChanged: (value){
-                    _themeBloc.changeTheme();
-                  },
-                ),
-              ),
-            ),
-          );
-        }
+      body: Column(
+        children: <Widget>[
+          StreamBuilder(
+              initialData: _themeBloc.dartThemeEnabled,
+              stream: _themeBloc.observableTheme,
+              builder: (context, snapshot) {
+                return Container(
+                  child: ListTile(
+                    title: Text("Chủ đề ban đêm",style: TextStyle(color: Colors.black),),
+                    trailing: Container(
+                      width: 70,
+                      child: Switch(
+                        value: snapshot.data,
+                        onChanged: (value){
+                          _themeBloc.changeTheme();
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              }
+          ),
+
+          StreamBuilder(
+              initialData: _userBloc.autoLoginEnabled,
+              stream: _userBloc.observableAutoLogin,
+              builder: (context, snapshot) {
+                return Container(
+                  child: ListTile(
+                    title: Text("Tự động đăng nhập",style: TextStyle(color: Colors.black),),
+                    trailing: Container(
+                      width: 70,
+                      child: Switch(
+                        value: snapshot.data,
+                        onChanged: (value){
+                          _userBloc.changeAutoLogin();
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              }
+          ),
+        ],
       ),
     );
   }

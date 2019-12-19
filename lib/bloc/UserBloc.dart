@@ -2,13 +2,18 @@
 import 'package:grocery_shop_flutter/models/User.dart';
 import 'package:grocery_shop_flutter/repositories/UserRepository.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc {
   final _userRepo = UserRepository();
   static UserBloc _userBloc;
+
+  PublishSubject<bool> _publishSubjectAutoLogin;
+  bool _autoLoginEnabled = false;
+  bool get autoLoginEnabled => _autoLoginEnabled;
+
   PublishSubject<User> _publishSubjectUser;
   User _userInfo;
-
   User get userInfo => _userInfo;
 
   factory UserBloc() {
@@ -19,9 +24,46 @@ class UserBloc {
 
   UserBloc._() {
     _publishSubjectUser = new PublishSubject<User>();
+    _publishSubjectAutoLogin = new PublishSubject<bool>();
   }
 
   Observable<User> get observableUser => _publishSubjectUser.stream;
+  Observable<bool> get observableAutoLogin => _publishSubjectAutoLogin.stream;
+
+  void changeAutoLogin() async {
+    try {
+      _autoLoginEnabled = !_autoLoginEnabled;
+      if (_autoLoginEnabled == true) {
+        autoLoginEnableToSF();
+      } else if (_autoLoginEnabled == false) {
+        autoLoginDisableToSF();
+      }
+      getAutoLoginValuesSF();
+      _updateUser();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getAutoLoginValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    bool boolValue = prefs.getBool('autoLoginEnable');
+    _autoLoginEnabled=boolValue;
+    _updateUser();
+    return boolValue;
+  }
+
+  autoLoginEnableToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('autoLoginEnable', true);
+  }
+
+  autoLoginDisableToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('autoLoginEnable', false);
+  }
+
 
   Future<bool> getUserInfo(String uID) async {
     try {
@@ -125,10 +167,12 @@ class UserBloc {
 
   void _updateUser() {
     _publishSubjectUser.sink.add(_userInfo);
+    _publishSubjectAutoLogin.sink.add(_autoLoginEnabled);
   }
 
   dispose() {
     _userBloc = null;
     _publishSubjectUser.close();
+    _publishSubjectAutoLogin.close();
   }
 }
