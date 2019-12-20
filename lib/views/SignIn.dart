@@ -116,7 +116,7 @@ class _SignInState extends State<SignIn> {
             context, MaterialPageRoute(builder: (context) => new MyHomePage()));
       } else {
         closeProgressDialog(context);
-        showSnackbar("Tài khoản đăng nhập không đúng hoặc bạn chưa xác thực tài khoản của mình!", scaffoldKey);
+        showSnackbar("ĐĂNG NHẬP THẤT BẠI\n*Tài khoản đăng nhập không đúng ! \n*Bạn chưa xác thực tài khoản của mình ! \n*Bạn đã bị khóa tài khoản vì lý do nào đó !", scaffoldKey);
       }
     }
   }

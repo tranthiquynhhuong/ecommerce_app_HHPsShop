@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       stream: themeBloc.observableTheme,
       initialData: false,
       builder: (context, snapshot) {
+        if(!snapshot.hasData) return Container(color: Colors.red,);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Grocery Store',

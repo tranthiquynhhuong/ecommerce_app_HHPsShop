@@ -59,10 +59,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
                     _lstSortFb = sortByDate(_feedBacks);
                     double _ratingSUM = 0.0;
                     double _ratingAVG = 0.0;
+                    int feedbackCout = 0;
 
                     for(var fb in _lstSortFb){
-                      _ratingSUM = _ratingSUM + fb.rating;
-                      _ratingAVG = _ratingSUM/_lstSortFb.length;
+                     if(fb.invalid==1){
+                       _ratingSUM = _ratingSUM + fb.rating;
+                       _ratingAVG = _ratingSUM/_lstSortFb.length;
+                       feedbackCout++;
+                     }
                     }
 
                     return Column(
@@ -97,7 +101,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                     print(rating);
                                   },
                                 ),
-                                Text(_ratingAVG.toString() + " / 5"+" ("+_lstSortFb.length.toString()+" Đánh giá)",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                                Text(_ratingAVG.toString() + " / 5"+" ("+feedbackCout.toString()+" Đánh giá)",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                               ],
                             ),
                           ),
@@ -113,11 +117,13 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 FeedBackField(onSubmit: (fb,rating) async {
                   bool response = await FeedBackRepository().createFeedback(
                       _userBloc.userInfo.email,fb,rating, widget.product.proID);
-                  if (response) {
+                  bool checkUserWasBought = await FeedBackRepository().checkUserWasBought(
+                      _userBloc.userInfo.userID,widget.product.proID);
+                  if (response==true && checkUserWasBought ==true) {
                     setState(() {});
                   }
                   return response;
-                }),
+                },uid: _userBloc.userInfo.userID,proID: widget.product.proID),
               ],
             ),
           ),

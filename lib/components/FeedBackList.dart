@@ -31,9 +31,12 @@ class _FeedBackListState extends State<FeedBackList> {
             child: ListView.builder(
               itemCount: widget.items.length,
               itemBuilder: (context, index) {
-                return FeedBackWidget(
-                  fb: widget.items[index],
-                );
+                if(widget.items[index].invalid==1){
+                  return FeedBackWidget(
+                    fb: widget.items[index],
+                  );
+                }
+                return Container();
               },
             ),
             onRefresh: refeshListFB,

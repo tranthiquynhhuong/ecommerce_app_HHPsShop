@@ -1,28 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery_shop_flutter/repositories/FeedbackRepository.dart';
 
 class FeedBackField extends StatefulWidget {
+  final String uid;
+  final String proID;
   final Function(String,double) onSubmit;
-  FeedBackField({this.onSubmit});
+  FeedBackField({this.onSubmit,this.proID,this.uid});
 
   @override
   _FeedBackFieldState createState() => _FeedBackFieldState();
 }
 
 class _FeedBackFieldState extends State<FeedBackField> {
+  bool _checkValid = false;
   TextEditingController comment = new TextEditingController();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   double _rating;
 
   @override
   void initState() {
-    _rating=0.0;
+    _rating = 0.0;
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
+    if(_checkValid==true){
+      return Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+            color: Colors.amber.shade400,
+            borderRadius:
+            BorderRadius.all(const Radius.circular(30))),
+        child: Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+              strokeWidth: 2,
+            )),
+      );
+    }
     return Container(
       height: 200,
       color: Colors.white,
@@ -35,14 +55,15 @@ class _FeedBackFieldState extends State<FeedBackField> {
               allowHalfRating: true,
               itemCount: 5,
               itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
+              itemBuilder: (context, _) =>
+                  Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
               onRatingUpdate: (rating) {
                 print(rating);
                 setState(() {
-                  _rating=rating;
+                  _rating = rating;
                 });
               },
             ),
@@ -91,36 +112,73 @@ class _FeedBackFieldState extends State<FeedBackField> {
   }
 
   sentFeedback() async {
-    if(_rating==null){
-      Fluttertoast.showToast(
-          msg: "Vui lòng xếp hạng cho sản phẩm bằng cách chọn các biểu tượng ngôi sao (1->5) !",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 3,
-          backgroundColor: Colors.amber,
-          textColor: Colors.black,
-          fontSize: 16.0);
-    }
-    if(comment.text.length == 0){
-      Fluttertoast.showToast(
-          msg: "Vui lòng nhập đánh giá cho sản phẩm !",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 3,
-          backgroundColor: Colors.amber,
-          textColor: Colors.black,
-          fontSize: 16.0);
-    }
-    if (comment.text.length != 0&&_rating!=0.0) {
-      FocusScope.of(context).requestFocus(new FocusNode());
-      bool response = await widget.onSubmit(comment.text,_rating);
-      if (response) {
-        comment.clear();
+    setState(() {
+      _checkValid = true;
+    });
+
+    try {
+      bool response = await FeedBackRepository().checkUserWasBought(
+          widget.uid, widget.proID);
+
+
+
+
+
+      if (response == true) {
+        if (_rating == 0.0) {
+          setState(() {
+            _checkValid = false;
+          });
+          Fluttertoast.showToast(
+              msg: "Vui lòng xếp hạng cho sản phẩm bằng cách chọn các biểu tượng ngôi sao (1->5) !",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 3,
+              backgroundColor: Colors.amber,
+              textColor: Colors.black,
+              fontSize: 16.0);
+        }
+        if (comment.text.length == 0) {
+          setState(() {
+            _checkValid = false;
+          });
+          Fluttertoast.showToast(
+              msg: "Vui lòng nhập đánh giá cho sản phẩm !",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIos: 3,
+              backgroundColor: Colors.amber,
+              textColor: Colors.black,
+              fontSize: 16.0);
+        }
+        if (comment.text.length != 0 && _rating != 0.0) {
+          FocusScope.of(context).requestFocus(new FocusNode());
+          bool response = await widget.onSubmit(comment.text, _rating);
+          if (response) {
+            comment.clear();
+            setState(() {
+              _rating = 0.0;
+              _checkValid = false;
+            });
+            print("Rating ==========> " + _rating.toString());
+          }
+        }
+      } else if (response == false) {
         setState(() {
-          _rating=0.0;
+          _checkValid = false;
         });
-        print("Rating ==========> "+_rating.toString());
+        Fluttertoast.showToast(
+            msg: "Bạn chưa từng mua sản phẩm này nên không thể viết đánh giá !",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 3,
+            backgroundColor: Colors.amber,
+            textColor: Colors.black,
+            fontSize: 16.0);
       }
+    } catch (e) {
+      _checkValid = false;
+      print("=======> sent feedback err: " + e);
     }
   }
 }

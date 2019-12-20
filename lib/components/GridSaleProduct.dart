@@ -33,7 +33,6 @@ class _GridSaleProduct extends State<GridSaleProduct> {
     await Future.delayed(Duration(seconds: 2));
     ProductsRepository().getProductSale();
     setState(() {
-      _productsSale=[];
     });
   }
 
@@ -65,9 +64,7 @@ class _GridSaleProduct extends State<GridSaleProduct> {
             _productsSale=sortByPrice_Increase(snapshot.data);
           } else if(widget.selectedSortType=='Giá giảm dần'){
             _productsSale=sortByPrice_Decrease(snapshot.data);
-          } else if(widget.selectedSortType=='Thời gian còn nhiều'){
-            _productsSale=sortByDate_NewSale(snapshot.data);
-          }else if(widget.selectedSortType=='Sắp hết khuyến mãi'){
+          } else if(widget.selectedSortType=='Sắp hết khuyến mãi'){
             _productsSale=sortByDate_NearlyExpired(snapshot.data);
           }else if(widget.selectedSortType=='Giảm giá cao'){
             _productsSale=sortByDiscount_Decrease(snapshot.data);
@@ -155,15 +152,6 @@ class _GridSaleProduct extends State<GridSaleProduct> {
   sortByPrice_Increase(List<Product> pros) {
     List<Product> sortPros = [];
     pros.sort((a, b) => (a.price-(a.price*a.discount~/100)).compareTo((b.price-(b.price*b.discount~/100))));
-    for (var p in pros) {
-      sortPros.add(p);
-    }
-    return sortPros;
-  }
-
-  sortByDate_NewSale(List<Product> pros) {
-    List<Product> sortPros = [];
-    pros.sort((a, b) => a.startSale.compareTo(b.startSale));
     for (var p in pros) {
       sortPros.add(p);
     }

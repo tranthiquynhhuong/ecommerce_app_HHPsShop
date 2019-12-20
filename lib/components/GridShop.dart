@@ -156,7 +156,7 @@ class _GridShop extends State<GridShop> {
     double _gridSize =
         MediaQuery.of(context).size.height - 100; //88% of screen
     double childAspectRatio = MediaQuery.of(context).size.width /
-        (MediaQuery.of(context).size.height / 0.9);
+        (MediaQuery.of(context).size.height / 1.0);
     return _buildProductGrid(_gridSize, childAspectRatio);
   }
 }
