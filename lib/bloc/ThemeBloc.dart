@@ -42,7 +42,7 @@ class ThemeBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return bool
     bool boolValue = prefs.getBool('darkThemeEnable');
-    _dartThemeEnabled=boolValue;
+    _dartThemeEnabled=boolValue??false;
     _updateTheme();
     return boolValue;
   }

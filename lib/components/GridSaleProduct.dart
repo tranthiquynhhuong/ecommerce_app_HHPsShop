@@ -109,10 +109,10 @@ class _GridSaleProduct extends State<GridSaleProduct> {
                                         (BuildContext context, int index) {
                                       return new Padding(
                                           padding: EdgeInsets.only(
-                                              top: index % 2 == 0 ? 20 : 0,
+                                              top: index % 2 == 0 ? 10 : 0,
                                               right: index % 2 == 0 ? 5 : 0,
                                               left: index % 2 == 1 ? 5 : 0,
-                                              bottom: index % 2 == 1 ? 20 : 0),
+                                              bottom: index % 2 == 1 ? 10 : 0),
                                           child: ProductWidget(
                                               product: _productsSale[index],
                                             onRefresh: refeshList,),);
@@ -133,10 +133,9 @@ class _GridSaleProduct extends State<GridSaleProduct> {
   @override
   Widget build(BuildContext context) {
     double _gridSize =
-        MediaQuery.of(context).size.height - 100; //88% of screen
+        MediaQuery.of(context).size.height - 80; //88% of screen
     double childAspectRatio = MediaQuery.of(context).size.width /
         (MediaQuery.of(context).size.height / 1.0);
-
     return _buildProductGrid(_gridSize, childAspectRatio);
   }
 

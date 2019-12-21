@@ -49,7 +49,7 @@ class UserBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return bool
     bool boolValue = prefs.getBool('autoLoginEnable');
-    _autoLoginEnabled=boolValue;
+    _autoLoginEnabled=boolValue??false;
     _updateUser();
     return boolValue;
   }

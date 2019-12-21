@@ -145,11 +145,15 @@ class _FeedBackFieldState extends State<FeedBackField> {
               fontSize: 16.0);
         }
         if (comment.text.length != 0 && _rating != 0.0) {
+          setState(() {
+            _checkValid = true;
+          });
           FocusScope.of(context).requestFocus(new FocusNode());
           bool response = await widget.onSubmit(comment.text, _rating);
           if (response) {
             comment.clear();
             setState(() {
+              _checkValid = false;
               _rating = 0.0;
             });
             print("Rating ==========> " + _rating.toString());

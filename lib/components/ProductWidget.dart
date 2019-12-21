@@ -36,8 +36,8 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height / 1.2;
-    double fontSize = (height / 24).round().toDouble();
+    double height = MediaQuery.of(context).size.height / 1.3;
+    double fontSize = (height / 20).round().toDouble();
     final format = new NumberFormat("#,##0");
     product = widget.product;
 
@@ -78,7 +78,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               height: height * 0.20,
                             ))),
                     new Container(
-                        height: height * 0.25,
+                        height: height * 0.3,
                         margin: EdgeInsets.only(top: 10),
                         child: new Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -168,7 +168,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               height: height * 0.20,
                             ))),
                     new Container(
-                        height: height * 0.25,
+                        height: height * 0.3,
                         margin: EdgeInsets.only(top: 10),
                         child: new Column(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -32,8 +32,8 @@ class _CartManager extends State<CartManager> {
 
   @override
   Widget build(BuildContext context) {
-    double _gridSize = MediaQuery.of(context).size.height * 0.88;
-
+    //double _gridSize = MediaQuery.of(context).size.height * 0.88;
+    double _gridSize = MediaQuery.of(context).size.height  - 100;
     return new Container(
         height: MediaQuery.of(context).size.height,
         child: new Stack(children: <Widget>[
@@ -59,48 +59,56 @@ class _CartManager extends State<CartManager> {
                                             fontSize: 40,
                                             fontWeight: FontWeight.bold))),
                                 new Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    height: _gridSize * 0.60,
-                                    child: new ListView.builder(
-                                        itemCount: snapshot.data.orders.length,
-                                        itemBuilder: (context, index) {
-                                          return Dismissible(
-                                            background: Container(
-                                                color: Colors.transparent),
-                                            key: Key(snapshot
-                                                .data.orders[index].id
-                                                .toString()),
-                                            onDismissed: (_) {
-                                              _cartBloc.removerOrderOfCart(
-                                                  snapshot.data.orders[index]);
-                                            },
-                                            child: new Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10),
-                                                child: new OrderWidget(
-                                                    snapshot.data.orders[index],
-                                                    _gridSize)),
-                                          );
-                                        })),
-                                new Container(
-                                    height: _gridSize * 0.15,
-                                    child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          new Text("Tổng cộng",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20)),
-                                          Flexible(
-                                            child: Text(
-                                                format.format(snapshot.data.totalPrice()).toString()+"đ",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 40)),
-                                          ),
-                                        ]))
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        new Container(
+                                            margin: EdgeInsets.only(bottom: 10),
+                                            height: _gridSize-220,
+                                            child: new ListView.builder(
+                                                itemCount: snapshot.data.orders.length,
+                                                itemBuilder: (context, index) {
+                                                  return Dismissible(
+                                                    background: Container(
+                                                        color: Colors.transparent),
+                                                    key: Key(snapshot
+                                                        .data.orders[index].id
+                                                        .toString()),
+                                                    onDismissed: (_) {
+                                                      _cartBloc.removerOrderOfCart(
+                                                          snapshot.data.orders[index]);
+                                                    },
+                                                    child: new Padding(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                        child: new OrderWidget(
+                                                            snapshot.data.orders[index],
+                                                            _gridSize)),
+                                                  );
+                                                })),
+                                        new Container(
+                                            child: new Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  new Text("Tổng cộng",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20)),
+                                                  Flexible(
+                                                    child: Text(
+                                                        format.format(snapshot.data.totalPrice()).toString()+"đ",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 40)),
+                                                  ),
+                                                ]))
+                                      ],
+                                    ),
+                                  ),
+                                  height: _gridSize / 1.4,
+                                ),
                               ]));
                     }),
               ]),
@@ -139,7 +147,7 @@ class _CartManager extends State<CartManager> {
             content: Container(
               //color: Colors.white,
               width: 550,
-              height: 600,
+              height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -151,9 +159,9 @@ class _CartManager extends State<CartManager> {
                             builder: (context, snapshot) {
 
                               return Container(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.all(5.0),
                                 color: Colors.grey.shade300,
-                                height: 225,
+                                height: 200,
                                 child: Column(
                                   children: <Widget>[
                                     Row(
@@ -179,7 +187,7 @@ class _CartManager extends State<CartManager> {
                                       ],
                                     ),
                                     Container(
-                                      height: 50,
+                                      height: 40,
                                       child: appTextField(
                                         isPassword: false,
                                         textHint: "*Địa chỉ giao",
@@ -214,6 +222,7 @@ class _CartManager extends State<CartManager> {
                           color: Colors.red,
                         ),
                         Container(
+                          height: 15,
                           child: Center(
                             child: Text(
                               "Vui lòng kiểm tra thông tin",
@@ -225,7 +234,8 @@ class _CartManager extends State<CartManager> {
                         ),
                         Divider(color: Colors.red),
                         new Container(
-                          height: 160,
+                          color: Colors.white,
+                          height: MediaQuery.of(context).size.height / 4.5,
                           child: new ListView.builder(
                             itemCount: _cartBloc.currentCart.orders.length,
                             itemBuilder: (context, index) {
@@ -276,18 +286,18 @@ class _CartManager extends State<CartManager> {
                           color: Colors.red,
                         ),
                         Container(
-                          child: Column(
+                          child: Row(
                             children: <Widget>[
-                              Center(
-                                child: Text("TỔNG CỘNG"),
-                              ),
-                              Center(
+                              Text("TỔNG CỘNG: "),
+                              Flexible(
                                 child: Text(format.format(_cartBloc.currentCart
                                     .totalPrice())
                                     .toString()+"đ",),
                               ),
+
                             ],
-                          ),
+                          )
+ //
                         ),
                       ],
                     ),
