@@ -68,11 +68,11 @@ class _AppInfomationState extends State<AppInfomation> {
                 ),
                 Text(
                   "Building M-commerce system",
-                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 Text(
                   "with Google Flutter and Firebase",
-                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
                 ),
 
                 Padding(

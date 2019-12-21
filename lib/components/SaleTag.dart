@@ -16,7 +16,7 @@ class SaleTag extends StatelessWidget {
 
             borderRadius: BorderRadius.all(Radius.circular(20))),
         width: 50,
-        height: 30,
+        height: 25,
         child: Center(
           child: Text(
             "-" + discout + "%",

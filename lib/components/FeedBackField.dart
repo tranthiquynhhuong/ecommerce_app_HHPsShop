@@ -156,7 +156,15 @@ class _FeedBackFieldState extends State<FeedBackField> {
               _checkValid = false;
               _rating = 0.0;
             });
-            print("Rating ==========> " + _rating.toString());
+            Fluttertoast.showToast(
+                msg:
+                "Bình luận của bạn đang chờ quản trị viên duyệt để có thể hiển thị!",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIos: 3,
+                backgroundColor: Colors.amber,
+                textColor: Colors.black,
+                fontSize: 16.0);
           }
         }
       } else if (response == false) {

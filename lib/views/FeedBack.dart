@@ -28,9 +28,8 @@ class _FeedBackPageState extends State<FeedBackPage> {
   Future<Null> refeshListFB() async {
     await Future.delayed(Duration(seconds: 2));
     setState(() {
-      FeedBackRepository()
-          .getFeedbackByID(widget.product.proID);
-      });
+      FeedBackRepository().getFeedbackByID(widget.product.proID);
+    });
   }
 
   @override
@@ -61,22 +60,24 @@ class _FeedBackPageState extends State<FeedBackPage> {
                     double _ratingAVG = 0.0;
                     int feedbackCout = 0;
 
-                    for(var fb in _lstSortFb){
-                     if(fb.invalid==1){
-                       _ratingSUM = _ratingSUM + fb.rating;
-                       _ratingAVG = _ratingSUM/_lstSortFb.length;
-                       feedbackCout++;
-                     }
+                    for (var fb in _lstSortFb) {
+                      if (fb.invalid == 1) {
+                        _ratingSUM = _ratingSUM + fb.rating;
+                        feedbackCout++;
+                      }
                     }
+                    feedbackCout == 0
+                        ? _ratingAVG = 0.0
+                        : _ratingAVG = _ratingSUM / feedbackCout;
 
                     return Column(
                       children: <Widget>[
                         Container(
                           height: 50,
-
                           decoration: BoxDecoration(
                             border: Border(
-                              bottom: BorderSide( //                   <--- left side
+                              bottom: BorderSide(
+                                //                   <--- left side
                                 color: Colors.grey,
                                 width: 3.0,
                               ),
@@ -87,12 +88,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 RatingBar(
+                                  tapOnlyMode: true,
                                   initialRating: _ratingAVG,
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 25,
-                                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: Colors.amber,
@@ -101,29 +104,45 @@ class _FeedBackPageState extends State<FeedBackPage> {
                                     print(rating);
                                   },
                                 ),
-                                Text(_ratingAVG.toString() + " / 5"+" ("+feedbackCout.toString()+" Đánh giá)",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                                Text(
+                                  _ratingAVG.toStringAsFixed(1) +
+                                      " / 5" +
+                                      " (" +
+                                      feedbackCout.toString() +
+                                      " Đánh giá)",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                           ),
                         ),
-                      FeedBackList(
-                      items: _lstSortFb,
-                      onSubmit: refeshListFB,
-                    ),
+                        FeedBackList(
+                          items: _lstSortFb,
+                          onSubmit: refeshListFB,
+                        ),
                       ],
                     );
                   },
                 ),
-                FeedBackField(onSubmit: (fb,rating) async {
-                  bool response = await FeedBackRepository().createFeedback(
-                      _userBloc.userInfo.email,fb,rating, widget.product.proID);
-                  bool checkUserWasBought = await FeedBackRepository().checkUserWasBought(
-                      _userBloc.userInfo.userID,widget.product.proID);
-                  if (response==true && checkUserWasBought ==true) {
-                    setState(() {});
-                  }
-                  return response;
-                },uid: _userBloc.userInfo.userID,proID: widget.product.proID),
+                FeedBackField(
+                    onSubmit: (fb, rating) async {
+                      bool response = await FeedBackRepository().createFeedback(
+                          _userBloc.userInfo.email,
+                          fb,
+                          rating,
+                          widget.product.proID);
+                      bool checkUserWasBought = await FeedBackRepository()
+                          .checkUserWasBought(
+                              _userBloc.userInfo.userID, widget.product.proID);
+                      if (response == true && checkUserWasBought == true) {
+                        setState(() {});
+                      }
+                      return response;
+                    },
+                    uid: _userBloc.userInfo.userID,
+                    proID: widget.product.proID),
               ],
             ),
           ),
