@@ -6,8 +6,8 @@ import 'package:grocery_shop_flutter/repositories/FeedbackRepository.dart';
 class FeedBackField extends StatefulWidget {
   final String uid;
   final String proID;
-  final Function(String,double) onSubmit;
-  FeedBackField({this.onSubmit,this.proID,this.uid});
+  final Function(String, double) onSubmit;
+  FeedBackField({this.onSubmit, this.proID, this.uid});
 
   @override
   _FeedBackFieldState createState() => _FeedBackFieldState();
@@ -28,19 +28,18 @@ class _FeedBackFieldState extends State<FeedBackField> {
 
   @override
   Widget build(BuildContext context) {
-    if(_checkValid==true){
+    if (_checkValid == true) {
       return Container(
         height: 50,
         width: 50,
         decoration: BoxDecoration(
             color: Colors.amber.shade400,
-            borderRadius:
-            BorderRadius.all(const Radius.circular(30))),
+            borderRadius: BorderRadius.all(const Radius.circular(30))),
         child: Center(
             child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-              strokeWidth: 2,
-            )),
+          backgroundColor: Colors.white,
+          strokeWidth: 2,
+        )),
       );
     }
     return Container(
@@ -55,11 +54,10 @@ class _FeedBackFieldState extends State<FeedBackField> {
               allowHalfRating: true,
               itemCount: 5,
               itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) =>
-                  Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
+              itemBuilder: (context, _) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
               onRatingUpdate: (rating) {
                 print(rating);
                 setState(() {
@@ -117,20 +115,18 @@ class _FeedBackFieldState extends State<FeedBackField> {
     });
 
     try {
-      bool response = await FeedBackRepository().checkUserWasBought(
-          widget.uid, widget.proID);
+      bool response = await FeedBackRepository()
+          .checkUserWasBought(widget.uid, widget.proID);
 
-
-
-
+      setState(() {
+        _checkValid = false;
+      });
 
       if (response == true) {
         if (_rating == 0.0) {
-          setState(() {
-            _checkValid = false;
-          });
           Fluttertoast.showToast(
-              msg: "Vui lòng xếp hạng cho sản phẩm bằng cách chọn các biểu tượng ngôi sao (1->5) !",
+              msg:
+                  "Vui lòng xếp hạng cho sản phẩm bằng cách chọn các biểu tượng ngôi sao (1->5) !",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIos: 3,
@@ -139,9 +135,6 @@ class _FeedBackFieldState extends State<FeedBackField> {
               fontSize: 16.0);
         }
         if (comment.text.length == 0) {
-          setState(() {
-            _checkValid = false;
-          });
           Fluttertoast.showToast(
               msg: "Vui lòng nhập đánh giá cho sản phẩm !",
               toastLength: Toast.LENGTH_SHORT,
@@ -158,15 +151,11 @@ class _FeedBackFieldState extends State<FeedBackField> {
             comment.clear();
             setState(() {
               _rating = 0.0;
-              _checkValid = false;
             });
             print("Rating ==========> " + _rating.toString());
           }
         }
       } else if (response == false) {
-        setState(() {
-          _checkValid = false;
-        });
         Fluttertoast.showToast(
             msg: "Bạn chưa từng mua sản phẩm này nên không thể viết đánh giá !",
             toastLength: Toast.LENGTH_SHORT,

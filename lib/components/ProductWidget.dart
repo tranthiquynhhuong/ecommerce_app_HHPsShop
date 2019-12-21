@@ -44,6 +44,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     if (product.isSale == 1) {
       return GestureDetector(
           onTap: () async {
+            await _proBloc.getProductByID(widget.product.proID);
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => new ProductView(
                       product: widget.product,
@@ -136,7 +137,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ])));
     } else {
       return GestureDetector(
-          onTap: () {
+          onTap: () async {
+            await _proBloc.getProductByID(widget.product.proID);
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     new ProductView(product: widget.product)));

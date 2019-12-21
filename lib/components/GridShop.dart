@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/components/ProductWidget.dart';
@@ -13,6 +14,8 @@ class GridShop extends StatefulWidget {
 
 class _GridShop extends State<GridShop> {
   List<Product> _products = [];
+  final _proBloc = new ProductBloc();
+
 
   @override
   void initState() {
