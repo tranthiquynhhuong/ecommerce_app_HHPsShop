@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
+import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
 import 'package:grocery_shop_flutter/components/FavoriteWidget.dart';
 import 'package:grocery_shop_flutter/models/Favorite.dart';
@@ -128,6 +129,7 @@ class _FavoritePageState extends State<FavoritePage>
                     onTap: () async {
                       Product pro = await ProductsRepository()
                           .getProductByProID(_lstSortFavorite[index].proID);
+                      await ProductBloc().getProductByID(pro.proID);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

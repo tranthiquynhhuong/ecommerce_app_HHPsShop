@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/repositories/ProductsRepository.dart';
 import 'package:grocery_shop_flutter/views/ProductView.dart';
@@ -95,6 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () async {
                                 Product pro = await ProductsRepository()
                                     .searchProductByName(_list[index]);
+                                await ProductBloc().getProductByID(pro.proID);
                                 Navigator.of(context)
                                     .push(new MaterialPageRoute(
                                         builder: (context) => new ProductView(

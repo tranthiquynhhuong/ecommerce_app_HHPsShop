@@ -4,7 +4,10 @@ import 'package:grocery_shop_flutter/models/Product.dart';
 class ProductsRepository {
   Future<List<Product>> fetchAllProducts() async {
     List<Product> products = [];
-    var result = await Firestore.instance.collection('Product').where('isActive',isEqualTo: 1).getDocuments();
+    var result = await Firestore.instance
+        .collection('Product')
+        .where('isActive', isEqualTo: 1)
+        .getDocuments();
     for (var pro in result.documents) {
       products.add(Product(
         pro.data['proID'],
@@ -22,7 +25,6 @@ class ProductsRepository {
         pro.data['date'],
         pro.data['favoriteCount'],
         pro.data['isActive'],
-
       ));
     }
     return products;
@@ -33,7 +35,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('proID', isEqualTo: proID)
-        .where('isActive',isEqualTo: 1)
+        .where('isActive', isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       product = new Product(
@@ -52,7 +54,6 @@ class ProductsRepository {
         pro.data['date'],
         pro.data['favoriteCount'],
         pro.data['isActive'],
-
       );
     }
     return product;
@@ -63,7 +64,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('isSale', isEqualTo: 1)
-        .where('isActive',isEqualTo: 1)
+        .where('isActive', isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       products.add(Product(
@@ -92,7 +93,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('catID', isEqualTo: catID)
-        .where('isActive',isEqualTo: 1)
+        .where('isActive', isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       products.add(Product(
@@ -121,7 +122,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('name', isEqualTo: pro_name)
-        .where('isActive',isEqualTo: 1)
+        .where('isActive', isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       product = new Product(
@@ -143,6 +144,20 @@ class ProductsRepository {
       );
     }
     return product;
+  }
+
+  Future<bool> checkProductIsActive(String proID) async {
+    try {
+      var response = await Firestore.instance
+          .collection('Product')
+          .where('proID', isEqualTo: proID)
+          .where('isActive', isEqualTo: 1)
+          .getDocuments();
+      if (response.documents.length != 0) return true;
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
   Future<bool> updateQuantityAfterBuy(Product product, int quantityBuy) {
@@ -213,7 +228,7 @@ class ProductsRepository {
           .collection('Product')
           .where("proID", isEqualTo: proID)
           .where("isSale", isEqualTo: 1)
-          .where('isActive',isEqualTo: 1)
+          .where('isActive', isEqualTo: 1)
           .getDocuments();
       for (var pro in result.documents) {
         product = new Product(
@@ -234,9 +249,9 @@ class ProductsRepository {
           pro.data['isActive'],
         );
       }
-      if(product!=null){
+      if (product != null) {
         return complete();
-      }else{
+      } else {
         return notComplete();
       }
     } catch (e) {
