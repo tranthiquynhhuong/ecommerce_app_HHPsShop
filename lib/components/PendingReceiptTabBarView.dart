@@ -92,7 +92,7 @@ class _PendingReceiptTabBarViewState extends State<PendingReceiptTabBarView>
             );
           } else {
             List<Receipt> _receipts = snapshot.data;
-            _lstSortPendingReceipts=sortByDate(_receipts);
+            _lstSortPendingReceipts = sortByDate(_receipts);
             return RefreshIndicator(
               child: ListView.builder(
                   itemCount: _receipts.length,

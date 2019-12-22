@@ -13,13 +13,14 @@ class OrderRepository {
         .getDocuments();
     for (var o in result.documents) {
       product = await ProductsRepository().getProductByProIDAllCase(o.data['proID']);
-
-      userOrders.add(Order(
-        product,
-        o.data['quantity'],
-        o.data['orderDetaileID'],
-        o.data['orderPrice'],
-      ));
+      if(product!=null){
+        userOrders.add(Order(
+          product,
+          o.data['quantity'],
+          o.data['orderDetaileID'],
+          o.data['orderPrice'],
+        ));
+      }
     }
     return userOrders;
   }

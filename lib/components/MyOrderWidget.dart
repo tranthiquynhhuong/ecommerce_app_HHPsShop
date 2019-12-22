@@ -26,7 +26,6 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
   final _userBloc = UserBloc();
   final format = new NumberFormat("#,##0");
 
-
   void initState() {
     super.initState();
   }
@@ -51,7 +50,9 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                 Text("Thời gian đặt hàng: " +
                     getDate(DateTime.parse(widget.receipt.billDate))),
                 Text("Tổng số sản phẩm: " + widget.receipt.totalPro.toString()),
-                Text("Tổng tiền: " +format.format( widget.receipt.totalPrice).toString()+"đ"),
+                Text("Tổng tiền: " +
+                    format.format(widget.receipt.totalPrice).toString() +
+                    "đ"),
                 Text("Địa chỉ giao hàng: " + widget.receipt.deliveryAddress),
                 Divider(
                   color: Colors.black,
@@ -64,13 +65,14 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
             subtitle: Container(
                 height: 150,
                 child: FutureBuilder(
-                    future: OrderRepository().getOrderByReceiptID(widget.receipt.receiptID),
+                    future: OrderRepository()
+                        .getOrderByReceiptID(widget.receipt.receiptID),
                     initialData: List<Order>.from([]),
                     builder: (context, snapshot) {
                       return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
-                          List<Order> orders=snapshot.data;
+                          List<Order> orders = snapshot.data;
                           return new Row(
                             children: <Widget>[
                               Expanded(
@@ -83,11 +85,14 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                               Expanded(
                                 child: Text(
                                   "  " +
-                                      orders[index].product.name+
+                                      orders[index].product.name +
                                       " x " +
                                       orders[index].quantity.toString() +
                                       " = " +
-                                      format.format(orders[index].orderPrice).toString() + "đ",
+                                      format
+                                          .format(orders[index].orderPrice)
+                                          .toString() +
+                                      "đ",
                                   style: TextStyle(fontSize: 14),
                                 ),
                                 flex: 10,
@@ -103,7 +108,8 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                   trailing: RaisedButton.icon(
                     color: Colors.red,
                     onPressed: () async {
-                      List<Order> orders = await OrderRepository().getOrderByReceiptID(widget.receipt.receiptID);
+                      List<Order> orders = await OrderRepository()
+                          .getOrderByReceiptID(widget.receipt.receiptID);
                       _showConfirmDialog(orders);
                     },
                     icon: Icon(
@@ -142,7 +148,8 @@ class _MyOrderWidgetState extends State<MyOrderWidget> {
                     receiptID: widget.receipt.receiptID);
                 if (response == true) {
                   for (var o in orders) {
-                    await ProductsRepository().updateQuantityAfterCancel(o.product, o.quantity);
+                    await ProductsRepository()
+                        .updateQuantityAfterCancel(o.product, o.quantity);
                   }
                   await _receiptBloc
                       .getReceiptWaiting(_userBloc.userInfo.userID);

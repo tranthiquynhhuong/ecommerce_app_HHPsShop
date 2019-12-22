@@ -135,7 +135,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               ),
                             ]))
                   ])));
-    } else{
+    } else if (product.isSale == 0) {
       return GestureDetector(
           onTap: () async {
             await _proBloc.getProductByID(widget.product.proID);
@@ -205,8 +205,8 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   width: 400,
                                   height: 35,
                                   child: Center(
-                                    child: countDownStartSale(
-                                        widget.product.startSale),
+                                    child: widget.product.startSale!=""?countDownStartSale(
+                                        widget.product.startSale):Container(),
                                   ),
                                 ),
                               ),
@@ -217,11 +217,11 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget countDownEndSale(String endTime) {
     try {
-      int _endTime = DateTime.parse(endTime).toUtc().millisecondsSinceEpoch;
+      int _endTime = DateTime.parse(endTime).toLocal().millisecondsSinceEpoch;
       return StreamBuilder(
           stream: Stream.periodic(Duration(seconds: 1), (i) => i),
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-            int now = DateTime.now().toUtc().millisecondsSinceEpoch;
+            int now = DateTime.now().toLocal().millisecondsSinceEpoch;
             Duration remaining = Duration(milliseconds: _endTime - now);
             int hour = remaining.inHours - remaining.inDays * 24;
             int minute = remaining.inMinutes - remaining.inHours * 60;
@@ -229,83 +229,100 @@ class _ProductWidgetState extends State<ProductWidget> {
             var dateString =
                 'Còn ${remaining.inDays} ngày $hour:$minute:$second';
 
-            if (remaining.inSeconds == 0 || remaining.inSeconds < 0) {
-              widget.onRefresh();
-              return Container(
-                color: Colors.white,
-              );
-            }
-            return Container(
-              decoration: new BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 13.0,
-                    color: Colors.grey.withOpacity(.5),
-                    offset: Offset(6.0, 7.0),
+            if(widget.product.isSale==1){
+              if (remaining.inSeconds == 0 || remaining.inSeconds < 0) {
+                widget.onRefresh();
+                return Container(
+                  color: Colors.white,
+                );
+              }else
+                return Container(
+                  decoration: new BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 13.0,
+                        color: Colors.grey.withOpacity(.5),
+                        offset: Offset(6.0, 7.0),
+                      ),
+                    ],
+                    gradient: new LinearGradient(
+                        colors: [Colors.greenAccent.withOpacity(0.3), Colors.green],
+                        begin: Alignment.centerRight,
+                        end: new Alignment(-1.0, -1.0)),
                   ),
-                ],
-                gradient: new LinearGradient(
-                    colors: [Colors.greenAccent.withOpacity(0.3), Colors.green],
-                    begin: Alignment.centerRight,
-                    end: new Alignment(-1.0, -1.0)),
-              ),
-              //color: Colors.greenAccent.withOpacity(0.3),
-              alignment: Alignment.center,
-              child: Text(dateString,style: TextStyle(fontSize: 13)),
+                  //color: Colors.greenAccent.withOpacity(0.3),
+                  alignment: Alignment.center,
+                  child: Text(dateString, style: TextStyle(fontSize: 13)),
+                );
+            }else widget.onRefresh();
+            return Container(
+              color: Colors.white,
             );
           });
-    } catch (e) {}
+    } catch (e) {
+      print("22222 "+e.toString());
+    }
   }
 
   Widget countDownStartSale(String startTime) {
     try {
-      int _startTime = DateTime.parse(startTime).toUtc().millisecondsSinceEpoch;
+      int _startTime = DateTime.parse(startTime).toLocal().millisecondsSinceEpoch;
       return StreamBuilder(
           stream: Stream.periodic(Duration(seconds: 1), (i) => i),
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-            int now = DateTime.now().toUtc().millisecondsSinceEpoch;
+            int now = DateTime.now().toLocal().millisecondsSinceEpoch;
             Duration remaining = Duration(milliseconds: _startTime - now);
             int hour = remaining.inHours - remaining.inDays * 24;
             int minute = remaining.inMinutes - remaining.inHours * 60;
             int second = remaining.inSeconds - remaining.inMinutes * 60;
-            var dateString = '${remaining.inDays} ngày $hour:$minute:$second nữa';
+            var dateString =
+                '${remaining.inDays} ngày $hour:$minute:$second nữa';
 
-            if (remaining.inSeconds == 0 || remaining.inSeconds < 0) {
-              widget.onRefresh();
+            if(widget.product.isSale==0) {
+              if (remaining.inSeconds == 0 || remaining.inSeconds < 0) {
+                widget.onRefresh();
+                return Container(
+                  color: Colors.white,
+                );
+              }else
               return Container(
-                color: Colors.white,
-              );
-            } else
-              return Container(
-                decoration: new BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 13.0,
-                      color: Colors.grey.withOpacity(.5),
-                      offset: Offset(6.0, 7.0),
-                    ),
-                  ],
-                  gradient: new LinearGradient(
-                      colors: [
-                        Colors.orangeAccent.withOpacity(0.3),
-                        Colors.deepOrange
-                      ],
-                      begin: Alignment.centerRight,
-                      end: new Alignment(-1.0, -1.0)),
-                ),
-                //color: Colors.greenAccent.withOpacity(0.3),
-                alignment: Alignment.center,
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Text("Khuyến mãi "+widget.product.discount.toString()+"% sau"),
-                      Text(dateString,style: TextStyle(fontSize: 13),),
+                  decoration: new BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 13.0,
+                        color: Colors.grey.withOpacity(.5),
+                        offset: Offset(6.0, 7.0),
+                      ),
                     ],
+                    gradient: new LinearGradient(
+                        colors: [
+                          Colors.orangeAccent.withOpacity(0.3),
+                          Colors.deepOrange
+                        ],
+                        begin: Alignment.centerRight,
+                        end: new Alignment(-1.0, -1.0)),
                   ),
-                )
-              );
+                  //color: Colors.greenAccent.withOpacity(0.3),
+                  alignment: Alignment.center,
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Text("Khuyến mãi " +
+                            widget.product.discount.toString() +
+                            "% sau"),
+                        Text(
+                          dateString,
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ));
+            }else  return Container(
+              color: Colors.white,
+            );
           });
     } catch (e) {
+      print("111111 "+e.toString());
     }
   }
 }
