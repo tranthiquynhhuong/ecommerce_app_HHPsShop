@@ -13,6 +13,7 @@ class Product {
   String _endSale;
   int _date;
   int _favoriteCount;
+  int _isActive;
 
   Product(
       this._proID,
@@ -28,7 +29,8 @@ class Product {
       this._startSale,
       this._endSale,
       this._date,
-      this._favoriteCount);
+      this._favoriteCount,
+      this._isActive);
 
   String get proID => _proID;
   String get catID => _catID;
@@ -44,6 +46,7 @@ class Product {
   String get endSale => _endSale;
   int get date => _date;
   int get favoriteCount => _favoriteCount;
+  int get isActive => _isActive;
 
   setIsSale(int isSale) {
     _isSale = isSale;

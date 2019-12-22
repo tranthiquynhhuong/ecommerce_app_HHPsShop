@@ -4,7 +4,7 @@ import 'package:grocery_shop_flutter/models/Product.dart';
 class ProductsRepository {
   Future<List<Product>> fetchAllProducts() async {
     List<Product> products = [];
-    var result = await Firestore.instance.collection('Product').getDocuments();
+    var result = await Firestore.instance.collection('Product').where('isActive',isEqualTo: 1).getDocuments();
     for (var pro in result.documents) {
       products.add(Product(
         pro.data['proID'],
@@ -21,6 +21,8 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
+        pro.data['isActive'],
+
       ));
     }
     return products;
@@ -31,6 +33,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('proID', isEqualTo: proID)
+        .where('isActive',isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       product = new Product(
@@ -48,6 +51,8 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
+        pro.data['isActive'],
+
       );
     }
     return product;
@@ -58,6 +63,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('isSale', isEqualTo: 1)
+        .where('isActive',isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       products.add(Product(
@@ -75,6 +81,7 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
+        pro.data['isActive'],
       ));
     }
     return products;
@@ -85,6 +92,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('catID', isEqualTo: catID)
+        .where('isActive',isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       products.add(Product(
@@ -102,6 +110,7 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
+        pro.data['isActive'],
       ));
     }
     return products;
@@ -112,6 +121,7 @@ class ProductsRepository {
     var result = await Firestore.instance
         .collection('Product')
         .where('name', isEqualTo: pro_name)
+        .where('isActive',isEqualTo: 1)
         .getDocuments();
     for (var pro in result.documents) {
       product = new Product(
@@ -129,6 +139,7 @@ class ProductsRepository {
         pro.data['endSale'],
         pro.data['date'],
         pro.data['favoriteCount'],
+        pro.data['isActive'],
       );
     }
     return product;
@@ -202,6 +213,7 @@ class ProductsRepository {
           .collection('Product')
           .where("proID", isEqualTo: proID)
           .where("isSale", isEqualTo: 1)
+          .where('isActive',isEqualTo: 1)
           .getDocuments();
       for (var pro in result.documents) {
         product = new Product(
@@ -219,6 +231,7 @@ class ProductsRepository {
           pro.data['endSale'],
           pro.data['date'],
           pro.data['favoriteCount'],
+          pro.data['isActive'],
         );
       }
       if(product!=null){

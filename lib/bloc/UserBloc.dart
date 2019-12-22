@@ -173,6 +173,5 @@ class UserBloc {
   dispose() {
     _userBloc = null;
     _publishSubjectUser.close();
-    _publishSubjectAutoLogin.close();
   }
 }
