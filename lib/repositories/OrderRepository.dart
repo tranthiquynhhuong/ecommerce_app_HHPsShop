@@ -12,7 +12,7 @@ class OrderRepository {
         .where('receiptID', isEqualTo: receiptID)
         .getDocuments();
     for (var o in result.documents) {
-      product = await ProductsRepository().getProductByProID(o.data['proID']);
+      product = await ProductsRepository().getProductByProIDAllCase(o.data['proID']);
 
       userOrders.add(Order(
         product,

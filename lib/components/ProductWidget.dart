@@ -135,7 +135,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               ),
                             ]))
                   ])));
-    } else {
+    } else{
       return GestureDetector(
           onTap: () async {
             await _proBloc.getProductByID(widget.product.proID);

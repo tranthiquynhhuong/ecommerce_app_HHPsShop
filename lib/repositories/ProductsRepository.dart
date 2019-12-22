@@ -59,6 +59,34 @@ class ProductsRepository {
     return product;
   }
 
+  Future<Product> getProductByProIDAllCase(String proID) async {
+    Product product;
+    var result = await Firestore.instance
+        .collection('Product')
+        .where('proID', isEqualTo: proID)
+        .getDocuments();
+    for (var pro in result.documents) {
+      product = new Product(
+        pro.data['proID'],
+        pro.data['catID'],
+        pro.data['name'],
+        pro.data['description'],
+        pro.data['imgURL'],
+        pro.data['price'],
+        pro.data['volumetric'],
+        pro.data['quantity'],
+        pro.data['isSale'],
+        pro.data['discount'],
+        pro.data['startSale'],
+        pro.data['endSale'],
+        pro.data['date'],
+        pro.data['favoriteCount'],
+        pro.data['isActive'],
+      );
+    }
+    return product;
+  }
+
   Future<List<Product>> getProductSale() async {
     List<Product> products = [];
     var result = await Firestore.instance

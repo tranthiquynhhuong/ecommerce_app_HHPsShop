@@ -6,7 +6,7 @@ import 'package:random_string/random_string.dart';
 class FavoriteRepository {
   Future<List<Favorite>> getFavoriteOfUser(String userID) async {
     List<Favorite> favors = [];
-    List<Favorite> favorsIsActive=[];
+//    List<Favorite> favorsIsActive=[];
 
     var result = await Firestore.instance
         .collection('Favorite')
@@ -20,13 +20,13 @@ class FavoriteRepository {
         fv.data['date'],
       ));
     }
-    for(var fa in favors){
-      bool isActive = await ProductsRepository().checkProductIsActive(fa.proID);
-      if(isActive==true){
-        favorsIsActive.add(fa);
-      }
-    }
-    return favorsIsActive;
+//    for(var fa in favors){
+//      bool isActive = await ProductsRepository().checkProductIsActive(fa.proID);
+//      if(isActive==true){
+//        favorsIsActive.add(fa);
+//      }
+//    }
+    return favors;
   }
 
   Future<bool> createFavorite(String proID, String userID) async {

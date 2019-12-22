@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
 import 'package:grocery_shop_flutter/bloc/ProductBloc.dart';
 import 'package:grocery_shop_flutter/bloc/UserBloc.dart';
+import 'package:grocery_shop_flutter/components/AppTools.dart';
 import 'package:grocery_shop_flutter/components/FavoriteWidget.dart';
 import 'package:grocery_shop_flutter/models/Favorite.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
@@ -29,12 +30,13 @@ class _FavoritePageState extends State<FavoritePage>
   @override
   void initState() {
     _favoriteBloc.fetchFavorites(_userBloc.userInfo.userID).then((var a) {
-      setState(() {
-        isLoading = false;
-      });
+        setState(() {
+          isLoading = false;
+        });
     });
     // TODO: implement initState
     super.initState();
+
     print('DetailCommentHeaderState initState');
   }
 
@@ -120,7 +122,6 @@ class _FavoritePageState extends State<FavoritePage>
               );
             List<Favorite> _favorites = snapshot.data;
             _lstSortFavorite = sortByDate(_favorites);
-
             return RefreshIndicator(
               child: ListView.builder(
                 itemCount: _lstSortFavorite.length,

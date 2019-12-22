@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_shop_flutter/bloc/FavoriteBloc.dart';
+import 'package:grocery_shop_flutter/components/AppTools.dart';
 import 'package:grocery_shop_flutter/models/Favorite.dart';
 import 'package:grocery_shop_flutter/models/Product.dart';
 import 'package:grocery_shop_flutter/repositories/FavoriteRepository.dart';
@@ -104,12 +105,14 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                     ),
               trailing: IconButton(
                 onPressed: () async {
+                  displayProgressDialog(context);
                   bool response = await FavoriteRepository()
                       .deleteFavorite(widget.favorite.userID,widget.favorite.proID);
                   if (response) {
-                    setState(() {
-                      _favorBloc.countFavoriteByProID(widget.favorite.proID);
-                      FavoriteBloc().fetchFavorites(widget.favorite.userID);
+                    setState(() async {
+                      await _favorBloc.countFavoriteByProID(widget.favorite.proID);
+                      await FavoriteBloc().fetchFavorites(widget.favorite.userID);
+                      closeProgressDialog(context);
                     });
                   } else
                     (print("Khong xoa favorite duoc"));
