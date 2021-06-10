@@ -1,4 +1,4 @@
-#HHPs Shop Flutter
+# HHPs Shop Flutter
 App concept created with [Flutter](https://flutter.dev/) using Dart programming language, inspired by [Groceries Shopping App Interaction](https://dribbble.com/shots/6120171-Groceries-Shopping-App-Interaction). 
 
 ## About
