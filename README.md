@@ -1,22 +1,24 @@
-# HHPs Shop Flutter
+# HHPs Shop application with Flutter & Google Firebase by HuongTran
 App concept created with [Flutter](https://flutter.dev/) using Dart programming language, inspired by [Groceries Shopping App Interaction](https://dribbble.com/shots/6120171-Groceries-Shopping-App-Interaction). 
 
+I customed this basic UI below to complete my graduate project
+
 ## About
+Follow detail in [this report](https://drive.google.com/drive/folders/1tp5azWJcpFYXIgbG2VhsewA1EbUlL0jR?usp=sharing)
+
 The app was created to simulate all the system behind the inspiration video. With database realtime by Google Firestore. The app is all contained in this repository. The models classes was created to better representate an official development, the repositories classes are simulating a web request. I'm using BLOC pattern as architectural pattern.
 
-### The App
-The GIF below shows this current app runnig.
+
+### The App UI begin
+The GIF below shows begin UI I inspired.
 
 ![App Running](./docs/app_running.gif)
 
 ### The Inspiration
-The GIF below shows the inspiration concept app.
+The GIF below concep begin UI I inspired.
 
 ![App Running](./docs/inspiration.gif)
-
-### Design Details
-As exposed on the inspiration video, there's some small design details also present in this app. That is animation on product image, animation when added to cart, animation on scroll to list of all orders, gridview of product cut according with the radius border corner in the white container, in the screen about the product there's a white shadow near of "Add to cart" which apply a great effect. Plus: removing order from cart list moving to right or left. 
  
 ### Notes
-This code was build in a few hours within 1 day, so all the interactions was made to be similar with the inspiration video.
-# HHPsShop
+This code was build in 2-3 months when I begin learn about Mobile and Flutter, so all the interactions are basic.
+
