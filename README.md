@@ -10,7 +10,7 @@ The app was created to simulate all the system behind the inspiration video. Wit
 
 With the basic functions of an e-commerce app: Authentication (Sign in, Sign up, Sign out, Change password, Change info,...), Buy products, See product detail, Add product to favorite list, Promotion product with time countdown, Order state management, Rating, and product feedback when user bought product, Search products, and categories, Filter/Group products with price increase/decrease or lasted/oldest adding, setting basic theme dark/light and auto-login,...
 
-### Pages
+## Pages
 **Home page**
 
 ![ecommerce_app_home](https://user-images.githubusercontent.com/33143698/128989006-10fda2cd-e2e7-4aeb-ae86-5895c94ace99.PNG)
