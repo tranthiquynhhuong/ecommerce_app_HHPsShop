@@ -3,6 +3,8 @@ App concept created with [Flutter](https://flutter.dev/) using Dart programming 
 
 I customed this basic UI below to complete my graduate project
 
+Give me 1 STAR if you feel favorite it >.< Thank you bro!
+
 ## About
 Follow detail in [THIS REPORT](https://drive.google.com/drive/folders/1tp5azWJcpFYXIgbG2VhsewA1EbUlL0jR?usp=sharing)
 
